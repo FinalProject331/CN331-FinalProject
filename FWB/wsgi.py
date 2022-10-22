@@ -1,5 +1,5 @@
 """
-WSGI config for Food_Onclound project.
+WSGI config for FWB project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Food_Onclound.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'FWB.settings')
 
 application = get_wsgi_application()
