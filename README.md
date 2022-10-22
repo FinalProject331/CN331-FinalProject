@@ -1,7 +1,7 @@
 Software Engineering CN331
 =====================
 
-Fianl Project
+Final Project
 ---------------------
 
 ### Note
@@ -74,4 +74,4 @@ Fianl Project
 
 [Tracker link]()<br>
 [GitHub repo link](https://github.com/FinalProject331/CN331-FinalProject.git)<br>
-[Vedio link]()<br>
+[Video link]()<br>
