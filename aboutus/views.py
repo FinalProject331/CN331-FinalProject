@@ -5,3 +5,4 @@ from django.urls import reverse
 # Create your views here.
 
 def aboutus(request):
+    return render(request, 'Aboutus/aboutus.html')
