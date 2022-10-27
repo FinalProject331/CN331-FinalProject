@@ -38,4 +38,5 @@ def signup(request):
 
 def create_user(request, email,name, password, birthday):
     user = User.objects.create_user(name, email, password)
+    
     return render(request, "accounts/login.html")
