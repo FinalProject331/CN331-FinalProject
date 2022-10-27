@@ -1,47 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title> About Us </title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/static/css/style.css">
-    </head>
-    <body>
-      <form action="{% url 'login' %}"><button type="submit" class="leftbut">Login Page</button></form>
-        <p><h1>Project Detail</h1>
-        Our project is FWB: Food with Buddies, website for people who are looking for friends to eat with
-        </p>
-        <p><h1>Group member</h1>
-            <table>
-                <tr>
-                  <th>Name</th>
-                  <th>Student ID</th>
-                </tr>
-                <tr>
-                  <td>ณธิพร จันทร์เพ็ชร</td>
-                  <td>6410615030</td>
-                </tr>
-                <tr>
-                  <td>ศุภกฤต นิธิเกตุกุล</td>
-                  <td>6410615139</td>
-                </tr>
-                <tr>
-                    <td>สุภาพันธ์ หง่อสกุล</td>
-                    <td>6410615147</td>
-                  </tr>
-                  <tr>
-                    <td>ธรรมศาสตร์ ทองแกมแก้ว</td>
-                    <td>6410685033</td>
-                  </tr>
-                  <tr>
-                    <td>ธนภัทร สาระธรรม</td>
-                    <td>6410685140</td>
-                  </tr>
-              </table>
-        </p>
-        <p><h1>ไฟล์ข้อเสนอ</h1></p>
-        <p><h1>Links</h1>
-            <li>Tracker link</a></li>
-            <li>GitHub repo link</a></li>
-            <li>Video link</li></p>
-    </body>
+
+<head>
+  <title> About Us </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+  <form action="{% url 'login' %}"><button type="submit" class="leftbut">Login Page</button></form>
+  <a href="{% url 'signup' %}">Sign Up</a>
+
+  <a href="{% url 'home' %}">About Us</a>
+  <p>
+  <h1>Project Detail</h1>
+  Our project is FWB: Food with Buddies, website for people who are looking for friends to eat with
+  </p>
+  <p>
+  <h1>Group member</h1>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Student ID</th>
+    </tr>
+    <tr>
+      <td>ณธิพร จันทร์เพ็ชร</td>
+      <td>6410615030</td>
+    </tr>
+    <tr>
+      <td>ศุภกฤต นิธิเกตุกุล</td>
+      <td>6410615139</td>
+    </tr>
+    <tr>
+      <td>สุภาพันธ์ หง่อสกุล</td>
+      <td>6410615147</td>
+    </tr>
+    <tr>
+      <td>ธรรมศาสตร์ ทองแกมแก้ว</td>
+      <td>6410685033</td>
+    </tr>
+    <tr>
+      <td>ธนภัทร สาระธรรม</td>
+      <td>6410685140</td>
+    </tr>
+  </table>
+  </p>
+  <p>
+  <h1>ไฟล์ข้อเสนอ</h1>
+  </p>
+  <p>
+  <h1>Links</h1>
+  <li>Tracker link</a></li>
+  <li>GitHub repo link</a></li>
+  <li>Video link</li>
+  </p>
+</body>
+
 </html>

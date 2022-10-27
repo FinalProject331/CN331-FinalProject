@@ -136,3 +136,8 @@ CSRF_TRUSTED_ORIGINS = ['https://foodwithbuddies.herokuapp.com']
 import django_heroku
 
 django_heroku.settings(locals())
+
+# users will be redirected to the home page after login
+LOGIN_REDIRECT_URL = "home"
+
+LOGOUT_REDIRECT_URL = "login"
