@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -32,5 +33,9 @@ def logout_view(request):
         "messages": messages.get_messages(request)
     })
 
-def forget_password(request):
-    return render(request, "accounts/forget-password.html")
+def signup(request):
+    return render(request, "accounts/signup.html")
+
+def create_user(request, email,name, password, birthday):
+    user = User.objects.create_user(name, email, password)
+    return render(request, "accounts/login.html")
