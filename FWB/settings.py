@@ -123,6 +123,8 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+CSRF_TRUSTED_ORIGINS = ['https://foodwithbuddies.herokuapp.com']
+
 import django_heroku
 
 django_heroku.settings(locals())
