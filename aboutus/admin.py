@@ -6,7 +6,7 @@ from .models import Account
 
 
 class AccountAdmin(admin.ModelAdmin):
-    list_display = ("user","birthday")
+    list_display = ("account","birthday")
     
 
 
