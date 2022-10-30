@@ -4,25 +4,37 @@
 <head>
   <title> About Us </title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/static/css/style.css">
+  <!-- <link rel="stylesheet" href="/static/css/style.css"> -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <style>
   body{
     margin-top: 30px;
     margin-left: 40px;
   }
+  div {
+  width: 77%;
+
+}
+
   </style>
 <body>
-  <form action="{% url 'login' %}"><button type="submit" class="leftbut">Login Page</button></form>
+  <div class="w3-bar w3-light-grey">
+    <a href="{% url 'signup' %}" class="w3-bar-item w3-button">Sign Up</a>
+    <form action="{% url 'login' %}"><button type="submit" class="w3-bar-item w3-button">Login page</button></form>
+    <a href="{% url 'home' %}" class="w3-bar-item w3-button">About Us</a>
+
+  </div>
+  <!-- <form action="{% url 'login' %}"><button type="submit" class="leftbut">Login Page</button></form>
   <a href="{% url 'signup' %}">Sign Up</a>
 
-  <a href="{% url 'home' %}">About Us</a>
+  <a href="{% url 'home' %}">About Us</a> -->
   <p>
   <h1>Project Detail</h1>
-   โครงงาน Food with Buddies ของเราจัดทำขึ้นเพื่อสร้างเว็บไซต์สำหรับเป็นพื้นที่ให้กลุ่มคนที่ต้องการหาเพื่อนรับประทานข้าวมานัดกันรับประทานข้าว เนื่องจากในสังคมปัจจุบันมีกลุ่มคนรับประทานอาหารหลากหลายกลุ่ม เช่น คนรับประทานมังสวิรัติ คนชอบรับประทานอาหารญี่ปุ่น คนชอบรับประทานอาหารเกาหลี ต้องการหาเพื่อนรับประทานข้าวที่มีความชอบคล้ายกัน หรือคนที่มีเพื่อนน้อยแล้วอยากหาเพื่อนไปกินบุฟเฟต์ ซึ่งเว็บไซต์ของเราสามารถช่วยอำนวยความสะดวกในการหาเพื่อนใหม่และพูดคุยเพื่อนัดกันรับประทานข้าวได้  
+  <div>&nbsp&nbsp&nbsp&nbsp โครงงาน Food with Buddies ของเราจัดทำขึ้นเพื่อสร้างเว็บไซต์สำหรับเป็นพื้นที่ให้กลุ่มคนที่ต้องการหาเพื่อนรับประทานข้าวมานัดกันรับประทานข้าว เนื่องจากในสังคมปัจจุบันมี<br>กลุ่มคนรับประทานอาหารหลากหลายกลุ่ม เช่น คนรับประทานมังสวิรัติ คนชอบรับประทานอาหารญี่ปุ่น คนชอบรับประทานอาหารเกาหลี ต้องการหาเพื่อนรับประทานข้าวที่มีความชอบคล้ายกัน หรือคนที่มีเพื่อนน้อยแล้วอยากหาเพื่อนไปกินบุฟเฟต์ ซึ่งเว็บไซต์ของเราสามารถช่วยอำนวยความสะดวกในการหาเพื่อนใหม่และพูดคุยเพื่อนัดกันรับประทานข้าวได้  
 
-  วิสัยทัศน์ของเว็บไซต์เราคือการทำให้การหาเพื่อนรับประทานข้าวเป็นเรื่องง่าย เป็นแหล่งให้คนที่มีความชอบในการกินรวมตัวกัน เป็นพื้นที่ให้พบปะเพื่อนใหม่ 
+  <br>วิสัยทัศน์ของเว็บไซต์เราคือการทำให้การหาเพื่อนรับประทานข้าวเป็นเรื่องง่าย เป็นแหล่งให้คนที่มีความชอบในการกินรวมตัวกัน เป็นพื้นที่ให้พบปะเพื่อนใหม่ </div> 
   
    
   </p>
@@ -57,7 +69,7 @@
   </p>
   <p>
     <h1>ไฟล์ข้อเสนอ</h1>
-    <a href="https://drive.google.com/file/d/1Q9Eb7b_si3CtC4aZLCEljqszU2cKpJUF/view?usp=sharing" target="_blank" ><i class="fa fa-file-pdf-o" style="font-size:48px;color:red"></i></a>
+    <a href="https://drive.google.com/file/d/1Q9Eb7b_si3CtC4aZLCEljqszU2cKpJUF/view?usp=sharing" target="_blank"><i class="fa fa-file-pdf-o" style="font-size:48px;color:red"></i></a>
   </p>
   <p>
   <h1>Links</h1>
