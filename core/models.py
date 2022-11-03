@@ -15,7 +15,7 @@ from django.contrib.auth.models import User
 # 	gender = models.CharField(blank=True, 
 # 			choices=GenderType,
 # 			max_length=10)
-
+	
 # class Tags(models.Model):
 # 	tags = models.CharField(max_length=300)
 
