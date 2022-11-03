@@ -6,14 +6,21 @@
     body {
       color: green;
       text-align: center;
+      
+    }
+    .webname{
+      font-family: 'Chewy', cursive;
+      font-size: 100px;
     }
   </style>
+  <link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
+  
 </head>
 
 
 
-<h1>Hello, {{ user.username|default:'Guest' }}</h1>
-
+<!-- <h1>Hello, {{ user.username|default:'Guest' }}</h1> -->
+<h1 class="webname">Food with Buddies</h1>
 <p> Welcome to the Our site</p>
 <div>
   {% if user.is_authenticated %}
@@ -30,7 +37,6 @@
   <style>
     .button {
       background-color: #ffffff;
-      /* Green */
       border: 2px solid #4CAF50;
       color: rgb(0, 0, 0);
       padding: 16px 32px;
@@ -46,26 +52,17 @@
       border-radius: 10px;
     }
 
-    /* .button1 {
-      background-color: white;
-      color: black;
-      border: 2px solid #4CAF50;
-    } */
-
-
     .button:hover {
       background-color: #4CAF50;
       color: white;
     }
   </style>
   <a href="https://google.com" class="button button1">Chat-1</a>
-  <!-- <button class="button button1">Chat1</button> -->
 
 
   {% else %}
-  <a href="{% url 'signup' %}">Sign Up</a>
-  <a href="{% url 'login' %}">Login</a>
-  <a href="{% url 'aboutus' %}">About Us</a>
+
+  <div>Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></div>
   {% endif %}
 </div>
 

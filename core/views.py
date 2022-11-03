@@ -17,6 +17,8 @@ from django.views.generic.edit import CreateView
 
 def aboutus(request):
     return render(request, 'Aboutus/aboutus.html')
+def help(request):
+    return render(request, 'Aboutus/help.html')
 
 def login(request):
     if request.method == "POST":
