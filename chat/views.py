@@ -14,7 +14,7 @@ def roomconfig(request):
 def room(request, room):
     username = request.GET.get('username')
     room_details = Room.objects.get(name=room)
-    return render(request, 'room.html', {
+    return render(request, 'chat/room.html', {
         'username': username,
         'room': room,
         'room_details': room_details
@@ -22,7 +22,7 @@ def room(request, room):
 
 def checkview(request):
     room = request.POST['room_name']
-    username = request.POST['username']
+    username = request.user.username
 
     if Room.objects.filter(name=room).exists():
         return redirect('/'+room+'/?username='+username)
