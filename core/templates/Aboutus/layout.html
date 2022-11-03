@@ -22,9 +22,9 @@
 
 <body>
     <div class="w3-bar w3-light-grey">
+        <a href="{% url 'home' %}" class="w3-bar-item w3-button">Home</a>
         <a href="{% url 'signup' %}" class="w3-bar-item w3-button">Sign Up</a>
         <form action="{% url 'login' %}"><button type="submit" class="w3-bar-item w3-button">Login page</button></form>
-        <a href="{% url 'home' %}" class="w3-bar-item w3-button">About Us</a>
 
     </div>
     {% block body %}
