@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>About Us</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="/static/css/style.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<style>
+    body {
+        margin-top: 30px;
+        margin-left: 40px;
+    }
+
+    div {
+        width: 77%;
+
+    }
+</style>
+
+<body>
+    <div class="w3-bar w3-light-grey">
+        <a href="{% url 'signup' %}" class="w3-bar-item w3-button">Sign Up</a>
+        <form action="{% url 'login' %}"><button type="submit" class="w3-bar-item w3-button">Login page</button></form>
+        <a href="{% url 'home' %}" class="w3-bar-item w3-button">About Us</a>
+
+    </div>
+    {% block body %}
+    {% endblock %}
+</body>
+
+</html>
