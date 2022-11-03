@@ -9,6 +9,8 @@ from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
 
+from chat.models import Room
+
 
 
 # from .models import Account
@@ -62,7 +64,9 @@ def create_user(request):
 
 def home(request):
     
-    return render(request,"users/home.html")
+    return render(request,"users/home.html",{
+        "Rooms": Room.objects.all()
+    })
 
 class SignUp(CreateView):
     form_class = UserCreationForm

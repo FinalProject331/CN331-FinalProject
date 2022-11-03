@@ -4,6 +4,23 @@ from datetime import datetime
 # Create your models here.
 class Room(models.Model):
     name = models.CharField(max_length=1000)
+#   room_id = models.AutoField(primary_key=True)
+# 	seat_count = models.IntegerField
+# 	max_seat = models.IntegerField
+# 	GenderRequest =[('M','Male'),
+# 					('F', 'Female'),
+# 					('L', 'LGBTQ+'),
+# 					('A', 'Any')]
+# 	request_gender = models.CharField(blank=True, 
+# 			choices=GenderRequest,
+# 			max_length=10)
+# 	room_name = models.CharField
+# 	start_time	= models.DateTimeField(default=datetime.now, blank=True)
+# 	dead_time = models.DateTimeField()
+# 	hashtags = models.ManyToManyField(Tags)
+# 	meal_time = models.DateTimeField()
+# 	status = models.BooleanField()
+# 	room_owner = models.ManyToManyField(Account, verbose_name="owner")
 class Message(models.Model):
     value = models.CharField(max_length=1000000)
     date = models.DateTimeField(default=datetime.now, blank=True)
