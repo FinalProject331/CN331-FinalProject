@@ -11,7 +11,7 @@ from django.views.generic.edit import CreateView
 
 
 
-from .models import Account
+# from .models import Account
 
 # Create your views here.
 
@@ -61,6 +61,7 @@ def create_user(request):
 #         return render(request, "home/home.html")
 
 def home(request):
+    
     return render(request,"users/home.html")
 
 class SignUp(CreateView):

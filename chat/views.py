@@ -8,6 +8,9 @@ from django.http import HttpResponse, JsonResponse
 
 # Create your views here.
 
+def roomconfig(request):
+    return render(request, 'chat/roomconfig.html')
+
 def room(request, room):
     username = request.GET.get('username')
     room_details = Room.objects.get(name=room)
