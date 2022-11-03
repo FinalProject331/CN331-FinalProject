@@ -9,7 +9,9 @@ from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
 
-from aboutus.models import Account
+
+
+from .models import Account
 
 # Create your views here.
 
