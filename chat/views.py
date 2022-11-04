@@ -20,6 +20,11 @@ def room(request, room):
         'room_details': room_details
     })
 
+def join_room(request, room):
+    username = request.user.username
+
+    return redirect('/'+room+'/?username='+username)
+
 def checkview(request):
     room = request.POST['room_name']
     username = request.user.username
