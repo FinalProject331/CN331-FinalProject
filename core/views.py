@@ -51,7 +51,7 @@ def logout_view(request):
 def home(request):
     
     return render(request,"users/home.html",{
-        "Rooms": Room.objects.all()
+        "rooms": Room.objects.all()
     })
 
 class SignUp(CreateView):

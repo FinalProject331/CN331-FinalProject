@@ -26,6 +26,12 @@
   {% if user.is_authenticated %}
 
     <a href="{% url 'roomconfig' %}">Create Room</a>
+    <br>
+
+    {% for room in rooms %}
+    <a href="https://www.google.com">{{ room.name }}</a>
+    <br>
+    {% endfor %}
 
 
   {% else %}
