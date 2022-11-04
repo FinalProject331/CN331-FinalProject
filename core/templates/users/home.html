@@ -1,33 +1,37 @@
-<html>
+{% extends "layout.html" %}
+{% block body %}
 
 <head>
   <style>
     body {
       color: green;
       text-align: center;
+      
+    }
+    .webname{
+      font-family: 'Chewy', cursive;
+      font-size: 100px;
     }
   </style>
+  <link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
+  
 </head>
 
-<body>
 
-  <h1>Hello, {{ user.username|default:'Guest' }}</h1>
 
-  <p> Welcome to the Our site</p>
-  <div>
-    {% if user.is_authenticated %}
-    <a href="{% url 'logout' %}">Logout</a>
+<!-- <h1>Hello, {{ user.username|default:'Guest' }}</h1> -->
+<h1 class="webname">Food with Buddies</h1>
+<p> Welcome to the Our site</p>
+<div>
+  {% if user.is_authenticated %}
 
     <a href="{% url 'roomconfig' %}">Create Room</a>
 
 
-    {% else %}
-    <a href="{% url 'signup' %}">Sign Up</a>
-    <a href="{% url 'login' %}">Login</a>
-    <a href="{% url 'aboutus' %}">About Us</a>
-    {% endif %}
-  </div>
+  {% else %}
 
-</body>
+  <div>Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></div>
+  {% endif %}
+</div>
 
-</html>
+{% endblock %}

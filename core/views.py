@@ -13,12 +13,14 @@ from chat.models import Room
 
 
 
-# from .models import Account
+from account.models import Account
 
 # Create your views here.
 
 def aboutus(request):
     return render(request, 'Aboutus/aboutus.html')
+def help(request):
+    return render(request, 'Aboutus/help.html')
 
 def login(request):
     if request.method == "POST":
@@ -43,24 +45,8 @@ def logout_view(request):
         "messages": messages.get_messages(request)
     })
 
-def signup(request):
-    return render(request, "accounts/signup.html")
 
-def create_user(request):
-    if request.method == "POST":
-        email = request.POST["email"]
-        password = request.POST["password"]
-        birthday = request.POST["birthday"]
-        uname = request.POST["username"]
-    user = User.objects.create_user(uname, email, password)
-    account = Account.objects.create(user=user, birthday=birthday)
-    return render(request, "accounts/login.html")
 
-# def home(request):
-#     if not request.user.is_authenticated:
-#         return HttpResponseRedirect(reverse("login"))
-#     else:
-#         return render(request, "home/home.html")
 
 def home(request):
     
@@ -72,3 +58,4 @@ class SignUp(CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy("login")
     template_name = "registration/signup.html"
+    
