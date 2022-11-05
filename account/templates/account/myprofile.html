@@ -48,6 +48,7 @@ button:hover, a:hover {
 <div class="card">
   <img src=  "{{ account.profileimg }}" alt="ProfilePic" style="width:100%">
   <h1> {{ account.user.username }}</h1>
+  <h1> {{ account.user.first_name }} {{ account.user.last_name }}</h1>
   <p class="title">bio: {{ account.bio }}</p>
   <p>gender: {{ account.gender }}</p>
   <div style="margin: 24px 0;">
