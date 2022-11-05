@@ -54,11 +54,10 @@
 
     }
 
-    /* .button1 {
-      background-color: white;
-      color: black;
-      border: 2px solid #4CAF50;
-    } */
+    .button1 {
+      margin-right: 15px;
+      margin-bottom: 15px;
+    }
 
 
     .button:hover {
@@ -66,17 +65,6 @@
       color: white;
     }
   </style>
-<<<<<<< HEAD
-  <form action='/' method="POST">
-    <div class="search-input">
-      <input type="text" id="search-box" placeholder="Search..." />
-      <button id="btn-search" type="submit">
-        <i class="fa fa-search" aria-hidden="true"></i>
-      </button>
-    </div>
-
-  </form>
-=======
   <div class="search-input">
     <input type="text" id="search-box" placeholder="Search..." />
     <button id="btn-search">
@@ -84,16 +72,15 @@
     </button>
   </div>
   <a class="fix" href="{% url 'roomconfig' %}"><i class="fa-solid fa-circle-plus" style='font-size:40px'></i></a>
->>>>>>> fad06b91ec189add00f2b37a8b89c645b14b8ec3
 
   <!-- <a href="{% url 'roomconfig' %}">Create Room</a> -->
   <br>
 
   {% for room in rooms %}
-  {% if text in room%}
+
   <a href="{% url 'chat:join_room' room.name %}" class="button button1">{{ room.name }}</a>
-  <br>
-  {% endif %}
+
+
   {% endfor %}
 
 
