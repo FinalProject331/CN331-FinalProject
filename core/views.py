@@ -1,6 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, logout
-from django.contrib.auth import login as auth_login
+from django.contrib.auth import authenticate, logout, login
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -27,13 +26,13 @@ def help(request):
     return render(request, 'Aboutus/help.html')
 
 
-def login(request):
+def login_view(request):
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            auth_login(request, user)
+            login(request, user)
 
             return HttpResponseRedirect(reverse('home'))
         else:
@@ -44,6 +43,12 @@ def login(request):
 
     return render(request, "registration/login.html")
 
+def logout_view(request):
+    logout(request)
+    messages.success(request, "Logged out.")
+    return render(request, "registration/login.html", {
+        "messages": messages.get_messages(request)
+    })
 
 def create_account(request):
     first_name = request.GET.get('first_name')
@@ -54,8 +59,10 @@ def create_account(request):
     birthday = request.GET.get('birthday')
     gender = request.GET.get('gender')
 
-    user = User.objects.create(username=username, password=password,
+    user = User.objects.create(username=username,
                                first_name=first_name, last_name=last_name, email=email)
+    user.is_active = True
+    user.set_password(password)
     user.save()
     user.refresh_from_db()
     account = Account.objects.create(
@@ -65,12 +72,6 @@ def create_account(request):
     return HttpResponseRedirect(reverse('login'))
 
 
-def logout_view(request):
-    logout(request)
-    messages.success(request, "Logged out.")
-    return render(request, "accounts/login.html", {
-        "messages": messages.get_messages(request)
-    })
 
 
 def home(request):

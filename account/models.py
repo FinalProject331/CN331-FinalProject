@@ -7,7 +7,7 @@ class Account(models.Model):
 	birthday = models.DateField(default=datetime.now)
 	user = models.OneToOneField(User,on_delete=models.CASCADE)
 	bio = models.CharField(max_length=300, default="")
-	profileimg = models.ImageField(default='profile\default-profile.png', upload_to='profile_pics',blank=True, null=True)
+	profileimg = models.ImageField(default='default.png', upload_to='profile_pics',blank=True, null=True)
 	GenderType = [('M','Male'),
 					('F', 'Female'),
 					('L', 'LGBTQ+')]
