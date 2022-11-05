@@ -56,7 +56,6 @@ from django.contrib.auth.models import User
 # 	location = models.CharField(max_length=300)
 # 	chat_room = models.ManyToManyField(RestaurantChat, blank=True)
 
-# class AdminChat(models.Model):
-# 	user = models.CharField(max_length=30)
-# 	admin = models.CharField(max_length=30)
+class Help(models.Model):
+	report = models.CharField(max_length=300)
 	

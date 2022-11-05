@@ -10,6 +10,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
 
 from chat.models import Room
+from .models import Help
 
 
 
@@ -26,9 +27,12 @@ def login(request):
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
+        birthday = request.POST["birthday"]
+        gender = request.POST["gender"]
         user = authenticate(request, username=username, password=password)
         if user is not None:
             auth_login(request, user)
+            
             return HttpResponseRedirect(reverse('home'))
         else:
             messages.warning(request, "Invalid credential.")
@@ -37,6 +41,12 @@ def login(request):
             })
 
     return render(request, "accounts/login.html")
+
+def create_account(user, birthday, gender):
+    account = Account.objects.create(user = user, birthday= birthday, gender = gender)
+    account.save()
+    account.refresh_from_db()
+    return account
 
 def logout_view(request):
     logout(request)
@@ -49,13 +59,29 @@ def logout_view(request):
 
 
 def home(request):
-    
+    user = request.user
+    # if user is not None:
+    #     account = Account.objects.get(user = request.user)
     return render(request,"users/home.html",{
-        "rooms": Room.objects.all()
+        "rooms": Room.objects.all(),
+        # "account" : account
     })
 
-class SignUp(CreateView):
-    form_class = UserCreationForm
-    success_url = reverse_lazy("login")
-    template_name = "registration/signup.html"
+def signup(request):
+    username = request.POST["username"]
+    password = request.POST["password"]
+    birthday = request.POST["birthday"]
+    gender = request.POST["gender"]
+    user = User.objects.create_user(username = username, password= password)
+    if request.method == 'POST':
+        account = create_account(user, birthday,gender)
+    return render(request, "accounts/login.html")
+    
+def help_send(request):
+    report = "-"
+    if request.method == 'POST':
+        report = request.POST['help_send']
+    form  = Help.objects.create(report = report)
+    form.save()
+    return render(request, "users/home.html")
     

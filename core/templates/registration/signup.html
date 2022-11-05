@@ -4,27 +4,56 @@
 {% block body %}
 <h2>Register</h2>
 
-<form method="post">
-    {% csrf_token %}
-    {{form}}
-    <label for="birthday">Birthday:</label>
-    <input type="date" id="birthday" name="birthday" required>
+<form action="POST-signup" style="border:1px solid #ccc">
+
+      <label for="first_name"><b>firstname</b></label>
+      <input type="text" placeholder="Enter firstname" name="first_name">
+
+      <label for="last_name"><b>lastname</b></label>
+      <input type="text" placeholder="Enter lastname" name="last_name">
+
+      <label for="email"><b>Email</b></label>
+      <input type="text" placeholder="Enter Email" name="email">
+
+      <label for="username"><b>username</b></label>
+      <input type="text" placeholder="Enter Username" name="username" >
+
+
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" >
+
+      <label for="psw-repeat"><b>Repeat Password</b></label>
+      <input type="password" placeholder="Repeat Password" name="psw-repeat">
+
+
+      <br>
+      <br>
+      <label for="bio"><b>Bio</b></label>
+      <input type="text" placeholder="Bio" name="bio">
+
+
+      <label for="img">Select Profile image:</label>
+      <input type="file" id="img" name="img" accept="image/*">
+
+      <label for="birthday">Birthday:</label>
+      <input type="date" id="birthday" name="birthday" required>
+      
+      
+      <br>
+      <label for="gender">Choose a gender:</label>
     
-    <br>
-    <label for="gender">Choose a gender:</label>
+      <select name="gender" id="gender" required>
+          <option value="N">not define</option>
+          <option value="M">Male</option>
+          <option value="F">Femeal</option>
+          <option value="L">LGBTQ+</option>
+      </select>
 
-    <select name="gender" id="gender" required>
-        <option value="N">not define</option>
-        <option value="M">Male</option>
-        <option value="F">Femeal</option>
-        <option value="L">LGBTQ+</option>
-    </select>
 
-    <br>
-    <br>
-
-    <input type="submit" value="Register">
-
-</form>
+      <div class="clearfix">
+        <button type="submit" class="signupbtn">Confirm</button>
+      </div>
+    </div>
+  </form>
 
 {% endblock %}

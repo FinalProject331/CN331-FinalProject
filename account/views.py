@@ -3,7 +3,7 @@ from .models import Account
 # Create your views here.
 
 def myprofile(request):
-    account = Account.objects.get_or_create(user = request.user)
+    account = Account.objects.get(user = request.user)
     
     return render(request, 'account/myprofile.html',{
         "account" : account

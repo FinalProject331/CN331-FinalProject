@@ -12,8 +12,15 @@
 
 </style>
 <h1>Help</h1>
-<div><textarea name="Text1" style="width:60%;height:200px;"></textarea><br><br>
-    <input type="submit" value="Send">
-</div>
+{% csrf_token %}
+<form action="/help_send/" method="post">
+    
+    <div class="form__field">
+        <label for="formInput#text">Report Form</label>
+        <input class="input input--text" id="formInput#text" type="text" name="help_send"
+            placeholder="Type you report hear..." />
+    </div>
+    <input type="submit" value="send report" />
+</form>
 
 {% endblock %}
