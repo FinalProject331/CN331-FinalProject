@@ -91,34 +91,26 @@
       <hr>
 
       <label for="first_name"><b>firstname</b></label>
-      <input type="text" placeholder="Enter firstname" name="first_name">
+      <input type="text" placeholder="Enter firstname" name="first_name" value="{{ user.first_name }}">
 
       <label for="last_name"><b>lastname</b></label>
-      <input type="text" placeholder="Enter lastname" name="last_name">
+      <input type="text" placeholder="Enter lastname" name="last_name" value="{{ user.last_name }}">
 
       <label for="email"><b>Email</b></label>
-      <input type="text" placeholder="Enter Email" name="email">
+      <input type="text" placeholder="Enter Email" name="email" value="{{ user.email }}">
 
       <label for="username"><b>username</b></label>
-      <input type="text" placeholder="Enter Username" name="username" >
+      <input type="text" placeholder="Enter Username" name="username" value="{{ account.user.username }}">
 
 
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" >
+      <!-- <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" value="{{ account.user.password }}">
 
       <label for="psw-repeat"><b>Repeat Password</b></label>
-      <input type="password" placeholder="Repeat Password" name="psw-repeat">
+      <input type="password" placeholder="Repeat Password" name="psw-repeat" value="{{ account.user.password }}"> -->
 
-
-      <br>
-      <br>
       <label for="bio"><b>Bio</b></label>
-      <input type="text" placeholder="Bio" name="bio">
-
-
-      <label for="img">Select Profile image:</label>
-      <input type="file" id="img" name="img" accept="image/*">
-
+      <input type="text" placeholder="Bio" name="bio" value="{{ account.bio }}">
 
 
       <div class="clearfix">
@@ -126,6 +118,18 @@
       </div>
     </div>
   </form>
+  
+  <form method="post" action = "upload" enctype="multipart/form-data">
+    {% csrf_token %}
+     {{ form.as_p }}
+    <button type="submit">Upload</button>
+  </form>
+  
+  {% if img_obj %}
+    <h3>Succesfully uploaded : {{img_obj.title}}</h3>
+    <img src="{{ img_obj.image.url}}" alt="connect" style="max-height:300px">
+  {% endif %}
+
 
 </body>
 
