@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 
-# from .models import Account
+from .models import Help
 
 
 # class AccountAdmin(admin.ModelAdmin):
@@ -10,4 +10,4 @@ from django.contrib import admin
     
 
 
-# admin.site.register(Account, AccountAdmin)
+admin.site.register(Help)

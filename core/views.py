@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
+from .models import Help
 
 
 
@@ -55,3 +56,9 @@ class SignUp(CreateView):
     success_url = reverse_lazy("login")
     template_name = "registration/signup.html"
     
+def help(request):
+    if request.method == 'get':
+        
+        report = request.GET.get('help')
+    form = Help.objects.create(user = report)
+    form.save()

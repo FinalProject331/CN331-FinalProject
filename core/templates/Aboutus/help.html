@@ -10,10 +10,21 @@
         height: 200px;
     }
 
+    textarea {
+        border-radius: 4px;
+        padding: 15px;
+    }
+    
 </style>
 <h1>Help</h1>
-<div><textarea name="Text1" style="width:60%;height:200px;"></textarea><br><br>
-    <input type="submit" value="Send">
+<div>
+    <form action="help" method = "get" id="help">
+        <textarea name="Text1" style="width:60%;height:200px;" placeholder="Report your problem here..."></textarea><br>
+        <input type="text" value="help">
+        <input type="submit" value="Send">
+    </form>
+
 </div>
+
 
 {% endblock %}
