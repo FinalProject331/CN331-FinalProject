@@ -7,9 +7,24 @@
 <form method="post">
     {% csrf_token %}
     {{form}}
+    <label for="birthday">Birthday:</label>
+    <input type="date" id="birthday" name="birthday" required>
+    
+    <br>
+    <label for="gender">Choose a gender:</label>
+
+    <select name="gender" id="gender" required>
+        <option value="N">not define</option>
+        <option value="M">Male</option>
+        <option value="F">Femeal</option>
+        <option value="L">LGBTQ+</option>
+    </select>
+
+    <br>
+    <br>
+
     <input type="submit" value="Register">
+
 </form>
 
-<a href="{% url 'login' %}">Back to login</a>
-<a href="{% url 'home' %}">Back to Home</a>
 {% endblock %}

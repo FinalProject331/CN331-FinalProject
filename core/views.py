@@ -10,6 +10,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView
 from .models import Help
 
+from chat.models import Room
+
 
 
 from account.models import Account
@@ -49,7 +51,9 @@ def logout_view(request):
 
 def home(request):
     
-    return render(request,"users/home.html")
+    return render(request,"users/home.html",{
+        "rooms": Room.objects.all()
+    })
 
 class SignUp(CreateView):
     form_class = UserCreationForm
