@@ -5,18 +5,15 @@
 {% block body %}
 <h2>Login</h2>
 
-<form method= "post" style="border:1px solid #ccc">
+<form method="post">
   {% csrf_token %}
-  <label for="username"><b>username</b></label>
-  <input type="text" placeholder="Enter Username" name="username" >
-
-
-  <label for="psw"><b>Password</b></label>
-  <input type="password" placeholder="Enter Password" name="password" >
-
-  <div class="clearfix">
-    <button type="submit" class="signupbtn">Confirm</button>
-  </div>
-</div>
+  <table>
+    {{ form.as_p }}
+    <tr>
+      <td>&nbsp;</td>
+      <td><input type="submit" value="Submit"></td>
+      
+    </tr>
+  </table>
 </form>
 {% endblock %}

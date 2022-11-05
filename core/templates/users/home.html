@@ -59,19 +59,24 @@
       color: white;
     }
   </style>
-  <div class="search-input">
-    <input type="text" id="search-box" placeholder="Search..." />
-    <button id="btn-search">
-      <i class="fa fa-search" aria-hidden="true"></i>
-    </button>
-  </div>
+  <form action='/' method="POST">
+    <div class="search-input">
+      <input type="text" id="search-box" placeholder="Search..." />
+      <button id="btn-search" type="submit">
+        <i class="fa fa-search" aria-hidden="true"></i>
+      </button>
+    </div>
+
+  </form>
 
   <a href="{% url 'roomconfig' %}">Create Room</a>
   <br>
 
   {% for room in rooms %}
+  {% if text in room%}
   <a href="{% url 'chat:join_room' room.name %}" class="button button1">{{ room.name }}</a>
   <br>
+  {% endif %}
   {% endfor %}
 
 

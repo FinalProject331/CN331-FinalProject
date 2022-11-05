@@ -28,8 +28,8 @@ def login(request):
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
-        user = User.objects.filter(username= username,password=password)
-        if user.__len__ > 0:
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
             auth_login(request, user)
             
             return HttpResponseRedirect(reverse('home'))
@@ -50,15 +50,12 @@ def create_account(request):
     birthday = request.GET.get('birthday')
     gender = request.GET.get('gender')
 
-    user = User.objects.create(
-    username = username,
-    password = password,
-    first_name= first_name,
-    last_name = last_name,
-    email = email)
+    user = User.objects.create(username = username,password = password,first_name= first_name,last_name = last_name,email = email)
     user.save()
+    user.refresh_from_db()
     account = Account.objects.create(user=user, birthday=birthday,gender=gender)
     account.save()
+    account.refresh_from_db()
     return HttpResponseRedirect(reverse('login'))
 
 def logout_view(request):
@@ -70,11 +67,14 @@ def logout_view(request):
 
 
 
-
 def home(request):
+    text=""
+    if request.method == 'POST':
+        
+        text = request.POST.post('text')
     return render(request,"users/home.html",{
         "rooms": Room.objects.all(),
-        
+        "text":text
     })
 
 def signup(request):
