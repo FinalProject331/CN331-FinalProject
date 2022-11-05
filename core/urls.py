@@ -9,5 +9,7 @@ urlpatterns = [
     path('help_send', views.help_send, name='help_send'),
     path('', views.home, name = "home"),
     path("signup/", views.signup, name="signup"),
+    path("signup/create_account", views.create_account, name="create_account"),
+    
     path('roomconfig', roomconfig, name='roomconfig'),
 ]

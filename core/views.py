@@ -28,26 +28,38 @@ def login(request):
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
-        birthday = request.POST["birthday"]
-        gender = request.POST["gender"]
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
+        user = User.objects.filter(username= username,password=password)
+        if user.__len__ > 0:
             auth_login(request, user)
             
             return HttpResponseRedirect(reverse('home'))
         else:
             messages.warning(request, "Invalid credential.")
-            return render(request, "accounts/login.html", {
+            return render(request, "registration/login.html", {
                 "messages": messages.get_messages(request)
             })
 
-    return render(request, "accounts/login.html")
+    return render(request, "registration/login.html")
 
-def create_account(user, birthday, gender):
-    account = Account.objects.create(user = user, birthday= birthday, gender = gender)
+def create_account(request):
+    first_name = request.GET.get('first_name')
+    last_name = request.GET.get('last_name')
+    email = request.GET.get('email')
+    username = request.GET.get('username')
+    password = request.GET.get('password')
+    birthday = request.GET.get('birthday')
+    gender = request.GET.get('gender')
+
+    user = User.objects.create(
+    username = username,
+    password = password,
+    first_name= first_name,
+    last_name = last_name,
+    email = email)
+    user.save()
+    account = Account.objects.create(user=user, birthday=birthday,gender=gender)
     account.save()
-    account.refresh_from_db()
-    return account
+    return HttpResponseRedirect(reverse('login'))
 
 def logout_view(request):
     logout(request)
@@ -60,23 +72,14 @@ def logout_view(request):
 
 
 def home(request):
-    user = request.user
-    # if user is not None:
-    #     account = Account.objects.get(user = request.user)
     return render(request,"users/home.html",{
         "rooms": Room.objects.all(),
-        # "account" : account
+        
     })
 
 def signup(request):
-    username = request.POST["username"]
-    password = request.POST["password"]
-    birthday = request.POST["birthday"]
-    gender = request.POST["gender"]
-    user = User.objects.create_user(username = username, password= password)
-    if request.method == 'POST':
-        account = create_account(user, birthday,gender)
-    return render(request, "accounts/login.html")
+    
+    return render(request, "registration/signup.html")
     
     
 def help_send(request):

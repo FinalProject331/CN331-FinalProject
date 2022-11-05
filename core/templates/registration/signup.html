@@ -4,7 +4,7 @@
 {% block body %}
 <h2>Register</h2>
 
-<form action="POST-signup" style="border:1px solid #ccc">
+<form action="create_account" method= "get" style="border:1px solid #ccc">
 
       <label for="first_name"><b>firstname</b></label>
       <input type="text" placeholder="Enter firstname" name="first_name">
@@ -20,20 +20,20 @@
 
 
       <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" >
+      <input type="password" placeholder="Enter Password" name="password" >
 
       <label for="psw-repeat"><b>Repeat Password</b></label>
-      <input type="password" placeholder="Repeat Password" name="psw-repeat">
+      <input type="password" placeholder="Repeat Password" name="password">
 
 
       <br>
       <br>
-      <label for="bio"><b>Bio</b></label>
+      <!-- <label for="bio"><b>Bio</b></label>
       <input type="text" placeholder="Bio" name="bio">
 
 
       <label for="img">Select Profile image:</label>
-      <input type="file" id="img" name="img" accept="image/*">
+      <input type="file" id="img" name="img" accept="image/*"> -->
 
       <label for="birthday">Birthday:</label>
       <input type="date" id="birthday" name="birthday" required>
