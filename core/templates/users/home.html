@@ -6,35 +6,48 @@
     body {
       color: green;
       text-align: center;
-      
+
     }
-    .webname{
+
+    .webname {
       font-family: 'Chewy', cursive;
       font-size: 100px;
     }
+
+    .fix {
+      bottom: 30px;
+      right: 30px;
+      position: fixed;
+      z-index: 3000;
+    }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
-  
+  <script src="https://kit.fontawesome.com/3f85e29ea8.js" crossorigin="anonymous"></script>
+
 </head>
 
 
 
 <!-- <h1>Hello, {{ user.username|default:'Guest' }}</h1> -->
 <h1 class="webname">Food with Buddies</h1>
-<p> Welcome to the Our site</p>
 <div>
   {% if user.is_authenticated %}
+  <input type="search" id="site-search" name="q">
+  <button>Search</button><br>
+  <a class="fix" href="{% url 'roomconfig' %}"><i class="fa-solid fa-circle-plus" style='font-size:40px'></i></a>
 
-    <a href="{% url 'roomconfig' %}">Create Room</a>
-    <br>
 
-    {% for room in rooms %}
-    <a href="{% url 'chat:join_room' room.name %}">{{ room.name }}</a>
-    <br>
-    {% endfor %}
+  <!-- <a href="{% url 'roomconfig' %}">Create Room</a> -->
+  <br>
+
+  {% for room in rooms %}
+  <a href="{% url 'chat:join_room' room.name %}" class="button button1">{{ room.name }}</a>
+  <br>
+  {% endfor %}
 
 
   {% else %}
+  <p> Welcome to the Our site</p>
 
   <div>Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></div>
   {% endif %}
