@@ -10,17 +10,21 @@
         height: 200px;
     }
 
+    textarea {
+        border-radius: 4px;
+        padding: 15px;
+    }
+    
 </style>
 <h1>Help</h1>
-{% csrf_token %}
-<form action="/help_send/" method="post">
-    
-    <div class="form__field">
-        <label for="formInput#text">Report Form</label>
-        <input class="input input--text" id="formInput#text" type="text" name="help_send"
-            placeholder="Type you report hear..." />
-    </div>
-    <input type="submit" value="send report" />
-</form>
+<div>
+    <form action="help_send" method = "get" id="help">
+        <textarea name="help_send" style="width:60%;height:200px;" placeholder="Report your problem here..."></textarea><br>
+        
+        <input type="submit" value="Send">
+    </form>
+
+</div>
+
 
 {% endblock %}
