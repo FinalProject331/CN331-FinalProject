@@ -78,7 +78,7 @@
 
   {% for room in rooms %}
 
-  <a href="{% url 'chat:join_room' room.name %}" class="button button1">
+  <a href="{% url 'chat:room_detail' room.name %}" class="button button1">
     <p>{{ room.name }}:{{ room.id }}</p>
 <p>Seat:{{ room.seat_count }}/{{ room.max_seat }}</p>
 <p>GenderRequest :{{ room.request_gender }}</p>

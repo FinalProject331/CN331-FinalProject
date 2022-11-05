@@ -9,5 +9,5 @@
 <p>status :{{ room.status }}</p>
 
 <br>
-<a href="{% url 'chat:join_room' room %}">Join</a>
+<a href="{% url 'chat:join_room' room.name %}">Join</a>
 {% endblock %}
