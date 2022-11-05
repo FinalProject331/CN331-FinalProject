@@ -29,7 +29,7 @@
     <br>
 
     {% for room in rooms %}
-    <a href="{% url 'chat:join_room' room.name %}">{{ room.name }}</a>
+    <a href="{% url 'chat:room_detail' room.name %}">{{ room.name }}</a>
     <br>
     {% endfor %}
 
