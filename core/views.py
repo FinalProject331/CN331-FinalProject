@@ -60,9 +60,9 @@ class SignUp(CreateView):
     success_url = reverse_lazy("login")
     template_name = "registration/signup.html"
     
-def help(request):
-    if request.method == 'get':
-        
-        report = request.GET.get('help')
+def help_send(request):
+    
+    report = request.GET.get('help_send')
     form = Help.objects.create(user = report)
     form.save()
+    return HttpResponseRedirect('help')
