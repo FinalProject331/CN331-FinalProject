@@ -32,10 +32,47 @@
 <h1 class="webname">Food with Buddies</h1>
 <div>
   {% if user.is_authenticated %}
-  <input type="search" id="site-search" name="q">
-  <button>Search</button><br>
-  <a class="fix" href="{% url 'roomconfig' %}"><i class="fa-solid fa-circle-plus" style='font-size:40px'></i></a>
 
+
+  <style>
+    .button {
+      background-color: #ffffff;
+      /* Green */
+      border: 2px solid #4CAF50;
+      color: rgb(0, 0, 0);
+      padding: 16px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+      width: 300px;
+      height: 300px;
+      border-radius: 10px;
+
+    }
+
+    /* .button1 {
+      background-color: white;
+      color: black;
+      border: 2px solid #4CAF50;
+    } */
+
+
+    .button:hover {
+      background-color: #4CAF50;
+      color: white;
+    }
+  </style>
+  <div class="search-input">
+    <input type="text" id="search-box" placeholder="Search..." />
+    <button id="btn-search">
+      <i class="fa fa-search" aria-hidden="true"></i>
+    </button>
+  </div>
+  <a class="fix" href="{% url 'roomconfig' %}"><i class="fa-solid fa-circle-plus" style='font-size:40px'></i></a>
 
   <!-- <a href="{% url 'roomconfig' %}">Create Room</a> -->
   <br>

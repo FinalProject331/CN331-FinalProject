@@ -50,3 +50,7 @@ def getMessages(request, room):
 
     messages = Message.objects.filter(room=room_details.id)
     return JsonResponse({"messages":list(messages.values())})
+
+def room_detail(request, room):
+    return render(request, 'chat/roomdetail.html', {
+        'room': Room.objects.get(name=room),})
