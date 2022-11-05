@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block body %}
+<h1>Room Detail</h1>
+<p>Room name :{{ room.name }}</p>
+<p>Room id :{{ room.id }}</p>
+<p>Seat count :{{ room.seat_count }}</p>
+<p>Max seat :{{ room.max_seat }}</p>
+<p>GenderRequest :{{ room.request_gender }}</p>
+<p>status :{{ room.status }}</p>
+
+<br>
+<a href="{% url 'chat:join_room' room %}">Join</a>
+{% endblock %}
