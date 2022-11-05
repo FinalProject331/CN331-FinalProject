@@ -68,7 +68,6 @@ def home(request):
         # "account" : account
     })
 
-<<<<<<< HEAD
 def signup(request):
     username = request.POST["username"]
     password = request.POST["password"]
@@ -79,24 +78,10 @@ def signup(request):
         account = create_account(user, birthday,gender)
     return render(request, "accounts/login.html")
     
-def help_send(request):
-    report = "-"
-    if request.method == 'POST':
-        report = request.POST['help_send']
-    form  = Help.objects.create(report = report)
-    form.save()
-    return render(request, "users/home.html")
-    
-=======
-class SignUp(CreateView):
-    form_class = UserCreationForm
-    success_url = reverse_lazy("login")
-    template_name = "registration/signup.html"
     
 def help_send(request):
     
     report = request.GET.get('help_send')
-    form = Help.objects.create(user = report)
+    form = Help.objects.create(user=report)
     form.save()
     return HttpResponseRedirect('help')
->>>>>>> a3716ba150f3b146a81c52f0f349abc15051b890

@@ -57,10 +57,6 @@ from django.contrib.auth.models import User
 # 	chat_room = models.ManyToManyField(RestaurantChat, blank=True)
 
 class Help(models.Model):
-<<<<<<< HEAD
-	report = models.CharField(max_length=300)
-=======
 	user = models.CharField(max_length=300)
 	
->>>>>>> a3716ba150f3b146a81c52f0f349abc15051b890
 	
