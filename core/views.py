@@ -5,22 +5,15 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth.models import User
-from django.urls import reverse_lazy
-from django.contrib.auth.forms import UserCreationForm
-from django.views.generic.edit import CreateView
 from .models import Help
-
 from chat.models import Room
-from .models import Help
-
-
-
 from account.models import Account
 
 # Create your views here.
 
 def aboutus(request):
     return render(request, 'Aboutus/aboutus.html')
+
 def help(request):
     return render(request, 'Aboutus/help.html')
 
@@ -31,7 +24,6 @@ def login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             auth_login(request, user)
-            
             return HttpResponseRedirect(reverse('home'))
         else:
             messages.warning(request, "Invalid credential.")
@@ -65,12 +57,9 @@ def logout_view(request):
         "messages": messages.get_messages(request)
     })
 
-
-
 def home(request):
     text=""
     if request.method == 'POST':
-        
         text = request.POST.post('text')
     return render(request,"users/home.html",{
         "rooms": Room.objects.all(),
@@ -78,9 +67,7 @@ def home(request):
     })
 
 def signup(request):
-    
     return render(request, "registration/signup.html")
-    
     
 def help_send(request):
     
