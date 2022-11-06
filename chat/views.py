@@ -68,6 +68,13 @@ def checkview(request):
         new_room.save()
         return redirect('/'+room+'/?username='+username)
 
+def create_room(request):
+    room_name = request.POST['room_name']
+    room = Room.objects.create(name=room_name)
+
+    return redirect('/'+room_name+'/?username='+request.user.username)
+
+
 def send(request):
     message = request.POST['message']
     username = request.POST['username']
