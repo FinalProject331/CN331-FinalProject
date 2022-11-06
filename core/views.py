@@ -66,7 +66,7 @@ def create_account(request):
 def logout_view(request):
     logout(request)
     messages.success(request, "Logged out.")
-    return render(request, "accounts/login.html", {
+    return render(request, "registration/login.html", {
         "messages": messages.get_messages(request)
     })
 

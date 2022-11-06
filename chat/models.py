@@ -7,8 +7,8 @@ from datetime import datetime
 class Room(models.Model):
     name = models.CharField(max_length=1000)
     id = models.AutoField(primary_key=True)
-    seat_count = models.IntegerField
-    max_seat = models.IntegerField
+    seat_count = models.IntegerField(default=1)
+    max_seat = models.IntegerField(default=2)
     GenderRequest = [('M', 'Male'),
                      ('F', 'Female'),
                      ('L', 'LGBTQ+'),
@@ -23,6 +23,9 @@ class Room(models.Model):
     meal_time = models.DateTimeField(default=datetime.today, blank=True)
     status = models.BooleanField(default=True)
     # room_owner = models.ManyToManyField(Account, verbose_name="owner")
+
+    def is_seat_available(self):
+        return self.seat_count < self.max_seat
 
 
 class Message(models.Model):

@@ -5,6 +5,8 @@ from django.shortcuts import render
 from django.shortcuts import render, redirect
 from chat.models import Room, Message
 from django.http import HttpResponse, JsonResponse
+from django.contrib import messages
+from account.models import Account
 
 # Create your views here.
 
@@ -22,17 +24,44 @@ def room(request, room):
 
 def join_room(request, room):
     username = request.user.username
-
-    return redirect('/'+room+'/?username='+username)
+    this_room = Room.objects.get(name=room)
+    user = request.user
+    account = Account.objects.get(user=user)
+    if this_room.id != account.chat and account.chat == 0 and this_room.is_seat_available():
+        this_room.seat_count += 1
+        account.chat = this_room.id
+        this_room.save()
+        account.save()
+        return redirect('/'+room+'/?username='+username)
+    elif this_room.id == account.chat:
+        return redirect('/'+room+'/?username='+username)
+    elif account.chat != 0:
+        messages.warning(request, "leave the previous room before join new room.")
+        return render(request, 'chat/roomdetail.html', {
+            "messages": messages.get_messages(request),
+            'room': this_room
+        })
+    else:
+        messages.warning(request, "seat is not available.")
+        return render(request, 'chat/roomdetail.html', {
+            "messages": messages.get_messages(request),
+            'room': this_room
+        })
 
 def checkview(request):
     room = request.POST['room_name']
     username = request.user.username
-
     if Room.objects.filter(name=room).exists():
-        return redirect('/'+room+'/?username='+username)
+        return render(request, 'chat/roomdetail.html', {
+            "messages": messages.get_messages(request),
+            'room': Room.objects.get(name=room)
+        })
     else:
         new_room = Room.objects.create(name=room)
+        user = request.user
+        account = Account.objects.get(user=user)
+        account.chat = new_room.id
+        account.save()
         new_room.save()
         return redirect('/'+room+'/?username='+username)
 
