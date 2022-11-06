@@ -47,7 +47,9 @@
     {% if user.is_authenticated %}
     <div class="topnav">
         <a class="active" href="{% url 'home' %}">Home</a>
-        <a href="{% url 'aboutus' %}">Chats</a>
+        {% if account.chat != 0 and account != None %}
+        <a href="{% url 'chat:return_chat' account.chat %}">Chat</a>
+        {% endif %}
         <a href="{% url 'aboutus' %}">About Us</a>
         <a href="{% url 'help' %}">Help</a>
         <div class="topnav-right">
