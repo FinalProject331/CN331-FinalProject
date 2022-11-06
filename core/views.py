@@ -38,9 +38,10 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     messages.success(request, "Logged out.")
-    return render(request, "registration/login.html", {
-        "messages": messages.get_messages(request)
-    })
+    return HttpResponseRedirect(reverse('home'))
+    # return render(request, "registration/login.html", {
+    #     "messages": messages.get_messages(request)
+    # })
 
 def create_account(request):
     first_name = request.GET.get('first_name')
@@ -66,9 +67,8 @@ def create_account(request):
 def logout_view(request):
     logout(request)
     messages.success(request, "Logged out.")
-    return render(request, "registration/login.html", {
-        "messages": messages.get_messages(request)
-    })
+    return HttpResponseRedirect(reverse('home'))
+    
 
 def home(request):
     text = ""
