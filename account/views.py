@@ -1,10 +1,10 @@
-from django.conf import settings
-from django.shortcuts import render , redirect
-from django.templatetags.static import static
+# from django.conf import settings
+from django.shortcuts import render
+# from django.templatetags.static import static
 from .models import Account
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.http import HttpResponse
+from django.core.files.storage import FileSystemStorage
 # Create your views here.
 
 def myprofile(request):
@@ -46,8 +46,6 @@ def edit(request):
     account.save()
     account.refresh_from_db()
     return HttpResponseRedirect(reverse('myprofile'))
-
-from django.core.files.storage import FileSystemStorage
 
 def upload(request):
     if request.method == 'POST' and request.FILES['upload']:
