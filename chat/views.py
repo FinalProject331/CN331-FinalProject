@@ -51,15 +51,18 @@ def join_room(request, room):
 def checkview(request):
     room = request.POST['room_name']
     username = request.user.username
-    if Room.objects.filter(name=room).exists():
+    user = request.user
+    account = Account.objects.get(user=user)
+    if account.chat != 0:
+        messages.warning(request, "leave the previous room before create new room.")
+        return render(request, 'chat/roomconfig.html')
+    elif Room.objects.filter(name=room).exists():
         return render(request, 'chat/roomdetail.html', {
             "messages": messages.get_messages(request),
             'room': Room.objects.get(name=room)
         })
     else:
         new_room = Room.objects.create(name=room)
-        user = request.user
-        account = Account.objects.get(user=user)
         account.chat = new_room.id
         account.save()
         new_room.save()
