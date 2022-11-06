@@ -1,9 +1,10 @@
 from django.conf import settings
-from django.shortcuts import render
+from django.shortcuts import render , redirect
 from django.templatetags.static import static
 from .models import Account
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.http import HttpResponse
 # Create your views here.
 
 def myprofile(request):
@@ -46,17 +47,13 @@ def edit(request):
     account.refresh_from_db()
     return HttpResponseRedirect(reverse('myprofile'))
 
-from .forms import ImageForm
+from django.core.files.storage import FileSystemStorage
 
-def image_upload_view(request):
-    """Process images uploaded by users"""
-    if request.method == 'POST':
-        form = ImageForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            # Get the current instance object to display in the template
-            img_obj = form.instance
-            return render(request, 'account/editprofile', {'form': form, 'img_obj': img_obj})
-    else:
-        form = ImageForm()
-    return render(request, 'account/editprofile', {'form': form})
+def upload(request):
+    if request.method == 'POST' and request.FILES['upload']:
+        upload = request.FILES['upload']
+        fss = FileSystemStorage()
+        file = fss.save(upload.name, upload)
+        file_url = fss.url(file)
+        return render(request, 'editprofile', {'file_url': file_url})
+    return render(request, 'editprofile')
