@@ -8,7 +8,12 @@
 <form method="post">
   {% csrf_token %}
   <table>
-    {{ form.as_p }}
+    <label for="username"><b>username</b></label>
+      <input type="text" placeholder="Enter Username" name="username" >
+
+
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="password" >
     <tr>
       <td>&nbsp;</td>
       <td><input type="submit" value="Submit"></td>
