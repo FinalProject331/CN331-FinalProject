@@ -6,7 +6,7 @@ from chat.models import Room
 
 class Account(models.Model):
 	birthday = models.DateField(default=datetime.now)
-	user = models.OneToOneField(User,on_delete=models.CASCADE)
+	user = models.OneToOneField(User,on_delete=models.CASCADE ,related_name='profile') 
 	bio = models.CharField(max_length=300, default="")
 	image = models.ImageField(default='default.jpg', upload_to='profile_pics/',blank=True, null=True)
 	chat = models.IntegerField(default=0)
@@ -18,4 +18,5 @@ class Account(models.Model):
 			max_length=10)
 
 def __str__(self):
-   	return self.title
+   	return self.user
+

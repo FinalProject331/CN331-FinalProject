@@ -5,6 +5,10 @@ from .models import Account
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.core.files.storage import FileSystemStorage
+from .forms import ProfileForm
+from django.contrib import messages
+from django.shortcuts import redirect
+
 # Create your views here.
 
 def myprofile(request):
@@ -47,11 +51,39 @@ def edit(request):
     account.refresh_from_db()
     return HttpResponseRedirect(reverse('myprofile'))
 
+# def upload(request):
+#     if request.method == 'POST' and request.FILES['upload']:
+#         upload = request.FILES['upload']
+#         fss = FileSystemStorage()
+#         file = fss.save(upload.name, upload)
+#         file_url = fss.url(file)
+#         return render(request, 'editprofile', {'file_url': file_url})
+#     return render(request, 'editprofile')
+
+
+# def upload(request):
+    
+#     if request.method == "POST":
+#         form = ProfileForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             form.save()
+#     else:
+#         form = ProfileForm(instance=request.user)
+#         return render(request, 'account/editprofile.html', {'form': form})
+#     return HttpResponseRedirect(reverse('myprofile'))
+
 def upload(request):
-    if request.method == 'POST' and request.FILES['upload']:
-        upload = request.FILES['upload']
-        fss = FileSystemStorage()
-        file = fss.save(upload.name, upload)
-        file_url = fss.url(file)
-        return render(request, 'editprofile', {'file_url': file_url})
-    return render(request, 'editprofile')
+    if request.method == 'POST':
+        profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if profile_form.is_valid():            
+            profile_form.save()
+            messages.success(request, 'Your profile is updated successfully')
+            return redirect(to='myprofile')
+        else:
+            messages.error(request, ('error ka'))
+    else:
+        profile_form = ProfileForm(instance=request.user.profile)
+
+    return render(request, 'myprofile.html', {
+        'profile_form': profile_form
+    })
