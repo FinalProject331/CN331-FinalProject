@@ -138,8 +138,17 @@ def room_detail(request, room):
         'account':account,
         })
 
-
 def return_chat(request, chat):
     username = request.user.username
     this_room = Room.objects.get(id=chat)
     return redirect('/'+this_room.name+'/?username='+username)
+
+def leave_room(request, room):
+    user = request.user
+    account = Account.objects.get(user=user)
+    account.chat = 0
+    account.save()
+    this_room = Room.objects.get(name=room)
+    this_room.seat_count -= 1
+    this_room.save()
+    return redirect('home')
