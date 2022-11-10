@@ -10,4 +10,5 @@ urlpatterns = [
     path('send', views.send, name='send'),
     path('getMessages/<str:room>/', views.getMessages, name='getMessages'),
     path('room_detail/<str:room>/', views.room_detail, name='room_detail'),
+    path('return_chat/<str:chat>/', views.return_chat, name='return_chat'),
 ]

@@ -12,10 +12,17 @@ from account.models import Account
 
 
 def aboutus(request):
-    return render(request, 'Aboutus/aboutus.html')
+    account = None
+    if not User.is_anonymous :
+        account = Account.objects.get(user=request.user)
+    return render(request, 'Aboutus/aboutus.html', {'account': account, })
+
 
 def help(request):
-    return render(request, 'Aboutus/help.html')
+    account = None
+    if not User.is_anonymous :
+        account = Account.objects.get(user=request.user)
+    return render(request, 'Aboutus/help.html', {'account': account, })
 
 
 def login_view(request):
@@ -35,6 +42,7 @@ def login_view(request):
 
     return render(request, "registration/login.html")
 
+
 def logout_view(request):
     logout(request)
     messages.success(request, "Logged out.")
@@ -42,6 +50,7 @@ def logout_view(request):
     # return render(request, "registration/login.html", {
     #     "messages": messages.get_messages(request)
     # })
+
 
 def create_account(request):
     first_name = request.GET.get('first_name')
@@ -64,26 +73,32 @@ def create_account(request):
     account.refresh_from_db()
     return HttpResponseRedirect(reverse('login'))
 
+
 def logout_view(request):
     logout(request)
     messages.success(request, "Logged out.")
     return HttpResponseRedirect(reverse('home'))
-    
+
 
 def home(request):
+    account = None
+    if not User.is_anonymous :
+        account = Account.objects.get(user=request.user)
+    
     text = ""
     if request.method == 'POST':
-        
         text = request.POST.post('text')
     return render(request, "users/home.html", {
         "rooms": Room.objects.all(),
-        "text": text
+        "text": text,
+        "account":account,
     })
 
 
 def signup(request):
     return render(request, "registration/signup.html")
-    
+
+
 def help_send(request):
 
     report = request.GET.get('help_send')

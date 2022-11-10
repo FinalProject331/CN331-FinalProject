@@ -11,23 +11,34 @@ from datetime import datetime
 
 # Create your views here.
 
+
 def roomconfig(request):
-    return render(request, 'chat/roomconfig.html')
+    user = request.user
+    account = Account.objects.get(user=user)
+
+    return render(request, 'chat/roomconfig.html', {
+        'account': account,
+    })
+
 
 def room(request, room):
+    user = request.user
+    account = Account.objects.get(user=user)
+
     username = request.GET.get('username')
     room_details = Room.objects.get(name=room)
     return render(request, 'chat/room.html', {
         'username': username,
         'room': room,
-        'room_details': room_details
+        'room_details': room_details,
+        'account': account
     })
+
 
 def join_room(request, room):
     username = request.user.username
     this_room = Room.objects.get(name=room)
-    user = request.user
-    account = Account.objects.get(user=user)
+    account = Account.objects.get(user=request.user)
     if this_room.id != account.chat and account.chat == 0 and this_room.is_seat_available():
         this_room.seat_count += 1
         account.chat = this_room.id
@@ -37,10 +48,12 @@ def join_room(request, room):
     elif this_room.id == account.chat:
         return redirect('/'+room+'/?username='+username)
     elif account.chat != 0:
-        messages.warning(request, "leave the previous room before join new room.")
+        messages.warning(
+            request, "leave the previous room before join new room.")
         return render(request, 'chat/roomdetail.html', {
             "messages": messages.get_messages(request),
-            'room': this_room
+            'room': this_room,
+            'account': account,
         })
     else:
         messages.warning(request, "seat is not available.")
@@ -48,6 +61,7 @@ def join_room(request, room):
             "messages": messages.get_messages(request),
             'room': this_room
         })
+
 
 def checkview(request):
     room = request.POST['room_name']
@@ -60,7 +74,8 @@ def checkview(request):
     user = request.user
     account = Account.objects.get(user=user)
     if account.chat != 0:
-        messages.warning(request, "leave the previous room before create new room.")
+        messages.warning(
+            request, "leave the previous room before create new room.")
         return render(request, 'chat/roomconfig.html')
     # elif Room.objects.filter(name=room).exists():
     #     return render(request, 'chat/roomdetail.html', {
@@ -103,16 +118,28 @@ def send(request):
     username = request.POST['username']
     room_id = request.POST['room_id']
 
-    new_message = Message.objects.create(value=message, user=username, room=room_id)
+    new_message = Message.objects.create(
+        value=message, user=username, room=room_id)
     new_message.save()
     return HttpResponse('Message sent successfully')
+
 
 def getMessages(request, room):
     room_details = Room.objects.get(name=room)
 
     messages = Message.objects.filter(room=room_details.id)
-    return JsonResponse({"messages":list(messages.values())})
+    return JsonResponse({"messages": list(messages.values())})
+
 
 def room_detail(request, room):
+    account = Account.objects.get(user=request.user)
     return render(request, 'chat/roomdetail.html', {
-        'room': Room.objects.get(name=room),})
+        'room': Room.objects.get(name=room),
+        'account':account,
+        })
+
+
+def return_chat(request, chat):
+    username = request.user.username
+    this_room = Room.objects.get(id=chat)
+    return redirect('/'+this_room.name+'/?username='+username)

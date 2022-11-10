@@ -1,8 +1,17 @@
 {% extends "layout.html" %}
 {% block body %}
+<style>
+  div{
+    padding: 40px;
+  }
+  .file{
+    padding-left: 25px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+</style>
 
-
-
+<div>
 <h1>Project Detail</h1>
 <p>&nbsp&nbsp&nbsp&nbsp โครงงาน Food with Buddies
   ของเราจัดทำขึ้นเพื่อสร้างเว็บไซต์สำหรับเป็นพื้นที่ให้กลุ่มคนที่ต้องการหาเพื่อนรับประทานข้าวมานัดกันรับประทานข้าว
@@ -47,8 +56,8 @@
 </p>
 <p>
 <h1>ไฟล์ข้อเสนอ</h1>
-<a href="https://drive.google.com/file/d/1Q9Eb7b_si3CtC4aZLCEljqszU2cKpJUF/view?usp=sharing" target="_blank"><i
-    class="fa fa-file-pdf-o" style="font-size:48px;color:red"></i></a>
+<div class="file"><a href="https://drive.google.com/file/d/1Q9Eb7b_si3CtC4aZLCEljqszU2cKpJUF/view?usp=sharing" target="_blank"><i
+    class="fa fa-file-pdf-o" style="font-size:48px;color:red"></i></a></div>
 </p>
 <p>
 <h1>Links</h1>
@@ -56,6 +65,7 @@
 <li><a href="https://github.com/FinalProject331/CN331-FinalProject">GitHub repo link</a></li>
 <li>Video link</li>
 </p>
+</div>
 </body>
 
 {% endblock %}
