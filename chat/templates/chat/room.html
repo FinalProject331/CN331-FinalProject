@@ -61,7 +61,8 @@
   <h2>{{room}} - DjChat</h2>
 
   <a href="{% url 'home' %}">Back to Home</a><br>
-  <a href="{% url 'chat:leave_room' room_details.name %}">Leave</a><br>
+  <a href="{% url 'chat:leave_room' room %}">Leave</a><br>
+  <a href="{% url 'chat:edit_room' room %}">Edit Room</a><br>
   <br>
   <div id="display">
 
