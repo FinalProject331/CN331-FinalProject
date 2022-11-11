@@ -44,18 +44,6 @@ from django.contrib.auth.models import User
 # 	user = models.CharField(max_length=30)
 # 	room = models.CharField(max_length=64)
 
-# class RestaurantChat(models.Model):
-# 	staff = models.CharField(max_length=30)
-# 	customer = models.CharField(max_length=30)
-# 	restaurant_name = models.CharField(max_length=30)
-
-# class Restaurant(models.Model):
-# 	name = models.CharField(max_length=300)
-# 	detail = models.CharField(max_length=300)
-# 	profileimg = models.ImageField(default='default.jpg', upload_to='profile_pics',blank=True, null=True)
-# 	location = models.CharField(max_length=300)
-# 	chat_room = models.ManyToManyField(RestaurantChat, blank=True)
-
 class Help(models.Model):
 	user = models.CharField(max_length=300)
 	
