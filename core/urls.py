@@ -13,6 +13,6 @@ urlpatterns = [
     path('roomconfig', roomconfig, name='roomconfig'),
     path("login/", views.login_view, name="login"),
     path("logout/", views.logout_view, name="logout"),
-    path("shoplist/", shoplist, name="shoplist"),,
+    path("shoplist/", shoplist, name="shoplist"),
     path("search/", views.search, name='search'),
 ]

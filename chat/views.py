@@ -4,8 +4,6 @@ from django.shortcuts import redirect, render
 from account.models import Account
 from chat.models import Message, Room
 from datetime import datetime
-from django.urls import reverse
-from django.http import HttpResponseRedirect
 
 # Create your views here.
 

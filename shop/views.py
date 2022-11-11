@@ -80,3 +80,21 @@ def shoplist(request):
     return render(request, 'shop/shoplist.html',{
         "shops" : shops
     })
+    
+def search_shop(request):
+    text = request.GET['search_shop']
+    all_shop = Shop.objects.all()
+    shops = []
+    if text != "":
+        for shop in all_shop:
+            if text in shop.name :
+                shops.append(shop)
+        if shops == []:
+            messages.warning(
+                request, "Shop name '"+text+"' does not exist.")
+            return HttpResponseRedirect(reverse('shoplist'))
+        return render(request, "shop/shoplist.html", {
+            "shops": shops,
+    })
+    else:
+        return HttpResponseRedirect(reverse('shoplist'))

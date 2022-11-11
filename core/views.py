@@ -123,5 +123,4 @@ def search(request):
             "rooms": rooms,
     })
     else:
-        rooms = all_room
         return HttpResponseRedirect(reverse('home'))
