@@ -92,6 +92,7 @@ def home(request):
         "rooms": Room.objects.all(),
         "text": text,
         "account":account,
+        
     })
 
 

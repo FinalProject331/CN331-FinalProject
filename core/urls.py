@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 from chat.views import roomconfig
-
+from shop.views import shoplist
 
 urlpatterns = [
     path('aboutus', views.aboutus, name='aboutus'),
@@ -12,5 +12,6 @@ urlpatterns = [
     path("signup/create_account", views.create_account, name="create_account"),
     path('roomconfig', roomconfig, name='roomconfig'),
     path("login/", views.login_view, name="login"),
-    path("logout/", views.logout_view, name="logout")
+    path("logout/", views.logout_view, name="logout"),
+    path("shoplist/", shoplist, name="shoplist"),
 ]
