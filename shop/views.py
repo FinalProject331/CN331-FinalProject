@@ -21,7 +21,7 @@ def myshop(request):
     shop = Shop.objects.get_or_create(staff = user)
 
     return render(request, 'shop/myshop.html',{
-        shop : "shop"
+        "shop" : shop
     })
 
 # let staff modify the detail of shop
@@ -57,7 +57,7 @@ def modify(request):
 
     return render(request, 'name.html', {'form': form})
 
-def upload(request):
+def uploadshop(request):
     if request.method == 'POST':
         shop_form = ShopForm(request.POST, request.FILES, instance=request.user.profile)
         if shop_form.is_valid():            
@@ -73,3 +73,10 @@ def upload(request):
         'shop_form': shop_form
     })
     
+def shoplist(request):
+    
+    shops = Shop.objects.all()
+
+    return render(request, 'shop/shoplist.html',{
+        "shops" : shops
+    })

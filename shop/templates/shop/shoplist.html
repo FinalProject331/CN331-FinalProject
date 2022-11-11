@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block body %}
+{% for shop in shops %}
+
+<a href="" class="button button1">
+  <p>{{ shop.name }}:{{ shop.id }}</p>
+<p>{{ shop.detail }}</p>
+</a>
+
+
+{% endfor %}
+{% endblock body %}
