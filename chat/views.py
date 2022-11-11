@@ -32,7 +32,7 @@ def join_room(request, room):
     username = request.user.username
     this_room = Room.objects.get(name=room)
     account = Account.objects.get(user=request.user)
-    if this_room.id != account.chat and account.chat == 0 and this_room.is_seat_available():
+    if this_room.id != account.chat and account.chat == 0 and this_room.is_available():
         this_room.seat_count += 1
         account.chat = this_room.id
         this_room.save()
@@ -138,6 +138,8 @@ def leave_room(request, room):
     this_room = Room.objects.get(name=room)
     this_room.seat_count -= 1
     this_room.save()
+    if this_room.seat_count == 0:
+        this_room.delete()
     return redirect('home')
 
 def edit_details(request, room):
@@ -147,6 +149,7 @@ def edit_details(request, room):
     this_room.request_gender = request.POST['gender_request']
     this_room.dead_time = request.POST['dead_time']
     this_room.meal_time = request.POST['meal_time']
+    this_room.status = request.POST['status']
     this_room.save()
     username = request.user.username
     return redirect('/'+this_room.name+'/?username='+username)

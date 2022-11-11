@@ -2,6 +2,7 @@
 {% block body %}
 
 <head>
+  <script src="https://kit.fontawesome.com/3f85e29ea8.js" crossorigin="anonymous"></script>
   <style>
     body {
       color: green;
@@ -13,12 +14,12 @@
       /* Green */
       border: 2px solid #4CAF50;
       color: rgb(0, 0, 0);
-      padding: 16px 32px;
+      /* padding: 16px 32px; */
       text-align: center;
       text-decoration: none;
       display: inline-block;
       font-size: 16px;
-      margin: 4px 2px;
+      /* margin: 4px 2px; */
       transition-duration: 0.4s;
       cursor: pointer;
       width: 70%;
@@ -48,6 +49,7 @@
       <i class="fa fa-search" aria-hidden="true"></i>
     </button>
   </div>
+  <br>
 
 {% for shop in shops %}
 
@@ -59,7 +61,7 @@
 {% endfor %}
 
 <a href="{% url 'add_shop' %}" class="button button1">
-<p>Add Restaurant</p>
+<p><i class="fa-solid fa-plus" style="font-size: 17px"></i> Add Restaurant</p>
 </a>
 
 {% endblock body %}

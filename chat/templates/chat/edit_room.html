@@ -49,7 +49,7 @@
       <input type="text" value="{{ room.name }}" name="room_name" id="room_name" width="100px" />
       <br>
       <label for="max_seat">max seat</label>
-      <input type="text" value="{{ room.max_seat }}" name="max_seat">
+      <input type="number" value="{{ room.max_seat }}" name="max_seat">
 
       <br>
       <label for="gender_request">Choose a gender:</label>
@@ -68,6 +68,13 @@
       <br>
       <label for="meal_time">Meal time</label>
       <input type="datetime-local" value="{{ room.meal_time }}" name="meal_time" >
+
+      <br>
+      <label for="status">Status:</label>
+      <select name="status" value="{{ room.status }}"  id="status" required>
+          <option value="Open">Open</option>
+          <option value="Close">Close</option>
+      </select>
 
       <br>
       <button type="submit">Confirm</button>
