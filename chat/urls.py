@@ -12,4 +12,6 @@ urlpatterns = [
     path('room_detail/<str:room>/', views.room_detail, name='room_detail'),
     path('return_chat/<str:chat>/', views.return_chat, name='return_chat'),
     path('leave_room/<str:room>/', views.leave_room, name='leave_room'),
+    # path('edit_details', views.edit_details, name='edit_details'),
+    path('edit_room/<str:room>/', views.edit_room, name='edit_room'),
 ]
