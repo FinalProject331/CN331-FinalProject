@@ -17,3 +17,6 @@ class Shop(models.Model):
 	chat_room = models.ManyToManyField(ShopChat, blank=True)
 	location = PlainLocationField(based_fields=['name'], zoom=7)
 	staff = models.OneToOneField(User,on_delete=models.CASCADE ,related_name='staff',null=True) 
+
+class AddShop(models.Model):
+	user = models.CharField(max_length=300)

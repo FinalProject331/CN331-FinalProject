@@ -3,7 +3,7 @@
 from django.shortcuts import render
 # from django.templatetags.static import static
 from account.models import Account
-from shop.models import Shop, ShopChat
+from shop.models import Shop, ShopChat, AddShop
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.core.files.storage import FileSystemStorage
@@ -98,3 +98,14 @@ def search_shop(request):
     })
     else:
         return HttpResponseRedirect(reverse('shoplist'))
+
+def add_shop(request):
+    account = Account.objects.get(user=request.user)
+    return render(request, 'shop/addshop.html', {
+        'account': account, })
+
+def add_shop_send(request):
+    report = request.GET.get('add_shop_send')
+    form = AddShop.objects.create(user=report)
+    form.save()
+    return HttpResponseRedirect('add_shop')
