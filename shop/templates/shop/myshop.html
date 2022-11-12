@@ -32,6 +32,7 @@ function showPosition(position) {
   margin: auto;
   text-align: center;
   font-family: arial;
+  align-items: center;
 }
 
 .title {
@@ -64,15 +65,13 @@ button:hover, a:hover {
 </style>
 </head>
 <body>
-
+{% if user.is_staff %}
 <h2 style="text-align:center">My Shop</h2>
-
 <div class="card">
   <img src="{{ shop.shopimg.url }}" alt="shopimg" width="200px">
   <h1> {{ shop.name }}</h1>
   <h1> {{ account.user.first_name }} {{ account.user.last_name }}</h1>
   <p class="title">bio: {{ shop.detail }}</p>
-  <p>gender: {{ account.gender }}</p>
   <div style="margin: 24px 0;">
   
   </div>
@@ -83,6 +82,26 @@ button:hover, a:hover {
     {% block content %}
     {% endblock content %}
 </div>
+
+{% elif user.is_authenticated %}
+<div class="card">
+<h1> {{ shop.name }}</h1>
+<img src="{{ shop.shopimg.url }}" alt="shopimg" width="200px">
+  <h1> {{ account.user.first_name }} {{ account.user.last_name }}</h1>
+  <p class="title">bio: {{ shop.detail }}</p>
+  <div style="margin: 24px 0;">
+    <a class="fix" href="{% url 'chat' %}"><i class="far fa-comments" style='font-size:40px'></i></a>
+  
+  </div>
+  
+</div>
+
+
+
+  {% endif %}
+
+
+
 
 <!-- Optional JavaScript -->
 <!-- Popper.js, then Bootstrap JS -->
