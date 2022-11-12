@@ -120,23 +120,6 @@
     </div>
   </form>
 
-  <!-- {% if account.image.url %}
-  <div>
-    <img src="{{ account.image.url }}" class="img-fluid" width="200px">
-    <br>
-    
-    {% else %}
-    <p>Not upload any picture hear.</p>
-  {% endif %} -->
-<!-- 
-  <form method="post" action="upload" enctype="multipart/form-data">
-    {% csrf_token %} 
-    <label for="image">Choose a profile picture:</label>
-
-    <input type="file" id="image" name="image" accept="image/*">
-    <button type="submit">Upload</button>
-  </form> -->
-
 
   <form method=POST action="upload" enctype="multipart/form-data">
     {% csrf_token %}

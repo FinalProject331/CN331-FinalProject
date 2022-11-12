@@ -6,10 +6,12 @@
 <style>
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  max-width: 300px;
+  max-width: 500px;
   margin: auto;
   text-align: center;
   font-family: arial;
+  padding: 20px;
+
 }
 
 .title {
@@ -33,7 +35,7 @@ button {
 a {
   text-decoration: none;
   font-size: 22px;
-  color: black;
+  color: white;
 }
 
 button:hover, a:hover {
@@ -43,19 +45,19 @@ button:hover, a:hover {
 </head>
 <body>
 
-<h2 style="text-align:center">User Profile Card</h2>
+<h2 style="text-align:center">My Profile</h2>
 
 <div class="card">
   <img src="{{ account.image.url }}" alt="profileimg" width="200px">
-  <h1> {{ account.user.username }}</h1>
-  <h1> {{ account.user.first_name }} {{ account.user.last_name }}</h1>
+  <h2> username : {{ account.user.username }}</h2>
+  <h2> {{ account.user.first_name }} {{ account.user.last_name }}</h2>
   <p class="title">bio: {{ account.bio }}</p>
   <p>gender: {{ account.gender }}</p>
   <div style="margin: 24px 0;">
   
   </div>
   
-  <a href="{% url 'editprofile' %}">Edit Profile</a>
+  <button><a href="{% url 'editprofile' %}">Edit Profile</a></button>
 </div>
 
 </body>

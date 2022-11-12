@@ -51,26 +51,7 @@ def edit(request):
     account.refresh_from_db()
     return HttpResponseRedirect(reverse('myprofile'))
 
-# def upload(request):
-#     if request.method == 'POST' and request.FILES['upload']:
-#         upload = request.FILES['upload']
-#         fss = FileSystemStorage()
-#         file = fss.save(upload.name, upload)
-#         file_url = fss.url(file)
-#         return render(request, 'editprofile', {'file_url': file_url})
-#     return render(request, 'editprofile')
 
-
-# def upload(request):
-    
-#     if request.method == "POST":
-#         form = ProfileForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             form.save()
-#     else:
-#         form = ProfileForm(instance=request.user)
-#         return render(request, 'account/editprofile.html', {'form': form})
-#     return HttpResponseRedirect(reverse('myprofile'))
 
 def upload(request):
     if request.method == 'POST':
