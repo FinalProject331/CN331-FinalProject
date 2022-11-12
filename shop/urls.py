@@ -13,6 +13,7 @@ urlpatterns = [
     path("add_shop", views.add_shop, name="add_shop"),
     path("add_shop_send", views.add_shop_send, name="add_shop_send"),
     path("viewshop/<int:id>", views.viewshop, name="viewshop"),
-    path("shopupload", views.shopupload, name="shopupload")
+    path("shopupload", views.shopupload, name="shopupload"),
+
     
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

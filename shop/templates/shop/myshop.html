@@ -65,11 +65,11 @@ button:hover, a:hover {
 </style>
 </head>
 <body>
-{% if user.is_staff %}
+{% if user == shop.staff %}
 <h2 style="text-align:center">My Shop</h2>
+{% endif %}
+
 <div class="card">
-  h111
-  {{ shop.shopimg }}
   <img src="{{ shop.shopimg.url }}" alt="shopimg" width="200px">
   <h1> {{ shop.name }}</h1>
   <h1> {{ account.user.first_name }} {{ account.user.last_name }}</h1>
@@ -77,30 +77,16 @@ button:hover, a:hover {
   <div style="margin: 24px 0;">
   
   </div>
-  
+  {% if user == shop.staff %}
   <a href="{% url 'modifyshop' %}">Modify Shop</a>
-
-  <div class="container">
-    {% block content %}
-    {% endblock content %}
-</div>
-
-{% elif user.is_authenticated %}
-<div class="card">
-<h1> {{ shop.name }}</h1>
-<img src="{{ shop.shopimg.url }}" alt="shopimg" width="200px">
-  <h1> {{ account.user.first_name }} {{ account.user.last_name }}</h1>
-  <p class="title">bio: {{ shop.detail }}</p>
+  {% else %}
   <div style="margin: 24px 0;">
-    <a class="fix" href="{% url 'chat' %}"><i class="far fa-comments" style='font-size:40px'></i></a>
-  
-  </div>
-  
-</div>
-
-
-
+    <a class="fix" href="{% url 'home' %}"><i class="far fa-comments" style='font-size:40px'></i></a>
   {% endif %}
+  </div>
+
+
+
 
 
 
