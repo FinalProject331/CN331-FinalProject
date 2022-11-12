@@ -53,9 +53,25 @@
       color: #999;
     }
     
-    .green {
+    .edit {
       color: #4CAF50;
+      margin-right: 30px;
+      float: right;
     }
+
+    .link {
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .link:hover {
+        background-color: #45a049;
+      }
+
   </style>
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"
     integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
@@ -63,12 +79,12 @@
 
 <body>
 
-  <h2>{{room}} - DjChat</h2>
-
-  <a href="{% url 'home' %}">Back to Home</a><br>
-  <a href="{% url 'chat:leave_room' room %}">Leave</a><br>
-  <a href="{% url 'chat:edit_room' room %}">Edit Room</a><br>
-  <br>
+  <!-- <h2>{{room}} - DjChat</h2><br> -->
+  <h2 style="text-align: center;">{{room}}</h2><br>
+  <!-- <a class="link" href="{% url 'home' %}">Back to Home</a> -->
+  <a class="link" href="{% url 'chat:leave_room' room %}">Leave</a>
+  <a class="edit" href="{% url 'chat:edit_room' room %}"><i class="fa-regular fa-pen-to-square" style="font-size: 30px"></i></a><br>
+  <br> 
   <div class="bg" id="display">
 
     <!-- <div class="container darker">
@@ -134,7 +150,7 @@
       {% csrf_token %}
       <input type="hidden" name="username" id="username" value="{{username}}" />
       <input type="hidden" name="room_id" id="room_id" value="{{room_details.id}}" />
-      <a class="green" href="{% url 'shoplist' %}"><i class="fa-solid fa-store" style='font-size:35px'></i></a>
+      <a style="color:#4CAF50" href="{% url 'shoplist' %}"><i class="fa-solid fa-store" style='font-size:35px'></i></a>
       <input type="text" name="message" id="message" width="70px" />
       <input type="submit" value="Send">
     </form>

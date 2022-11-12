@@ -49,10 +49,18 @@ button:hover, a:hover {
 
 <div class="card">
   <img src="{{ account.image.url }}" alt="profileimg" width="200px">
-  <h2> username : {{ account.user.username }}</h2>
+  <h2> Username : {{ account.user.username }}</h2>
   <h2> {{ account.user.first_name }} {{ account.user.last_name }}</h2>
-  <p class="title">bio: {{ account.bio }}</p>
-  <p>gender: {{ account.gender }}</p>
+  <p class="title">Bio: {{ account.bio }}</p>
+  <p>Gender:
+  {% if account.gender == 'F' %}
+  <i class="fa-solid fa-venus" style="color: rgb(221, 61, 88); font-size: 20px;"></i>
+  {% elif account.gender == 'M' %}
+  <i class="fa-solid fa-mars" style="color: blue; font-size: 20px;"></i>
+  {% else %}
+  <i class="fa-solid fa-venus-mars" style="color: gray; font-size: 20px;"></i>
+  {% endif %}
+  </p>
   <div style="margin: 24px 0;">
   
   </div>

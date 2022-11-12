@@ -12,15 +12,17 @@ from account.models import Account
 
 
 def aboutus(request):
-    account = None
-    if not User.is_anonymous :
+    if request.user.is_anonymous :
+        account = None
+    else:
         account = Account.objects.get(user=request.user)
     return render(request, 'Aboutus/aboutus.html', {'account': account, })
 
 
 def help(request):
-    account = None
-    if not User.is_anonymous :
+    if request.user.is_anonymous :
+        account = None
+    else:
         account = Account.objects.get(user=request.user)
     return render(request, 'Aboutus/help.html', {'account': account, })
 
@@ -81,8 +83,9 @@ def logout_view(request):
 
 
 def home(request):
-    account = None
-    if not User.is_anonymous :
+    if request.user.is_anonymous :
+        account = None
+    else:
         account = Account.objects.get(user=request.user)
     
     text = ""
