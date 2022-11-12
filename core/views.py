@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from .models import Help
 from chat.models import Room
 from account.models import Account
+from shop.models import ShopChat, Shop
 
 # Create your views here.
 
@@ -81,13 +82,27 @@ def logout_view(request):
 
 
 def home(request):
+    user = request.user
+
+    # staff site
+    if user.is_staff:
+        shop = Shop.objects.get(staff = user)
+
+        chats = ShopChat.objects.all().filter(name__startswith = shop.name)
+        return render(request, "users/home.html", {
+        "rooms": chats,
+        
+    })
+
     account = None
+    # anonymous site
     if not User.is_anonymous :
         account = Account.objects.get(user=request.user)
     
     text = ""
     if request.method == 'POST':
         text = request.POST.post('text')
+    # user site
     return render(request, "users/home.html", {
         "rooms": Room.objects.all(),
         "text": text,

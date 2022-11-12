@@ -10,8 +10,8 @@ from django.core.files.storage import FileSystemStorage
 from .forms import ShopForm
 from django.contrib import messages
 from django.shortcuts import redirect
-
-# Create your views here.
+from chat.models import Message
+from django.http import HttpResponse, JsonResponse
 
 # let staff view the detail of shop
 def myshop(request):
@@ -119,3 +119,43 @@ def viewshop(request, id):
     shop = Shop.objects.get(pk=id)
     return render(request, 'shop/myshop.html', {
         'shop': shop, })
+
+"""
+chat with staff
+
+"""
+
+def shoproom(request, room):
+    username = request.user.username
+    room_details = ShopChat.objects.get(name=room)
+    return render(request, 'shop/shopchat.html', {
+        'username': username,
+        'room': room,
+        'room_details': room_details
+    })
+
+def shopcheckview(request, shop):
+    room = shop+str(request.user.id)
+    username = request.user.username
+
+    if ShopChat.objects.filter(name=room).exists():
+        return redirect('/shop/'+room+'/?username='+username)
+    else:
+        new_room = ShopChat.objects.create(name=room)
+        new_room.save()
+        return redirect('/shop/'+room+'/?username='+username)
+
+def shopsend(request):
+    message = request.POST['message']
+    username = request.POST['username']
+    room_id = request.POST['room_id']
+
+    new_message = Message.objects.create(value=message, user=username, room=room_id)
+    new_message.save()
+    return HttpResponse('Message sent successfully')
+
+def shopgetMessages(request, room):
+    room_details = ShopChat.objects.get(name=room)
+
+    messages = Message.objects.filter(room=room_details.id)
+    return JsonResponse({"messages":list(messages.values())})

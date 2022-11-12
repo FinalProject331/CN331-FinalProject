@@ -14,5 +14,10 @@ urlpatterns = [
     path("add_shop_send", views.add_shop_send, name="add_shop_send"),
     path("viewshop/<int:id>", views.viewshop, name="viewshop"),
     
+    # staff chat user site
+    path('<str:room>/', views.shoproom, name='shoproom'),
+    path('shopcheckview/<str:shop>', views.shopcheckview, name='shopcheckview'),
+    path('shopsend', views.shopsend, name='shopsend'),
+    path('shopgetMessages/<str:room>/', views.shopgetMessages, name='shopgetMessages'),
     
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
