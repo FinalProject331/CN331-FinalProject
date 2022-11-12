@@ -120,7 +120,6 @@ def viewshop(request, id):
     return render(request, 'shop/myshop.html', {
         'shop': shop, })
 
-<<<<<<< HEAD
 """
 chat with staff
 
@@ -168,7 +167,6 @@ def join_chat(request, shop):
     username = request.user.username
     
     return redirect('/shop/'+shop+'/?username='+username)
-=======
 
 
 
@@ -188,4 +186,3 @@ def shopupload(request):
     return render(request, 'myshop.html', {
         'profile_form': profile_form
     })
->>>>>>> 7ef0650fdf7f501c1dda0f002d06dc573482cf4a
