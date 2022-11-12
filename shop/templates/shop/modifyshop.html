@@ -100,10 +100,10 @@
   </form>
 
 
-  <form method=POST action="upload" enctype="multipart/form-data">
+  <form method=POST action="shopupload" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_table }} 
-    <input type="file" id="image" name="image" accept="image/*">
+    <input type="file" id="image" name="shopimg" accept="image/*">
     <button type="submit">Upload</button>
   </form>
 

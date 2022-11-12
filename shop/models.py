@@ -12,7 +12,7 @@ class ShopChat(models.Model):
 class Shop(models.Model):
 	name = models.CharField(max_length=300)
 	detail = models.CharField(max_length=300)
-	shopimg = models.ImageField(default='default.jpg', upload_to='profile_pics',blank=True, null=True)
+	shopimg = models.ImageField(default='defaultStaff.png', upload_to='profile_pics/',blank=True, null=True)
 	location = models.CharField(max_length=300)
 	chat_room = models.ManyToManyField(ShopChat, blank=True)
 	location = PlainLocationField(based_fields=['name'], zoom=7)
@@ -20,3 +20,4 @@ class Shop(models.Model):
 
 class AddShop(models.Model):
 	user = models.CharField(max_length=300)
+	
