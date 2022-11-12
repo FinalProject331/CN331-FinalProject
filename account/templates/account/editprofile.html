@@ -41,6 +41,7 @@
     cursor: pointer;
     width: 100%;
     opacity: 0.9;
+    border-radius: 4px;
   }
 
   button:hover {
@@ -54,8 +55,7 @@
   }
 
   /* Float cancel and signup buttons and add an equal width */
-  .cancelbtn,
-  .signupbtn {
+  .cancelbtn {
     float: left;
     width: 50%;
   }
@@ -83,7 +83,7 @@
 </style>
 
 <body>
-
+<div>
   <form action="edit" method="get" style="border:1px solid #ccc">
     {% csrf_token %} 
     <div class="container">
@@ -127,7 +127,7 @@
     <input type="file" id="image" name="image" accept="image/*">
     <button type="submit">Upload</button>
   </form>
-
+</div>
 </body>
 
 {% endblock %}

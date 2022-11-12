@@ -8,9 +8,9 @@
     }
     
     input[type=text],
-      input[type=datetime],
+      input[type=number],
       select {
-        width: 80%;
+        width: 100%;
         padding: 12px 20px;
         display: inline-block;
         border: 1px solid #ccc;
@@ -18,29 +18,41 @@
         box-sizing: border-box;
         margin-bottom: 12px;
     }
-    input[type=submit] {
-      max-width: 800px;
-      width: 100%;
-      background-color: #4CAF50;
-      color: white;
-      padding: 14px 20px;
-      margin: 8px 0;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-left: 20%;
-    }
-
-    input[type=submit]:hover {
-      background-color: #45a049;
-    }
     
+    input[type=submit] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      input[type=submit]:hover {
+        background-color: #45a049;
+      }
+
+      .link {
+          background-color: #4CAF50;
+          color: white;
+          padding: 14px 20px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          float: left;
+        }
+
+      .link:hover {
+        background-color: #45a049;
+      }
+
   </style>
 </head>
-
 <body>
+  <div>
+  <a class="link" href="{% url 'chat:return_chat' room.id %}">Back</a>
   <div class="container">
-    <h2>Django Chat</h2>
+    <h2>Edit Details</h2>
   </div>
 
     <form id="post-form" method="POST" action="edit_details">
@@ -52,7 +64,7 @@
       <input type="number" value="{{ room.max_seat }}" name="max_seat">
 
       <br>
-      <label for="gender_request">Choose a gender:</label>
+      <label for="gender_request">Choose a gender</label>
     
       <select name="gender_request" value="{{ room.request_gender }}"  id="gender_request" required>
           <option value="N">not define</option>
@@ -65,20 +77,21 @@
       <label for="dead_time">Dead time</label>
       <input type="datetime-local" value="{{ room.dead_time }}" name="dead_time" >
 
-      <br>
       <label for="meal_time">Meal time</label>
       <input type="datetime-local" value="{{ room.meal_time }}" name="meal_time" >
 
       <br>
-      <label for="status">Status:</label>
+      <label for="status">Status</label>
       <select name="status" value="{{ room.status }}"  id="status" required>
           <option value="Open">Open</option>
           <option value="Close">Close</option>
       </select>
 
       <br>
-      <button type="submit">Confirm</button>
+      <div class="container">
+      <input type="submit" value="Confirm">
+    </div>
     </form>
   </div>
-
+</div>
   {% endblock %}

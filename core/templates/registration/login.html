@@ -3,16 +3,16 @@
 
 {% block title %}Login{% endblock %}
 {% block body %}
+<div>
 <h2>Login</h2>
 
 <form method="post">
   {% csrf_token %}
   <table>
-    <label for="username"><b>username</b></label>
+    <label for="username"><b>Username </b></label>
       <input type="text" placeholder="Enter Username" name="username" >
-
-
-      <label for="psw"><b>Password</b></label>
+      <br>
+      <label for="psw"><b> Password </b></label>
       <input type="password" placeholder="Enter Password" name="password" >
     <tr>
       <td>&nbsp;</td>
@@ -21,4 +21,5 @@
     </tr>
   </table>
 </form>
+</div>
 {% endblock %}

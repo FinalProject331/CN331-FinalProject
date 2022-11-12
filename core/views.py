@@ -13,7 +13,7 @@ from shop.models import ShopChat, Shop
 
 
 def aboutus(request):
-    if request.user.is_anonymous :
+    if request.user.is_anonymous or request.user.is_staff :
         account = None
     else:
         account = Account.objects.get(user=request.user)
@@ -21,7 +21,7 @@ def aboutus(request):
 
 
 def help(request):
-    if request.user.is_anonymous :
+    if request.user.is_anonymous or request.user.is_staff :
         account = None
     else:
         account = Account.objects.get(user=request.user)
@@ -85,9 +85,13 @@ def logout_view(request):
 
 def home(request):
     user = request.user
-    
+
+    # anonymous site
+    if request.user.is_anonymous :
+        account = None
+        
     # staff site
-    if user.is_staff:
+    elif user.is_staff:
         shop = Shop.objects.get(staff = user)
 
         chats = ShopChat.objects.all().filter(staff = user.username)
@@ -95,9 +99,6 @@ def home(request):
         "chats": chats,
     })
 
-    # anonymous site
-    if request.user.is_anonymous :
-        account = None
     else:
         account = Account.objects.get(user=request.user)
     

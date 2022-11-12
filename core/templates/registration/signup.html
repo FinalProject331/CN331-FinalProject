@@ -2,9 +2,9 @@
 {% extends "layout.html" %}
 
 {% block body %}
+<div>
 <h2>Register</h2>
-
-<form action="create_account" method= "get" style="border:1px solid #ccc">
+<form action="create_account" method= "get" >
 
       <label for="first_name"><b>firstname</b></label>
       <input type="text" placeholder="Enter firstname" name="first_name">
@@ -60,5 +60,5 @@
       </div>
     </div>
   </form>
-
+</div>
 {% endblock %}
