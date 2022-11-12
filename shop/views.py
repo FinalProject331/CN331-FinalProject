@@ -36,25 +36,41 @@ def modifyshop(request):
 
 # modify actions 
 def modify(request):
+    username = request.GET.get('username')
+    bio = request.GET.get('bio')
 
+
+    user = request.user
+    account = Shop.objects.get(staff=user)
+
+    user.name = username
+    user.detail = bio
+
+    user.save()
+    user.refresh_from_db()
+    account.user = user
+    account.detail = bio
+    account.save()
+    account.refresh_from_db()
+    return HttpResponseRedirect(reverse('myshop'))
     
-    # if this is a POST request we need to process the form data
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = ShopForm(request.POST, instance=request.user.staff)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            form.save()
-            messages.success(request, 'Your profile is updated successfully')
-            return redirect(to='myshop')
-        else:
-            messages.error(request,('error ka'))
-    else:
-        form = ShopForm(instance=request.user.staff)
+    # # if this is a POST request we need to process the form data
+    # if request.method == 'POST':
+    #     # create a form instance and populate it with data from the request:
+    #     form = ShopForm(request.POST, instance=request.user.staff) 
+    #     # check whether it's valid:
+    #     if form.is_valid():
+    #         # process the data in form.cleaned_data as required
+    #         # ...
+    #         form.save()
+    #         messages.success(request, 'Your profile is updated successfully')
+    #         return redirect(to='myshop')
+    #     else:
+    #         messages.error(request,('error ka'))
+    # else:
+    #     form = ShopForm(instance=request.user.staff)
 
-    return render(request, 'myshop.html', {'form': form})
+    # return render(request, 'myshop.html', {'form': form})
 
 def uploadshop(request):
     if request.method == 'POST':
