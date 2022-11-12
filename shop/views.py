@@ -90,11 +90,12 @@ def uploadshop(request):
     
 # view shop list
 def shoplist(request):
-    
+    account = Account.objects.get(user=request.user)
     shops = Shop.objects.all()
 
     return render(request, 'shop/shoplist.html',{
-        "shops" : shops
+        "shops" : shops,
+        "account" : account
     })
     
 # search shop

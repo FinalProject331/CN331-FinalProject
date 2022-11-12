@@ -3,6 +3,7 @@
 <head>
   <script src="https://kit.fontawesome.com/3f85e29ea8.js" crossorigin="anonymous"></script>
 </head>
+<div>
 <h1>Room Detail</h1>
 <p>Room name: {{ room.name }}</p>
 <p>Room id: {{ room.id }}</p>
@@ -24,4 +25,5 @@ Gender:
 
 <br>
 <a href="{% url 'chat:join_room' room.name %}">Join</a>
+</div>
 {% endblock %}
