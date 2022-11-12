@@ -68,8 +68,7 @@ button:hover, a:hover {
 {% if user.is_staff %}
 <h2 style="text-align:center">My Shop</h2>
 <div class="card">
-  h111
-  {{ shop.shopimg }}
+
   <img src="{{ shop.shopimg.url }}" alt="shopimg" width="200px">
   <h1> {{ shop.name }}</h1>
   <h1> {{ account.user.first_name }} {{ account.user.last_name }}</h1>
@@ -92,7 +91,7 @@ button:hover, a:hover {
   <h1> {{ account.user.first_name }} {{ account.user.last_name }}</h1>
   <p class="title">bio: {{ shop.detail }}</p>
   <div style="margin: 24px 0;">
-    <a class="fix" href="{% url 'chat' %}"><i class="far fa-comments" style='font-size:40px'></i></a>
+    <a class="fix" href="{% url 'shopcheckview' shop.name %}"><i class="far fa-comments" style='font-size:40px'></i></a>
   
   </div>
   

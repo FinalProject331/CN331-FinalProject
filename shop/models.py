@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class ShopChat(models.Model):
+	name = models.CharField(max_length=300, default="")
 	staff = models.CharField(max_length=30)
 	customer = models.CharField(max_length=30)
 	restaurant_name = models.CharField(max_length=30)
