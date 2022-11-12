@@ -53,7 +53,7 @@
 
 {% for shop in shops %}
 
-<a href="" class="button button1">
+<a href="{% url 'viewshop' shop.id %}" class="button button1">
   <p>{{ shop.name }}:{{ shop.id }}</p>
 <p>{{ shop.detail }}</p>
 </a>

@@ -11,7 +11,8 @@ urlpatterns = [
     path("search_shop/", views.search_shop, name='search_shop'),
     path("shoplist", views.shoplist, name="shoplist"),
     path("add_shop", views.add_shop, name="add_shop"),
-    path("add_shop_send", views.add_shop_send, name="add_shop_semd"),
+    path("add_shop_send", views.add_shop_send, name="add_shop_send"),
+    path("viewshop/<int:id>", views.viewshop, name="viewshop"),
     
     
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

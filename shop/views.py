@@ -73,6 +73,7 @@ def uploadshop(request):
         'shop_form': shop_form
     })
     
+# view shop list
 def shoplist(request):
     
     shops = Shop.objects.all()
@@ -81,6 +82,7 @@ def shoplist(request):
         "shops" : shops
     })
     
+# search shop
 def search_shop(request):
     text = request.GET['search_shop']
     all_shop = Shop.objects.all()
@@ -99,13 +101,21 @@ def search_shop(request):
     else:
         return HttpResponseRedirect(reverse('shoplist'))
 
+# add shop by name
 def add_shop(request):
     account = Account.objects.get(user=request.user)
     return render(request, 'shop/addshop.html', {
         'account': account, })
 
+# send 
 def add_shop_send(request):
     report = request.GET.get('add_shop_send')
     form = AddShop.objects.create(user=report)
     form.save()
     return HttpResponseRedirect('add_shop')
+
+# view the shop detail
+def viewshop(request, id):
+    shop = Shop.objects.get(pk=id)
+    return render(request, 'shop/myshop.html', {
+        'shop': shop, })
