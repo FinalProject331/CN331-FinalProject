@@ -162,3 +162,8 @@ def shopgetMessages(request, room):
 
     messages = Message.objects.filter(room=room_details.id)
     return JsonResponse({"messages":list(messages.values())})
+
+def join_chat(request, shop):
+    username = request.user.username
+    
+    return redirect('/shop/'+shop+'/?username='+username)

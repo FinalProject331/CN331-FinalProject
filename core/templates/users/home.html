@@ -68,7 +68,7 @@
 
   {% for chat in chats %}
 
-  <a href="{% url 'home' %}" class="button button1">
+  <a href="{% url 'join_chat' chat %}" class="button button1">
     <p>{{ chat.name }}:{{ chat.id }}</p>
   </a>
 
