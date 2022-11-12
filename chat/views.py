@@ -156,6 +156,8 @@ def edit_details(request, room):
 
 def edit_room(request, room):
     this_room = Room.objects.get(name=room)
+    account = Account.objects.get(user=request.user)
     return render(request, 'chat/edit_room.html',{
         "room" : this_room,
+        "account" : account,
     })

@@ -42,6 +42,7 @@
   <div class="container">
     <h2>Django Chat</h2>
   </div>
+  <a href="{% url 'chat:return_chat' account.chat %}">Back</a>
 
     <form id="post-form" method="POST" action="edit_details">
       {% csrf_token %}
