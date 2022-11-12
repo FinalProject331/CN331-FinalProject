@@ -42,7 +42,7 @@
 
 </head>
 <div>
-<form method="GET" action="search_shop" style="padding: 20px">
+<form method="GET" action="{% url 'search_shop' %}" style="padding: 20px">
   <div class="search-input">
     <input type="text" name="search_shop" id="search-box" placeholder="Search..." style="width: 30%"/>
     <button id="btn-search">

@@ -76,7 +76,7 @@
   {% endfor %}
 
   {% elif user.is_authenticated %}
-  <form method="GET" action="search">
+  <form method="GET" action="{% url 'search' %}">
   <div class="search-input">
     <input type="text" name="search" id="search-box" placeholder="Search..." />
     <button id="btn-search">
