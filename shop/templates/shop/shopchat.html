@@ -53,18 +53,34 @@
       color: #999;
     }
     
-    .green {
-      color: #4CAF50;
+    .link {
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+    .link:hover {
+      background-color: #45a049;
     }
+
   </style>
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"
     integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 </head>
 
 <body>
-
-  <h2>{{room}} - DjChat</h2>
+<div>
+  <h2 style="text-align: center;">{{ room_details.restaurant_name }} - DjChat</h2>
+  {% if user.is_staff %}
+  <a class="link" href="{% url 'home' %}">Back</a><br>
   <br>
+  {% else %}
+  <a class="link" href="{% url 'shoplist' %}">Back</a><br>
+  <br>
+  {% endif %}
   <div class="bg" id="display">
 
     <!-- <div class="container darker">
@@ -100,8 +116,7 @@
 
   <div class="container; bg">
     <style>
-      input[type=text],
-      select {
+      input[type=text] {
         width: 90%;
         padding: 12px 20px;
         margin: 8px 0;
@@ -114,11 +129,12 @@
       input[type=submit] {
         background-color: #4CAF50;
         color: white;
-        padding: 14px 20px;
+        padding: 12px 20px;
         margin: 8px 0;
         border: none;
         border-radius: 4px;
         cursor: pointer;
+        float: right;
       }
 
       input[type=submit]:hover {
@@ -129,15 +145,14 @@
     <form id="post-form">
       {% csrf_token %}
       <input type="hidden" name="username" id="username" value="{{username}}" />
-      <input type="hidden" name="room_id" id="room_id" value="{{room_details.id}}" />
-      <a class="green" href="{% url 'shoplist' %}"><i class="fa-solid fa-store" style='font-size:35px'></i></a>
+      <input type="hidden" name="room_name" id="room_name" value="{{room_details.name}}" />
       <input type="text" name="message" id="message" width="70px" />
       <input type="submit" value="Send">
     </form>
     
   </div>
 
-
+</div>
 </body>
 
 <script type="text/javascript">
@@ -149,7 +164,7 @@
       url: '/send',
       data: {
         username: $('#username').val(),
-        room_id: $('#room_id').val(),
+        room_name: $('#room_name').val(),
         message: $('#message').val(),
         csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
       },

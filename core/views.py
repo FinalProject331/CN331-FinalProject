@@ -87,20 +87,19 @@ def home(request):
     user = request.user
 
     # anonymous site
-    if request.user.is_anonymous :
+    if user.is_anonymous :
         account = None
         
     # staff site
     elif user.is_staff:
         shop = Shop.objects.get(staff = user)
-
         chats = ShopChat.objects.all().filter(staff = user.username)
         return render(request, "users/home.html", {
         "chats": chats,
     })
 
     else:
-        account = Account.objects.get(user=request.user)
+        account = Account.objects.get(user=user)
     
     text = ""
     if request.method == 'POST':

@@ -48,7 +48,23 @@
       width: 300px;
       height: 300px;
       border-radius: 10px;
-
+    }
+    
+    .sbutton {
+      background-color: #ffffff;
+      /* Green */
+      border: 2px solid #4CAF50;
+      color: rgb(0, 0, 0);
+      padding: 16px 32px;
+      text-align: left;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+      width: 100%;
+      border-radius: 10px;
     }
 
     .button1 {
@@ -61,6 +77,11 @@
       background-color: #4CAF50;
       color: white;
     }
+
+    .sbutton:hover {
+      background-color: #4CAF50;
+      color: white;
+    }
   </style>
   
   {% if user.is_staff %}
@@ -68,11 +89,9 @@
 
   {% for chat in chats %}
 
-  <a href="{% url 'join_chat' chat.name %}" class="button button1">
-    <p>{{ chat.name }}:{{ chat.id }}</p>
+  <a href="{% url 'join_chat' chat.name %}" class="sbutton button1">
+    <p>Username: {{ chat.customer }}</p>
   </a>
-
-
   {% endfor %}
 
   {% elif user.is_authenticated %}

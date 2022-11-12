@@ -42,6 +42,7 @@
     cursor: pointer;
     width: 100%;
     opacity: 0.9;
+    border-radius: 4px;
   }
 
   button:hover {
@@ -55,8 +56,7 @@
   }
 
   /* Float cancel and signup buttons and add an equal width */
-  .cancelbtn,
-  .signupbtn {
+  .cancelbtn {
     float: left;
     width: 50%;
   }
@@ -84,7 +84,7 @@
 </style>
 
 <body>
-
+<div>
   <form action="modify" method="get" style="border:1px solid #ccc" >
     {% csrf_token %} 
     <div class="container">
@@ -92,10 +92,10 @@
       <p>Please fill in this form to modify a shop</p>
       <hr> 
         <label for="name">Name:</label>
-        <input type="text" name="name" value="{{ user.name }}">
+        <input type="text" name="name" placeholder="Enter Name" value="{{ shop.name }}">
 
-        <label for="bio">bio:</label>
-        <input type="text" name="bio"  value="{{ user.detail }}" >
+        <label for="bio">Bio:</label>
+        <input type="text" name="bio" placeholder="Enter Bio" value="{{ shop.detail }}" >
 
       <div class="clearfix">
         <button type="submit" class="signupbtn">Confirm</button>
@@ -110,7 +110,7 @@
     <input type="file" id="image" name="shopimg" accept="image/*">
     <button type="submit">Upload</button>
   </form>
-
+</div>
 </body>
 
 {% endblock %}
