@@ -8,6 +8,7 @@
     }
     
     input[type=text],
+      input[type=datetime],
       select {
         width: 80%;
         padding: 12px 20px;
@@ -15,7 +16,24 @@
         border: 1px solid #ccc;
         border-radius: 4px;
         box-sizing: border-box;
-      }
+        margin-bottom: 12px;
+    }
+    input[type=submit] {
+      max-width: 800px;
+      width: 100%;
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-left: 20%;
+    }
+
+    input[type=submit]:hover {
+      background-color: #45a049;
+    }
   </style>
 </head>
 
@@ -24,31 +42,45 @@
     <h2>Django Chat</h2>
   </div>
 
-  <div class="container">
-    <style>
-      input[type=submit] {
-        max-width: 800px;
-        width: 100%;
-        background-color: #4CAF50;
-        color: white;
-        padding: 14px 20px;
-        margin: 8px 0;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-      }
-
-      input[type=submit]:hover {
-        background-color: #45a049;
-      }
-    </style>
-
     <form id="post-form" method="POST" action="checkview">
       {% csrf_token %}
       <label>Room Name</label>
-      <input type="text" name="room_name" id="room_name" width="100px" />
+      <input type="text" placeholder="Enter Room name" name="room_name" id="room_name" width="100px" />
+      <br>
+      <label for="max_seat">max seat</label>
+      <input type="number" placeholder="Enter max seat" name="max_seat">
+
+      <br>
+      <label for="gender_request">Choose a gender:</label>
+    
+      <select name="gender_request" id="gender_request" required>
+          <option value="N">not define</option>
+          <option value="M">Male</option>
+          <option value="F">Femeal</option>
+          <option value="L">LGBTQ+</option>
+      </select>
+      
+      <br>
+      <label for="dead_time">Dead time</label>
+      <input type="datetime-local" placeholder="Enter dead time" name="dead_time" >
+
+      <br>
+      <label for="meal_time">Meal time</label>
+      <input type="datetime-local" placeholder="Enter meal time" name="meal_time" >
+
+      <br>
       <input type="submit" value="Enter Room">
     </form>
+    <!-- {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-dismissible alert-success">
+        <button type="button" class="close" data-dismiss="alert">
+        ×
+        </button>
+        <strong>{{message}}</strong>
+      </div>
+   {% endfor %}
+  {% endif %} -->
   </div>
 
   {% endblock %}

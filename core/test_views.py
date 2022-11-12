@@ -27,7 +27,8 @@ class CoreViewsTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_valid_createuser(self):
-        response = self.client.get('login', {'username': 'test', 'password': 'test1234', 'first_name': 'first', 'last_name': 'last', 'email': 'test@user.com'})
+        response = self.client.get('login', {'username': 'test', 'password': 'test1234',
+         'first_name': 'first', 'last_name': 'last', 'email': 'test@user.com'})
         self.assertTrue(response.status_code, 200)
     
 class LogInViewTest(TestCase):

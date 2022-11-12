@@ -3,8 +3,9 @@
 
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://kit.fontawesome.com/3f85e29ea8.js" crossorigin="anonymous"></script>
   <style>
-    div {
+    .bg {
       background-color: #f2f2f2;
       padding: 20px;
     }
@@ -51,6 +52,10 @@
       float: left;
       color: #999;
     }
+    
+    .green {
+      color: #4CAF50;
+    }
   </style>
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"
     integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
@@ -60,9 +65,11 @@
 
   <h2>{{room}} - DjChat</h2>
 
-  <a href="{% url 'roomconfig' %}">Back to Room</a><br>
+  <a href="{% url 'home' %}">Back to Home</a><br>
+  <a href="{% url 'chat:leave_room' room %}">Leave</a><br>
+  <a href="{% url 'chat:edit_room' room %}">Edit Room</a><br>
   <br>
-  <div id="display">
+  <div class="bg" id="display">
 
     <!-- <div class="container darker">
   <b>Tom</b><p>Hello Everyone, How Are You Guys Doing?</p>
@@ -95,7 +102,7 @@
   </script>
 
 
-  <div class="container">
+  <div class="container; bg">
     <style>
       input[type=text],
       select {
@@ -127,9 +134,11 @@
       {% csrf_token %}
       <input type="hidden" name="username" id="username" value="{{username}}" />
       <input type="hidden" name="room_id" id="room_id" value="{{room_details.id}}" />
-      <input type="text" name="message" id="message" width="100px" />
+      <a class="green" href="{% url 'shoplist' %}"><i class="fa-solid fa-store" style='font-size:35px'></i></a>
+      <input type="text" name="message" id="message" width="70px" />
       <input type="submit" value="Send">
     </form>
+    
   </div>
 
 

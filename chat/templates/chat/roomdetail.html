@@ -1,12 +1,26 @@
 {% extends "layout.html" %}
 {% block body %}
+<head>
+  <script src="https://kit.fontawesome.com/3f85e29ea8.js" crossorigin="anonymous"></script>
+</head>
 <h1>Room Detail</h1>
-<p>Room name :{{ room.name }}</p>
-<p>Room id :{{ room.id }}</p>
-<p>Seat count :{{ room.seat_count }}</p>
-<p>Max seat :{{ room.max_seat }}</p>
-<p>GenderRequest :{{ room.request_gender }}</p>
-<p>status :{{ room.status }}</p>
+<p>Room name: {{ room.name }}</p>
+<p>Room id: {{ room.id }}</p>
+<p>Seat count: {{ room.seat_count }}</p>
+<p>Max seat: {{ room.max_seat }}</p>
+
+Gender:
+{% if room.request_gender == 'F' %}
+<i class="fa-solid fa-venus" style="color: rgb(221, 61, 88); font-size: 20px;"></i>
+{% elif room.request_gender == 'M' %}
+<i class="fa-solid fa-mars" style="color: blue; font-size: 20px;"></i>
+{% else %}
+<i class="fa-solid fa-venus-mars" style="color: gray; font-size: 20px;"></i>
+{% endif %}
+
+<p>Time: {{ room.meal_time }}</p>
+<p>End in {{ room.dead_time }}</p>
+<p>status: {{ room.status }}</p>
 
 <br>
 <a href="{% url 'chat:join_room' room.name %}">Join</a>

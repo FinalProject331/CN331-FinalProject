@@ -21,11 +21,11 @@ class Room(models.Model):
     dead_time = models.DateTimeField(default=datetime.today, blank=True)
     # hashtags = models.ManyToManyField(Tags)
     meal_time = models.DateTimeField(default=datetime.today, blank=True)
-    status = models.BooleanField(default=True)
+    status = models.CharField(choices=[('O', 'Open'), ('C', 'Close')], default='Open', max_length=10)
     # room_owner = models.ManyToManyField(Account, verbose_name="owner")
 
-    def is_seat_available(self):
-        return self.seat_count < self.max_seat
+    def is_available(self):
+        return self.seat_count < self.max_seat and self.status == 'Open'
 
 
 class Message(models.Model):

@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<head>
+  <script src="https://kit.fontawesome.com/3f85e29ea8.js" crossorigin="anonymous"></script>
+  <style>
+    body {
+      color: green;
+      text-align: center;
+    }
+    
+    .button {
+      background-color: #ffffff;
+      /* Green */
+      border: 2px solid #4CAF50;
+      color: rgb(0, 0, 0);
+      /* padding: 16px 32px; */
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      /* margin: 4px 2px; */
+      transition-duration: 0.4s;
+      cursor: pointer;
+      width: 70%;
+      /* height: 300px; */
+      border-radius: 10px;
+
+    }
+
+    .button1 {
+      margin-right: 15px;
+      margin-bottom: 15px;
+    }
+
+    .button:hover {
+      background-color: #4CAF50;
+      color: white;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
+
+</head>
+<div>
+<form method="GET" action="search_shop" style="padding: 20px">
+  <div class="search-input">
+    <input type="text" name="search_shop" id="search-box" placeholder="Search..." style="width: 30%"/>
+    <button id="btn-search">
+      <i class="fa fa-search" aria-hidden="true"></i>
+    </button>
+  </div>
+  <br>
+
+{% for shop in shops %}
+
+<a href="{% url 'viewshop' shop.id %}" class="button button1">
+  <p>{{ shop.name }}:{{ shop.id }}</p>
+<p>{{ shop.detail }}</p>
+</a>
+
+{% endfor %}
+
+<a href="{% url 'add_shop' %}" class="button button1">
+<p><i class="fa-solid fa-plus" style="font-size: 17px"></i> Add Restaurant</p>
+</a>
+
+{% endblock body %}

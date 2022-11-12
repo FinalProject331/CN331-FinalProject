@@ -31,9 +31,6 @@
 <!-- <h1>Hello, {{ user.username|default:'Guest' }}</h1> -->
 <h1 class="webname">Food with Buddies</h1>
 <div>
-  {% if user.is_authenticated %}
-
-
   <style>
     .button {
       background-color: #ffffff;
@@ -65,8 +62,14 @@
       color: white;
     }
   </style>
+  
+  {% if user.is_staff %}
+  <p> Chat List</p>
+
+  {% elif user.is_authenticated %}
+  <form method="GET" action="search">
   <div class="search-input">
-    <input type="text" id="search-box" placeholder="Search..." />
+    <input type="text" name="search" id="search-box" placeholder="Search..." />
     <button id="btn-search">
       <i class="fa fa-search" aria-hidden="true"></i>
     </button>

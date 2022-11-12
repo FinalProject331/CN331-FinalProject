@@ -1,13 +1,11 @@
-# Create your views here.
-
-from django.shortcuts import render, redirect
-from chat.models import Room, Message
-from django.http import HttpResponse, JsonResponse
 from django.contrib import messages
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import redirect, render
 from account.models import Account
+from chat.models import Message, Room
+from datetime import datetime
 
 # Create your views here.
-
 
 def roomconfig(request):
     user = request.user
@@ -16,7 +14,6 @@ def roomconfig(request):
     return render(request, 'chat/roomconfig.html', {
         'account': account,
     })
-
 
 def room(request, room):
     user = request.user
@@ -31,12 +28,11 @@ def room(request, room):
         'account': account
     })
 
-
 def join_room(request, room):
     username = request.user.username
     this_room = Room.objects.get(name=room)
     account = Account.objects.get(user=request.user)
-    if this_room.id != account.chat and account.chat == 0 and this_room.is_seat_available():
+    if this_room.id != account.chat and account.chat == 0 and this_room.is_available():
         this_room.seat_count += 1
         account.chat = this_room.id
         this_room.save()
@@ -59,9 +55,13 @@ def join_room(request, room):
             'room': this_room
         })
 
-
 def checkview(request):
     room = request.POST['room_name']
+    max_seat = request.POST['max_seat']
+    gender_request = request.POST['gender_request']
+    dead_time = request.POST['dead_time']
+    meal_time = request.POST['meal_time']
+
     username = request.user.username
     user = request.user
     account = Account.objects.get(user=user)
@@ -69,25 +69,39 @@ def checkview(request):
         messages.warning(
             request, "leave the previous room before create new room.")
         return render(request, 'chat/roomconfig.html')
-    elif Room.objects.filter(name=room).exists():
-        return render(request, 'chat/roomdetail.html', {
-            "messages": messages.get_messages(request),
-            'room': Room.objects.get(name=room)
-        })
-    else:
+    # elif Room.objects.filter(name=room).exists():
+    #     return render(request, 'chat/roomdetail.html', {
+    #         "messages": messages.get_messages(request),
+    #         'room': Room.objects.get(name=room)
+    #     })
+    elif (checkTime(dead_time) and checkTime(meal_time)):
         new_room = Room.objects.create(name=room)
+        new_room.max_seat = max_seat
+        new_room.request_gender = gender_request
+        new_room.dead_time = dead_time
+        new_room.meal_time = meal_time
+        new_room.save()
         account.chat = new_room.id
         account.save()
-        new_room.save()
         return redirect('/'+room+'/?username='+username)
 
+    else:
+        messages.warning(request, "Time not correct.")
+        return render(request, 'chat/roomconfig.html')
 
-def create_room(request):
-    room_name = request.POST['room_name']
-    room = Room.objects.create(name=room_name)
+# def create_room(request):
+#     room_name = request.POST['room_name']
+#     room = Room.objects.create(name=room_name)
 
-    return redirect('/'+room_name+'/?username='+request.user.username)
+#     return redirect('/'+room_name+'/?username='+request.user.username)
 
+def checkTime(time):
+    now = datetime.now()
+    date_time = now.strftime("%Y-%m-%dT%H:%M")
+    if(time < date_time):
+        return False
+    else:
+        return True
 
 def send(request):
     message = request.POST['message']
@@ -99,23 +113,49 @@ def send(request):
     new_message.save()
     return HttpResponse('Message sent successfully')
 
-
 def getMessages(request, room):
     room_details = Room.objects.get(name=room)
-
     messages = Message.objects.filter(room=room_details.id)
     return JsonResponse({"messages": list(messages.values())})
 
-
 def room_detail(request, room):
     account = Account.objects.get(user=request.user)
-    return render(request, 'chat/roomdetail.html', {
-        'room': Room.objects.get(name=room),
-        'account':account,
+    return render(request, "chat/roomdetail.html", {
+        "room": Room.objects.get(name=room),
+        "account": account,
         })
-
 
 def return_chat(request, chat):
     username = request.user.username
     this_room = Room.objects.get(id=chat)
     return redirect('/'+this_room.name+'/?username='+username)
+
+def leave_room(request, room):
+    user = request.user
+    account = Account.objects.get(user=user)
+    account.chat = 0
+    account.save()
+    this_room = Room.objects.get(name=room)
+    this_room.seat_count -= 1
+    this_room.save()
+    if this_room.seat_count == 0:
+        this_room.delete()
+    return redirect('home')
+
+def edit_details(request, room):
+    this_room = Room.objects.get(name=room)
+    this_room.name = request.POST['room_name']
+    this_room.max_seat = request.POST['max_seat']
+    this_room.request_gender = request.POST['gender_request']
+    this_room.dead_time = request.POST['dead_time']
+    this_room.meal_time = request.POST['meal_time']
+    this_room.status = request.POST['status']
+    this_room.save()
+    username = request.user.username
+    return redirect('/'+this_room.name+'/?username='+username)
+
+def edit_room(request, room):
+    this_room = Room.objects.get(name=room)
+    return render(request, 'chat/edit_room.html',{
+        "room" : this_room,
+    })

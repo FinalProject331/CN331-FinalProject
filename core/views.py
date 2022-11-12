@@ -92,6 +92,7 @@ def home(request):
         "rooms": Room.objects.all(),
         "text": text,
         "account":account,
+        
     })
 
 
@@ -105,3 +106,21 @@ def help_send(request):
     form = Help.objects.create(user=report)
     form.save()
     return HttpResponseRedirect('help')
+
+def search(request):
+    text = request.GET['search']
+    all_room = Room.objects.all()
+    rooms = []
+    if text != "":
+        for room in all_room:
+            if text in room.name :
+                rooms.append(room)
+        if rooms == []:
+            messages.warning(
+                request, "Room name '"+text+"' does not exist.")
+            return HttpResponseRedirect(reverse('home'))
+        return render(request, "users/home.html", {
+            "rooms": rooms,
+    })
+    else:
+        return HttpResponseRedirect(reverse('home'))
