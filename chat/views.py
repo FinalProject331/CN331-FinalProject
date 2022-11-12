@@ -32,7 +32,7 @@ def join_room(request, room):
     username = request.user.username
     this_room = Room.objects.get(name=room)
     account = Account.objects.get(user=request.user)
-    if this_room.id != account.chat and account.chat == 0 and this_room.is_available():
+    if this_room.id != account.chat and account.chat == 0 and this_room.is_available() and check_gender(this_room.request_gender, account.gender):
         this_room.seat_count += 1
         account.chat = this_room.id
         this_room.save()
@@ -40,6 +40,14 @@ def join_room(request, room):
         return redirect('/'+room+'/?username='+username)
     elif this_room.id == account.chat:
         return redirect('/'+room+'/?username='+username)
+    elif check_gender(this_room.request_gender, account.gender) == False:
+        messages.warning(
+            request, "Your gender is not match.")
+        return render(request, 'chat/roomdetail.html', {
+            "messages": messages.get_messages(request),
+            'room': this_room,
+            'account': account,
+        })
     elif account.chat != 0:
         messages.warning(
             request, "leave the previous room before join new room.")
@@ -54,6 +62,15 @@ def join_room(request, room):
             "messages": messages.get_messages(request),
             'room': this_room
         })
+
+def check_gender(require, gender):
+    if require == 'F' and gender != 'F':
+        return False
+    elif require == 'M' and gender != 'M':
+        return False
+    else:
+        return True
+
 
 def checkview(request):
     room = request.POST['room_name']
