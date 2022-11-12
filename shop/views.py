@@ -17,8 +17,7 @@ from django.http import HttpResponse, JsonResponse
 def myshop(request):
     
     user = request.user
-    
-    shop = Shop.objects.get_or_create(staff = user)
+    shop = Shop.objects.get(staff = user)
 
     return render(request, 'shop/myshop.html',{
         "shop" : shop
