@@ -66,6 +66,15 @@
   {% if user.is_staff %}
   <p> Chat List</p>
 
+  {% for chat in chats %}
+
+  <a href="{% url 'home' %}" class="button button1">
+    <p>{{ chat.name }}:{{ chat.id }}</p>
+  </a>
+
+
+  {% endfor %}
+
   {% elif user.is_authenticated %}
   <form method="GET" action="search">
   <div class="search-input">

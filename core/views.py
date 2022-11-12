@@ -88,9 +88,9 @@ def home(request):
     if user.is_staff:
         shop = Shop.objects.get(staff = user)
 
-        chats = ShopChat.objects.all().filter(name__startswith = shop.name)
+        chats = ShopChat.objects.all().filter(staff = user.username)
         return render(request, "users/home.html", {
-        "rooms": chats,
+        "chats": chats,
         
     })
 
