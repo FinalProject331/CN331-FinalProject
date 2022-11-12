@@ -12,3 +12,11 @@ class ShopForm(ModelForm):
     class Meta:
         model = Shop
         fields = ['name', 'detail', 'shopimg', 'location']
+
+
+
+class ProfileShopForm(ModelForm):
+    # image = forms.ImageField()
+    class Meta:
+        model = Shop
+        fields = ['shopimg']

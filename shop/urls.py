@@ -13,6 +13,7 @@ urlpatterns = [
     path("add_shop", views.add_shop, name="add_shop"),
     path("add_shop_send", views.add_shop_send, name="add_shop_send"),
     path("viewshop/<int:id>", views.viewshop, name="viewshop"),
+<<<<<<< HEAD
     
     # staff chat user site
     path('<str:room>/', views.shoproom, name='shoproom'),
@@ -20,5 +21,8 @@ urlpatterns = [
     path('shopsend', views.shopsend, name='shopsend'),
     path('shopgetMessages/<str:room>/', views.shopgetMessages, name='shopgetMessages'),
     path('join_chat/<str:shop>', views.join_chat, name="join_chat")
+=======
+    path("shopupload", views.shopupload, name="shopupload")
+>>>>>>> 7ef0650fdf7f501c1dda0f002d06dc573482cf4a
     
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

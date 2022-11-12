@@ -7,7 +7,7 @@ from shop.models import Shop, ShopChat, AddShop
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.core.files.storage import FileSystemStorage
-from .forms import ShopForm
+from .forms import ShopForm,ProfileShopForm
 from django.contrib import messages
 from django.shortcuts import redirect
 from chat.models import Message
@@ -120,6 +120,7 @@ def viewshop(request, id):
     return render(request, 'shop/myshop.html', {
         'shop': shop, })
 
+<<<<<<< HEAD
 """
 chat with staff
 
@@ -167,3 +168,24 @@ def join_chat(request, shop):
     username = request.user.username
     
     return redirect('/shop/'+shop+'/?username='+username)
+=======
+
+
+
+
+def shopupload(request):
+    if request.method == 'POST':
+        profile_form = ProfileShopForm(request.POST, request.FILES, instance=request.user.staff)
+        if profile_form.is_valid():            
+            profile_form.save()
+            messages.success(request, 'Your profile is updated successfully')
+            return redirect(to='myshop')
+        else:
+            messages.error(request, ('error ka'))
+    else:
+        profile_form = ProfileShopForm(instance=request.user.staff)
+
+    return render(request, 'myshop.html', {
+        'profile_form': profile_form
+    })
+>>>>>>> 7ef0650fdf7f501c1dda0f002d06dc573482cf4a
