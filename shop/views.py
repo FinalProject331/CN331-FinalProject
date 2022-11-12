@@ -36,22 +36,21 @@ def modifyshop(request):
 
 # modify actions 
 def modify(request):
-    username = request.GET.get('username')
+    name = request.GET.get('name')
     bio = request.GET.get('bio')
 
-
     user = request.user
-    account = Shop.objects.get(staff=user)
+    shop = Shop.objects.get(staff=user)
 
-    user.name = username
-    user.detail = bio
+    shop.name = name
+    shop.detail = bio
 
-    user.save()
-    user.refresh_from_db()
-    account.user = user
-    account.detail = bio
-    account.save()
-    account.refresh_from_db()
+    shop.save()
+    shop.refresh_from_db()
+    # account.user = user
+    # account.detail = bio
+    # account.save()
+    # account.refresh_from_db()
     return HttpResponseRedirect(reverse('myshop'))
     
     # # if this is a POST request we need to process the form data

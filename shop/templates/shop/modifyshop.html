@@ -91,14 +91,11 @@
       <h1>Modify Shop</h1>
       <p>Please fill in this form to modify a shop</p>
       <hr> 
-        <label for="id_name">Name:</label>
-        <input id="id_name" name="username" type="text" value="{{ user.name }}">
+        <label for="name">Name:</label>
+        <input type="text" name="name" value="{{ user.name }}">
 
-        <label for="id_bio">bio:</label>
-        <input id="id_bio" name="bio" type="text" value="{{ user.detail }}" >
-    
- 
-         
+        <label for="bio">bio:</label>
+        <input type="text" name="bio"  value="{{ user.detail }}" >
 
       <div class="clearfix">
         <button type="submit" class="signupbtn">Confirm</button>
