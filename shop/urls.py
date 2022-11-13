@@ -17,7 +17,7 @@ urlpatterns = [
     path('shopcheckview/<str:shop>', views.shopcheckview, name='shopcheckview'),
     path('shopsend', views.shopsend, name='shopsend'),
     path('shopgetMessages/<str:room>/', views.shopgetMessages, name='shopgetMessages'),
-    path('join_chat/<str:shop>', views.join_chat, name="join_chat"),
+    path('join_chat/<str:chat>', views.join_chat, name="join_chat"),
     path("shopupload", views.shopupload, name="shopupload")
     
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -20,24 +20,24 @@ class ChatTestCase(TestCase):
         self.room1.max_seat = 3
         self.assertEqual(self.room1.max_seat, 3)
 
-    def test_seat_available(self):
-        self.assertTrue(self.room1.is_seat_available())
+    def test_is_available(self):
+        self.assertTrue(self.room1.is_available())
 
-    def test_seat_not_available(self):
+    def test_is_not_available(self):
         self.room1.seat_count = 4
-        self.assertFalse(self.room1.is_seat_available())
+        self.room1.status = 'Close'
+        self.assertFalse(self.room1.is_available())
 
-    def test_join_room_available(self):
-        self.assertEqual(self.account.chat, 0)
+    # def test_join_room_available(self):
+    #     self.assertEqual(self.account.chat, 0)
     
-    def test_join_room_not_available(self):
-        self.account.chat = self.room1.id
-        self.assertTrue(self.account.chat != 0 or self.account.chat != self.room1.id)
+    # def test_join_room_not_available(self):
+    #     self.account.chat = self.room1.id
+    #     self.assertTrue(self.account.chat != 0 or self.account.chat != self.room1.id)
 
-    def test_create_room_available(self):
-        self.assertEqual(self.account.chat, 0)
+    # def test_create_room_available(self):
+    #     self.assertEqual(self.account.chat, 0)
 
-    def test_create_room_not_available(self):
-        self.account.chat = self.room1.id
-        self.assertFalse(self.account.chat == 0)
-
+    # def test_create_room_not_available(self):
+    #     self.account.chat = self.room1.id
+    #     self.assertFalse(self.account.chat == 0)

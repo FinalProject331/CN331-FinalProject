@@ -60,7 +60,8 @@ def join_room(request, room):
         messages.warning(request, "seat is not available.")
         return render(request, 'chat/roomdetail.html', {
             "messages": messages.get_messages(request),
-            'room': this_room
+            'room': this_room,
+            'account': account,
         })
 
 def check_gender(require, gender):
