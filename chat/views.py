@@ -157,7 +157,10 @@ def leave_room(request, room):
     this_room.seat_count -= 1
     this_room.save()
     if this_room.seat_count == 0:
+        messages = Message.objects.filter(room=this_room.id)
         this_room.delete()
+        for message in messages:
+            message.delete()
     return redirect('home')
 
 def edit_details(request, room):
