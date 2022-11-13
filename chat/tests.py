@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 # Create your tests here.
 
 class ChatTestCase(TestCase):
+
     def setUp(self):
         self.room1 = Room.objects.create(name='test', max_seat=4)
         self.message = Message.objects.create(value='message1', user='test', room='room1')
