@@ -86,18 +86,18 @@ def logout_view(request):
 def home(request):
     user = request.user
 
-    # anonymous site
-    if user.is_anonymous :
-        account = None
-        
     # staff site
-    elif user.is_staff:
+    if user.is_staff and (not user.is_superuser):
         shop = Shop.objects.get(staff = user)
         chats = ShopChat.objects.all().filter(staff = user.username)
         return render(request, "users/home.html", {
         "chats": chats,
+        "shop" : shop,
     })
 
+    # anonymous site and admin site
+    if user.is_anonymous or user.is_superuser:
+        account = None
     else:
         account = Account.objects.get(user=user)
     

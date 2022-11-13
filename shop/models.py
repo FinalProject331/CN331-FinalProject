@@ -24,5 +24,6 @@ class Shop(models.Model):
         User, on_delete=models.CASCADE, related_name='staff', null=True)
 
 
+
 class AddShop(models.Model):
     user = models.CharField(max_length=300)
