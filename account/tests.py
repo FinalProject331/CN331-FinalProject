@@ -16,6 +16,6 @@ class AccountTestCase(TestCase):
         self.account.chat = 5
         self.assertEqual(self.account.chat, 5)
 
-    # def test_invalid_update_account_chat(self):
-    #     self.account = -1
-    #     self.assertFalse(self.account == -1)
+    def test_invalid_update_account_chat(self):
+        self.account.chat = -1
+        self.assertFalse(self.account == -1)
