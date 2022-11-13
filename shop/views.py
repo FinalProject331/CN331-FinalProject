@@ -158,10 +158,9 @@ def shoproom(request, room):
 
 def shopcheckview(request, shop):
     shopobj = Shop.objects.get(name = shop)
-    staff = shopobj.staff
+    staff = str(shopobj.staff)
     # room = shop+str(request.user.id)
-    user = request.user
-    username = user.username
+    username = request.user.username
     room_name = shop+username
 
     if ShopChat.objects.filter(name=room_name).exists():
