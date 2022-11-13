@@ -60,7 +60,8 @@ def join_room(request, room):
         messages.warning(request, "seat is not available.")
         return render(request, 'chat/roomdetail.html', {
             "messages": messages.get_messages(request),
-            'room': this_room
+            'room': this_room,
+            'account': account,
         })
 
 def check_gender(require, gender):
@@ -156,7 +157,10 @@ def leave_room(request, room):
     this_room.seat_count -= 1
     this_room.save()
     if this_room.seat_count == 0:
+        messages = Message.objects.filter(room=this_room.id)
         this_room.delete()
+        for message in messages:
+            message.delete()
     return redirect('home')
 
 def edit_details(request, room):

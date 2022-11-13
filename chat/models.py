@@ -25,7 +25,7 @@ class Room(models.Model):
     # room_owner = models.ManyToManyField(Account, verbose_name="owner")
 
     def is_available(self):
-        return self.seat_count < self.max_seat and self.status == 'O'
+        return (self.seat_count < self.max_seat and (self.status == 'O' or self.status == 'Open'))
 
 
 class Message(models.Model):
