@@ -67,29 +67,27 @@ class ChatViewsTestCase(TestCase):
         })
         self.assertEqual(response.status_code, 200)
 
+    """ create new room """
     def test_create_room_checkview_available(self):
         response = redirect('/'+self.room.name+'/?username='+self.user.username)
         self.assertEqual(response.status_code, 302)
 
-    # def test_create_room_checkview_account_chat_not_available(self):
-    #     self.account.chat = 5
-    #     self.assertFalse(self.account.chat == 0)
-    #     response = render(self.client, 'chat/roomconfig.html')
-    #     self.assertEqual(response.status_code, 200)
-
+    """ send message in chat room """
     def test_send_message(self):
         response = HttpResponse('success')
         self.assertEqual(response.status_code, 200)
 
-    
+    """ chat botton in navbar has to redirect to chat room """
     def test_return_chat(self):
         response = redirect('/'+self.room.name+'/?username='+self.user.username)
         self.assertEqual(response.status_code, 302)
 
+    """ leave chat room that user has joined before """
     def test_leave_room(self):
         response = redirect('home')
         self.assertEqual(response.status_code, 302)
 
+    """ edit room name from oldname to newname """
     def test_edit_details(self):
         self.room.name = 'newname'
         response = redirect('/'+self.room.name+'/?username='+self.user.username)
@@ -99,4 +97,10 @@ class ChatViewsTestCase(TestCase):
     #     response = render(self.client, 'chat/edit_room.html',{
     #         "room" : self.room,
     #     })
+    #     self.assertEqual(response.status_code, 200)
+
+    # def test_create_room_checkview_account_chat_not_available(self):
+    #     self.account.chat = 5
+    #     self.assertFalse(self.account.chat == 0)
+    #     response = render(self.client, 'chat/roomconfig.html')
     #     self.assertEqual(response.status_code, 200)
