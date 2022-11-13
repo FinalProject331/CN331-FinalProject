@@ -147,14 +147,7 @@ LOGOUT_REDIRECT_URL = "login"
 
 
 LOCATION_FIELD = {
-    'map.provider': 'google',
-    'map.zoom': 13,
+    'map.provider': 'openstreetmap',
+    'provider.openstreetmap.max_zoom': 18,
 
-    'search.provider': 'google',
-    'search.suffix': '',
-    
-    'provider.google.api': '//maps.google.com/maps/api/js?sensor=false',
-    'provider.google.api_key': 'AIzaSyBiI-iIf71_Okgi_BIjf9bs1cAvqc0hC-A',
-    'provider.google.api_libraries': '',
-    'provider.google.map.type': 'ROADMAP',
 }
