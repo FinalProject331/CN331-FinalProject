@@ -17,6 +17,3 @@ class Account(models.Model):
 			choices=GenderType,
 			max_length=10)
 
-def __str__(self):
-   	return self.user
-
