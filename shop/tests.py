@@ -29,8 +29,6 @@ class ShopTestCase(TestCase):
         shop = Shop.objects.create(name="roomtest",staff=user)
         shop.save()
 
-        self.normal_token, created = Token.objects.get_or_create(
-            user=self.normal_user)
 
     '''
     login as staff user
