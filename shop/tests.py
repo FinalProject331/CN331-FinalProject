@@ -29,6 +29,9 @@ class ShopTestCase(TestCase):
         shop = Shop.objects.create(name="roomtest",staff=user)
         shop.save()
 
+        self.normal_token, created = Token.objects.get_or_create(
+            user=self.normal_user)
+
     '''
     login as staff user
     '''
@@ -68,9 +71,11 @@ class ShopTestCase(TestCase):
     # '''
     # def test_shop_upload(self):
     #     self.client.login(username='staff', password='password')
+    #     self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.normal_token.key)
     #     form = {'shopimg': 'defaultStaff.png'}
     #     response = self.client.get(reverse('shopupload'), form)
     #     self.assertEqual(response.status_code, 302)
+
     '''
     view the staff help form
     '''

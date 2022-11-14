@@ -52,40 +52,6 @@ def modify(request):
     # account.refresh_from_db()
     return HttpResponseRedirect(reverse('myshop'))
     
-    # # if this is a POST request we need to process the form data
-    # if request.method == 'POST':
-    #     # create a form instance and populate it with data from the request:
-    #     form = ShopForm(request.POST, instance=request.user.staff) 
-    #     # check whether it's valid:
-    #     if form.is_valid():
-    #         # process the data in form.cleaned_data as required
-    #         # ...
-    #         form.save()
-    #         messages.success(request, 'Your profile is updated successfully')
-    #         return redirect(to='myshop')
-    #     else:
-    #         messages.error(request,('error ka'))
-    # else:
-    #     form = ShopForm(instance=request.user.staff)
-
-    # return render(request, 'myshop.html', {'form': form})
-
-# def uploadshop(request):
-#     if request.method == 'POST':
-#         shop_form = ShopForm(request.POST, request.FILES, instance=request.user.profile)
-#         if shop_form.is_valid():            
-#             shop_form.save()
-#             messages.success(request, 'Your shop is updated successfully')
-#             return redirect(to='myshop')
-#         else:
-#             messages.error(request, ('error ka'))
-#     else:
-#         shop_form = ShopForm(instance=request.user.profile)
-
-#     return render(request, 'myshop.html', {
-#         'shop_form': shop_form
-#     })
-    
 # view shop list
 def shoplist(request):
     account = Account.objects.get(user=request.user)
