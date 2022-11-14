@@ -26,7 +26,7 @@ class ShopTestCase(TestCase):
         user.is_staff = True
         user.save()
 
-        shop = Shop.objects.create(staff=user)
+        shop = Shop.objects.create(name="roomtest",staff=user)
         shop.save()
 
     '''
@@ -64,6 +64,14 @@ class ShopTestCase(TestCase):
         self.assertEqual(response.status_code, 302)
 
     '''
+    staff can upload myshop image
+    '''
+    def test_shop_upload(self):
+        self.client.login(username='staff', password='password')
+        form = {'shopimg': 'defaultStaff.png'}
+        response = self.client.get(reverse('shopupload'), form)
+        self.assertEqual(response.status_code, 302)
+    '''
     view the staff help form
     '''
     def test_view_help(self):
@@ -83,7 +91,7 @@ class ShopTestCase(TestCase):
     '''
     normal user can sent help form
     '''
-    def test_send_help(self):
+    def test_normal_send_help(self):
         self.client.login(username='user', password='password')
         form = {'help_send': 'this is my report'}
         response = self.client.get(reverse('help_send'), form)
@@ -105,3 +113,12 @@ class ShopTestCase(TestCase):
         self.client.login(username='user', password='password')
         response = self.client.get(reverse('add_shop'))
         self.assertEqual(response.status_code, 200)
+
+        '''
+    normal user can sent add shop form
+    '''
+    def test_normal_send_help(self):
+        self.client.login(username='user', password='password')
+        form = {'add_shop_send': 'this is my form'}
+        response = self.client.get(reverse('add_shop_send'), form)
+        self.assertEqual(response.status_code, 302)
