@@ -70,21 +70,21 @@ def modify(request):
 
     # return render(request, 'myshop.html', {'form': form})
 
-def uploadshop(request):
-    if request.method == 'POST':
-        shop_form = ShopForm(request.POST, request.FILES, instance=request.user.profile)
-        if shop_form.is_valid():            
-            shop_form.save()
-            messages.success(request, 'Your shop is updated successfully')
-            return redirect(to='myshop')
-        else:
-            messages.error(request, ('error ka'))
-    else:
-        shop_form = ShopForm(instance=request.user.profile)
+# def uploadshop(request):
+#     if request.method == 'POST':
+#         shop_form = ShopForm(request.POST, request.FILES, instance=request.user.profile)
+#         if shop_form.is_valid():            
+#             shop_form.save()
+#             messages.success(request, 'Your shop is updated successfully')
+#             return redirect(to='myshop')
+#         else:
+#             messages.error(request, ('error ka'))
+#     else:
+#         shop_form = ShopForm(instance=request.user.profile)
 
-    return render(request, 'myshop.html', {
-        'shop_form': shop_form
-    })
+#     return render(request, 'myshop.html', {
+#         'shop_form': shop_form
+#     })
     
 # view shop list
 def shoplist(request):
