@@ -7,6 +7,7 @@ from datetime import datetime
 
 # Create your views here.
 
+
 def roomconfig(request):
     user = request.user
     account = Account.objects.get(user=user)
@@ -14,6 +15,7 @@ def roomconfig(request):
     return render(request, 'chat/roomconfig.html', {
         'account': account,
     })
+
 
 def room(request, room):
     user = request.user
@@ -27,6 +29,7 @@ def room(request, room):
         'room_details': room_details,
         'account': account
     })
+
 
 def join_room(request, room):
     username = request.user.username
@@ -64,6 +67,7 @@ def join_room(request, room):
             'account': account,
         })
 
+
 def check_gender(require, gender):
     if require == 'F' and gender != 'F':
         return False
@@ -87,11 +91,6 @@ def checkview(request):
         messages.warning(
             request, "leave the previous room before create new room.")
         return render(request, 'chat/roomconfig.html')
-    # elif Room.objects.filter(name=room).exists():
-    #     return render(request, 'chat/roomdetail.html', {
-    #         "messages": messages.get_messages(request),
-    #         'room': Room.objects.get(name=room)
-    #     })
     elif (checkTime(dead_time) and checkTime(meal_time)):
         new_room = Room.objects.create(name=room)
         new_room.max_seat = max_seat
@@ -107,19 +106,15 @@ def checkview(request):
         messages.warning(request, "Time not correct.")
         return render(request, 'chat/roomconfig.html')
 
-# def create_room(request):
-#     room_name = request.POST['room_name']
-#     room = Room.objects.create(name=room_name)
-
-#     return redirect('/'+room_name+'/?username='+request.user.username)
 
 def checkTime(time):
     now = datetime.now()
     date_time = now.strftime("%Y-%m-%dT%H:%M")
-    if(time < date_time):
+    if (time < date_time):
         return False
     else:
         return True
+
 
 def send(request):
     message = request.POST['message']
@@ -131,22 +126,26 @@ def send(request):
     new_message.save()
     return HttpResponse('Message sent successfully')
 
+
 def getMessages(request, room):
     room_details = Room.objects.get(id=room)
     messages = Message.objects.filter(room=room_details.id)
     return JsonResponse({"messages": list(messages.values())})
+
 
 def room_detail(request, room):
     account = Account.objects.get(user=request.user)
     return render(request, "chat/roomdetail.html", {
         "room": Room.objects.get(id=room),
         "account": account,
-        })
+    })
+
 
 def return_chat(request, chat):
     username = request.user.username
     this_room = Room.objects.get(id=chat)
     return redirect('/'+str(this_room.id)+'/?username='+username)
+
 
 def leave_room(request, room):
     user = request.user
@@ -163,6 +162,7 @@ def leave_room(request, room):
             message.delete()
     return redirect('home')
 
+
 def edit_details(request, room):
     this_room = Room.objects.get(id=room)
     this_room.name = request.POST['room_name']
@@ -175,8 +175,9 @@ def edit_details(request, room):
     username = request.user.username
     return redirect('/'+str(this_room.id)+'/?username='+username)
 
+
 def edit_room(request, room):
     this_room = Room.objects.get(id=room)
-    return render(request, 'chat/edit_room.html',{
-        "room" : this_room.id,
+    return render(request, 'chat/edit_room.html', {
+        "room": this_room.id,
     })

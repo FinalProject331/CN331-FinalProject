@@ -5,7 +5,6 @@ from django.shortcuts import render, redirect
 from account.models import Account
 from chat.models import Message
 from django.contrib.auth.models import User
-from django.http import HttpResponse
 from django.contrib.auth.hashers import make_password
 from chat.views import check_gender
 
@@ -43,22 +42,24 @@ class ChatViewsTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
     
     
-    # '''
-    # view valid room's detail page it should found page
-    # '''
-    # def test_valid_roomdetail_page(self):
-    #     self.client.login(username='test1', password='password')
-    #     Account.objects.get(user=self.user)
-    #     response = self.client.get(reverse('chat:room_detail' , args=[1]))
-    #     self.assertEqual(response.status_code, 200)
+    '''
+    view valid room's detail page it should found page
+    '''
+    def test_valid_roomdetail_page(self):
+        self.client.login(username='test1', password='password')
+        room = Room.objects.get(name ="roomtest")
+        user = User.objects.get(username="test1")
+        Account.objects.get(user=user)
+        response = self.client.get(reverse('chat:room_detail' , args=[room.id]))
+        self.assertEqual(response.status_code, 200)
 
-    # '''
-    # view invalid room's detail page it should not found page
-    # '''
-    # def test_invalid_roomdetail_page(self):
+    '''
+    view invalid room's detail page it should not found page
+    '''
+    def test_invalid_roomdetail_page(self):
         
-    #     response = self.client.get('roomdetail', {'room': 'something'})
-    #     self.assertEqual(response.status_code, 404)
+        response = self.client.get('roomdetail', {'room': 'something'})
+        self.assertEqual(response.status_code, 404)
 
     # '''
     # test view chat page
@@ -116,18 +117,17 @@ class ChatViewsTestCase(TestCase):
     #     response = self.client.get(reverse('chat:join_room' , args=[1]))
     #     self.assertEqual(response.status_code, 302)
 
-    # '''
-    # test join room same as last join 
-    # '''
-    # def test_join_room_last(self):
-    #     self.client.login(username='test2', password='password')
-    #     account = Account.objects.get(user=self.user)
-    #     this_room = Room.objects.get(name = "roomtest")
-    #     account.chat = 1
-    #     this_room.id = 1
+    '''
+    test join room same as last join 
+    '''
+    def test_join_room_last(self):
+        self.client.login(username='test2', password='password')
+        user = User.objects.get(username="test2")
+        account = Account.objects.get(user=user)
+        account.chat = 1
+        response = self.client.get(reverse('chat:join_room' , args=[1]))
+        self.assertEqual(response.status_code, 302)
 
-    #     response = self.client.get(reverse('chat:join_room' , args=[1]))
-    #     self.assertEqual(response.status_code, 302)
 
     # """ create new room """
     # def test_create_room_checkview_available(self):

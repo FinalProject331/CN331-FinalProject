@@ -64,15 +64,25 @@ class ShopTestCase(TestCase):
         response = self.client.get(reverse('modify'), form)
         self.assertEqual(response.status_code, 302)
 
-    # '''
-    # staff can upload myshop image
-    # '''
-    # def test_shop_upload(self):
-    #     self.client.login(username='staff', password='password')
-    #     self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.normal_token.key)
-    #     form = {'shopimg': 'defaultStaff.png'}
-    #     response = self.client.get(reverse('shopupload'), form)
-    #     self.assertEqual(response.status_code, 302)
+    '''
+    test upload yorself a shop image success
+    '''
+    def test_upload_shop_image_success(self):
+        self.client.login(username='staff', password='password')
+        form = {'image':"default.jpg"}
+
+        response = self.client.post(reverse('shopupload'), form)
+        self.assertEqual(response.status_code, 302)
+
+    '''
+    test upload yorself a shop image fail
+    '''
+    def test_upload_shop_image_fail(self):
+        self.client.login(username='staff', password='password')
+        form = {'image':"default.jpg"}
+
+        response = self.client.get(reverse('shopupload'), form)
+        self.assertEqual(response.status_code, 200)
 
     '''
     view the staff help form

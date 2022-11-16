@@ -168,6 +168,6 @@ def shopupload(request):
     else:
         profile_form = ProfileShopForm(instance=request.user.staff)
 
-    return render(request, 'myshop.html', {
+    return render(request, 'shop/myshop.html', {
         'profile_form': profile_form
     })
