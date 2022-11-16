@@ -12,10 +12,10 @@ urlpatterns = [
     path("add_shop", views.add_shop, name="add_shop"),
     path("add_shop_send", views.add_shop_send, name="add_shop_send"),
     path("viewshop/<int:id>", views.viewshop, name="viewshop"),
-    path('<str:room>/', views.shoproom, name='shoproom'),
+    path('<int:id>/', views.shoproom, name='shoproom'),
     path('shopcheckview/<str:shop>', views.shopcheckview, name='shopcheckview'),
     path('shopsend', views.shopsend, name='shopsend'),
-    path('shopgetMessages/<str:room>/', views.shopgetMessages, name='shopgetMessages'),
+    path('shopgetMessages/<int:room>/', views.shopgetMessages, name='shopgetMessages'),
     path('join_chat/<str:chat>', views.join_chat, name="join_chat"),
     path("shopupload", views.shopupload, name="shopupload")
     
