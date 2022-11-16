@@ -15,6 +15,7 @@ class ShopChat(models.Model):
 
 class Shop(models.Model):
     name = models.CharField(max_length=300)
+    id = models.AutoField(primary_key=True)
     detail = models.CharField(max_length=300)
     shopimg = models.ImageField(
         default='defaultStaff.png', upload_to='profile_pics/', blank=True, null=True)

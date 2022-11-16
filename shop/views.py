@@ -139,16 +139,16 @@ def shopcheckview(request, shop):
 def shopsend(request):
     message = request.POST['message']
     username = request.POST['username']
-    room_name = request.POST['room_name']
+    room_id = request.POST['room_id']
     print("it,s work")
 
-    new_message = ShopMessage.objects.create(value=message, user=username, room=room_name)
+    new_message = ShopMessage.objects.create(value=message, user=username, room=room_id)
     new_message.save()
     return HttpResponse('Message sent successfully')
 
 def shopgetMessages(request, room):
     room_details = Shop.objects.get(id=room)
-    messages = ShopMessage.objects.filter(room=room_details.name)
+    messages = ShopMessage.objects.filter(room=room_details.pk)
     return JsonResponse({"messages":list(messages.values())})
 
 def join_chat(request, chat):
