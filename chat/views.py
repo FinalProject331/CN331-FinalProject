@@ -20,7 +20,7 @@ def room(request, room):
     account = Account.objects.get(user=user)
 
     username = request.GET.get('username')
-    room_details = Room.objects.get(name=room)
+    room_details = Room.objects.get(id=room)
     return render(request, 'chat/room.html', {
         'username': username,
         'room': room,
@@ -30,16 +30,16 @@ def room(request, room):
 
 def join_room(request, room):
     username = request.user.username
-    this_room = Room.objects.get(name=room)
+    this_room = Room.objects.get(id=room)
     account = Account.objects.get(user=request.user)
     if this_room.id != account.chat and account.chat == 0 and this_room.is_available() and check_gender(this_room.request_gender, account.gender):
         this_room.seat_count += 1
         account.chat = this_room.id
         this_room.save()
         account.save()
-        return redirect('/'+room+'/?username='+username)
+        return redirect('/'+str(room)+'/?username='+username)
     elif this_room.id == account.chat:
-        return redirect('/'+room+'/?username='+username)
+        return redirect('/'+str(room)+'/?username='+username)
     elif check_gender(this_room.request_gender, account.gender) == False:
         messages.warning(
             request, "Your gender is not match.")
@@ -101,7 +101,7 @@ def checkview(request):
         new_room.save()
         account.chat = new_room.id
         account.save()
-        return redirect('/'+room+'/?username='+username)
+        return redirect('/'+str(room.id)+'/?username='+username)
 
     else:
         messages.warning(request, "Time not correct.")
@@ -132,28 +132,28 @@ def send(request):
     return HttpResponse('Message sent successfully')
 
 def getMessages(request, room):
-    room_details = Room.objects.get(name=room)
+    room_details = Room.objects.get(id=room)
     messages = Message.objects.filter(room=room_details.id)
     return JsonResponse({"messages": list(messages.values())})
 
 def room_detail(request, room):
     account = Account.objects.get(user=request.user)
     return render(request, "chat/roomdetail.html", {
-        "room": Room.objects.get(name=room),
+        "room": Room.objects.get(id=room),
         "account": account,
         })
 
 def return_chat(request, chat):
     username = request.user.username
     this_room = Room.objects.get(id=chat)
-    return redirect('/'+this_room.name+'/?username='+username)
+    return redirect('/'+str(this_room.id)+'/?username='+username)
 
 def leave_room(request, room):
     user = request.user
     account = Account.objects.get(user=user)
     account.chat = 0
     account.save()
-    this_room = Room.objects.get(name=room)
+    this_room = Room.objects.get(id=room)
     this_room.seat_count -= 1
     this_room.save()
     if this_room.seat_count == 0:
@@ -164,7 +164,7 @@ def leave_room(request, room):
     return redirect('home')
 
 def edit_details(request, room):
-    this_room = Room.objects.get(name=room)
+    this_room = Room.objects.get(id=room)
     this_room.name = request.POST['room_name']
     this_room.max_seat = request.POST['max_seat']
     this_room.request_gender = request.POST['gender_request']
@@ -173,10 +173,10 @@ def edit_details(request, room):
     this_room.status = request.POST['status']
     this_room.save()
     username = request.user.username
-    return redirect('/'+this_room.name+'/?username='+username)
+    return redirect('/'+str(this_room.id)+'/?username='+username)
 
 def edit_room(request, room):
-    this_room = Room.objects.get(name=room)
+    this_room = Room.objects.get(id=room)
     return render(request, 'chat/edit_room.html',{
-        "room" : this_room,
+        "room" : this_room.id,
     })

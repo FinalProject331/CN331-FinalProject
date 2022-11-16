@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 from location_field.models.plain import PlainLocationField
 from django.contrib.auth.models import User
 
@@ -27,3 +28,9 @@ class Shop(models.Model):
 
 class AddShop(models.Model):
     user = models.CharField(max_length=300)
+
+class Message(models.Model):
+    value = models.CharField(max_length=1000000)
+    date = models.DateTimeField(default=datetime.now, blank=True)
+    user = models.CharField(max_length=1000000)
+    room = models.CharField(max_length=1000000)

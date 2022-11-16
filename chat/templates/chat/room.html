@@ -81,7 +81,7 @@
 
   <div>
   <!-- <h2>{{room}} - DjChat</h2><br> -->
-  <h2 style="text-align: center;">{{room}}</h2><br>
+  <h2 style="text-align: center;">{{room.id}}</h2><br>
   <!-- <a class="link" href="{% url 'home' %}">Back to Home</a> -->
   <a class="link" href="{% url 'chat:leave_room' room %}">Leave</a>
   <a class="edit" href="{% url 'chat:edit_room' room %}"><i class="fa-regular fa-pen-to-square" style="font-size: 30px"></i></a><br>

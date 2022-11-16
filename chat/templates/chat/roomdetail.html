@@ -24,6 +24,6 @@ Gender:
 <p>status: {{ room.status }}</p>
 
 <br>
-<a href="{% url 'chat:join_room' room.name %}">Join</a>
+<a href="{% url 'chat:join_room' room.id %}">Join</a>
 </div>
 {% endblock %}
