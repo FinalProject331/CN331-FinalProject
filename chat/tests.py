@@ -22,7 +22,9 @@ class ChatTestCase(TestCase):
         self.assertEqual(self.room1.max_seat, 3)
 
     def test_is_available(self):
-        self.assertTrue(self.room1.is_available())
+        room = self.room1
+        self.assertTrue(room.is_available(), (room.seat_count < room.max_seat and (room.status == 'O' or room.status == 'Open')))
+        
 
     def test_is_not_available(self):
         self.room1.seat_count = 4

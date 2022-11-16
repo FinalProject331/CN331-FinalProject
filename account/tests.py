@@ -19,3 +19,5 @@ class AccountTestCase(TestCase):
     def test_invalid_update_account_chat(self):
         self.account.chat = -1
         self.assertFalse(self.account == -1)
+
+
