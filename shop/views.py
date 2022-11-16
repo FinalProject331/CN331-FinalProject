@@ -7,10 +7,10 @@ from shop.models import Shop, ShopChat, AddShop
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.core.files.storage import FileSystemStorage
-from .forms import ShopForm,ProfileShopForm
+from .forms import ProfileShopForm
 from django.contrib import messages
 from django.shortcuts import redirect
-from chat.models import Message
+from .models import ShopMessage
 from django.http import HttpResponse, JsonResponse
 
 # let staff view the detail of shop
@@ -140,15 +140,15 @@ def shopsend(request):
     message = request.POST['message']
     username = request.POST['username']
     room_name = request.POST['room_name']
+    print("it,s work")
 
-    new_message = Message.objects.create(value=message, user=username, room=room_name)
+    new_message = ShopMessage.objects.create(value=message, user=username, room=room_name)
     new_message.save()
     return HttpResponse('Message sent successfully')
 
 def shopgetMessages(request, room):
     room_details = ShopChat.objects.get(name=room)
-
-    messages = Message.objects.filter(room=room)
+    messages = ShopMessage.objects.filter(room=room_details.name)
     return JsonResponse({"messages":list(messages.values())})
 
 def join_chat(request, chat):

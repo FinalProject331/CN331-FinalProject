@@ -50,7 +50,7 @@
 </head>
 <body>
   <div>
-  <a class="link" href="{% url 'chat:return_chat' room.id %}">Back</a>
+  <a class="link" href="{% url 'chat:return_chat' room %}">Back</a>
   <div class="container">
     <h2>Edit Details</h2>
   </div>
@@ -69,7 +69,7 @@
       <select name="gender_request" value="{{ room.request_gender }}"  id="gender_request" required>
           <option value="N">not define</option>
           <option value="M">Male</option>
-          <option value="F">Femeal</option>
+          <option value="F">Female</option>
           <option value="L">LGBTQ+</option>
       </select>
       

@@ -16,7 +16,7 @@ class Room(models.Model):
     request_gender = models.CharField(blank=True,
                                       choices=GenderRequest,
                                       max_length=10)
-    room_name = models.CharField
+    # room_name = models.CharField
     start_time = models.DateTimeField(default=datetime.now, blank=True)
     dead_time = models.DateTimeField(default=datetime.today, blank=True)
     # hashtags = models.ManyToManyField(Tags)
