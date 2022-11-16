@@ -92,14 +92,6 @@ class ShopTestCase(TestCase):
         self.assertEqual(response.status_code, 302)
 
     '''
-    normal user can sent help form
-    '''
-    def test_normal_send_help(self):
-        self.client.login(username='user', password='password')
-        form = {'help_send': 'this is my report'}
-        response = self.client.get(reverse('help_send'), form)
-        self.assertEqual(response.status_code, 302)
-    '''
     login normal user
     view shop list
     '''

@@ -46,14 +46,6 @@ def login_view(request):
     return render(request, "registration/login.html")
 
 
-def logout_view(request):
-    logout(request)
-    messages.success(request, "Logged out.")
-    return HttpResponseRedirect(reverse('home'))
-    # return render(request, "registration/login.html", {
-    #     "messages": messages.get_messages(request)
-    # })
-
 
 def create_account(request):
     first_name = request.GET.get('first_name')
@@ -101,15 +93,10 @@ def home(request):
     else:
         account = Account.objects.get(user=user)
     
-    text = ""
-    if request.method == 'POST':
-        text = request.POST.post('text')
     # user site
     return render(request, "users/home.html", {
         "rooms": Room.objects.all(),
-        "text": text,
         "account":account,
-        
     })
 
 
