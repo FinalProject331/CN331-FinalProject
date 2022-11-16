@@ -29,7 +29,7 @@ class Shop(models.Model):
 class AddShop(models.Model):
     user = models.CharField(max_length=300)
 
-class Message(models.Model):
+class ShopMessage(models.Model):
     value = models.CharField(max_length=1000000)
     date = models.DateTimeField(default=datetime.now, blank=True)
     user = models.CharField(max_length=1000000)
