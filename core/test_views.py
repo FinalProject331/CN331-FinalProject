@@ -1,14 +1,23 @@
 from django.test import TestCase, Client
 from django.urls import reverse
+from account.models import Account
 from django.contrib.auth.models import User
-
+from django.contrib.auth.hashers import make_password
+from django.urls import reverse
 # Create your tests here.
 
 # views_test
 
 class CoreViewsTestCase(TestCase):
-    def setup(self):
+
+    '''
+    create user and create account
+    '''
+    def setUp(self):
         self.client = Client()
+        password = make_password('password')
+        self.user = User.objects.create(username='test', password=password)
+        self.account = Account.objects.create(user=self.user)
 
     def test_aboutus_view(self):
         response = self.client.get(reverse('aboutus'))

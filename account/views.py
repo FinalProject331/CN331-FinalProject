@@ -60,11 +60,9 @@ def upload(request):
             profile_form.save()
             messages.success(request, 'Your profile is updated successfully')
             return redirect(to='myprofile')
-        else:
-            messages.error(request, ('error ka'))
     else:
         profile_form = ProfileForm(instance=request.user.profile)
 
-    return render(request, 'myprofile.html', {
+    return render(request, 'account/myprofile.html', {
         'profile_form': profile_form
     })

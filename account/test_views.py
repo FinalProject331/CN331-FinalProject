@@ -6,28 +6,28 @@ from django.contrib.auth.hashers import make_password
 from django.urls import reverse
 
 class ChatViewsTestCase(TestCase):
+    '''
+    create user and create account
+    '''
     def setUp(self):
         self.client = Client()
         password = make_password('password')
         self.user = User.objects.create(username='test', password=password)
         self.account = Account.objects.create(user=self.user)
 
+    '''
+    test view myprofile page
+    '''
     def test_myprofile_view(self):
         self.client.login(username='test', password='password')
         response = self.client.get(reverse('myprofile'))
         self.assertEqual(response.status_code, 200)
 
-    # def test_editprofile_view(self):
-    #     response = self.client.get('editprofile')
-    #     self.assertEqual(response.status_code, 200)
-
-    def test_edit_view(self):
-        username = 'newUsername'
-        self.user.username = username
-        self.user.save()
-        self.user.refresh_from_db()
-        self.account.user = self.user
-        self.account.save()
-        self.account.refresh_from_db()
-        response = render(self.client, 'account/myprofile.html')
+    '''
+    test view edit profile page
+    '''
+    def test_editprofile_view(self):
+        self.client.login(username='test', password='password')
+        response = self.client.get(reverse('editprofile'))
+        
         self.assertEqual(response.status_code, 200)
