@@ -135,7 +135,7 @@ class CoreViewsTestCase(TestCase):
         c = Client()
         form = {'username': 'account', 'password': 'account1234',
          'first_name': 'first', 'last_name': 'last', 'email': 'test@user.com', 'gender':"Male", 'birthday': "2003-05-28"}
-        response = c.get(reverse('create_account'), form )
+        response = c.post(reverse('create_account'), form )
         self.assertTrue(response.status_code, 200)
 
     '''
