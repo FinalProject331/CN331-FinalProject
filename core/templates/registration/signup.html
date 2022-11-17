@@ -43,7 +43,8 @@
 
 
 
-<form action="create_account" method= "get" >
+<form action="create_account" method= "post" >
+  {% csrf_token %}
 
       <label for="first_name"><b>firstname</b></label>
       <input type="text" placeholder="Enter firstname" name="first_name">

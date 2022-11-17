@@ -1,7 +1,7 @@
 from django.test import TestCase, Client
 from django.urls import reverse
 from chat.models import Room
-from django.shortcuts import render, redirect
+from datetime import datetime
 from account.models import Account
 from chat.models import Message
 from django.contrib.auth.models import User
@@ -61,25 +61,6 @@ class ChatViewsTestCase(TestCase):
         response = self.client.get('roomdetail', {'room': 'something'})
         self.assertEqual(response.status_code, 404)
 
-    # '''
-    # test view chat page
-    # '''
-    # def test_view_room(self):
-    #     self.client.login(username='test1', password='password')
-    #     response = self.client.get("\1\?username=test1")
-    #     self.assertEqual(response.status_code, 302)
-
-    """
-    action join room
-    """
-    '''
-    user that meet requiremants available to join room  
-    '''
-    def test_join_room_avialable(self):
-        self.client.login(username='test1', password='password')
-        response = self.client.get(reverse('chat:join_room' , args=[1]))
-        self.assertEqual(response.status_code, 302)
-
     '''
     user that gender don't meet the requirements not available to join room  
     '''
@@ -91,71 +72,23 @@ class ChatViewsTestCase(TestCase):
         gender = "F"
         check_gender(require, gender)
 
-    # '''
-    # user who had joined a room can't join other room
-    # '''
-    # def test_join_room_chat_not_available(self):
-    #     self.client.login(username='test1', password='password')
-    #     account = Account.objects.get(user=self.user)
-    #     this_room = Room.objects.get(name = "roomtest")
-    #     this_room.max_seat = 1
-    #     account.chat = this_room.id
-
-    #     response = self.client.get(reverse('chat:join_room' , args=[1]))
-    #     self.assertEqual(response.status_code, 302)
-
-    # '''
-    # user not available to join a full room  
-    # '''
-    # def test_join_room_seat_not_available(self):
-    #     self.client.login(username='test2', password='password')
-    #     account = Account.objects.get(user=self.user)
-    #     this_room = Room.objects.get(name = "roomtest")
-    #     this_room.max_seat = 1
-    #     account.chat = this_room.id
-
-    #     response = self.client.get(reverse('chat:join_room' , args=[1]))
-    #     self.assertEqual(response.status_code, 302)
-
     '''
-    test join room same as last join 
+    test view edit room page 
     '''
-    def test_join_room_last(self):
-        self.client.login(username='test2', password='password')
-        user = User.objects.get(username="test2")
+    def test_chat_view_edit_room(self):
+        self.client.login(username='test1', password='password')
+
+        # user join room
+        user = User.objects.get(username="test1")
         account = Account.objects.get(user=user)
-        account.chat = 1
-        response = self.client.get(reverse('chat:join_room' , args=[1]))
-        self.assertEqual(response.status_code, 302)
+        room = Room.objects.get(name="roomtest")
+        room.max_seat = 7
+        account.chat = room.id
+        account.save()
 
-
-    # """ create new room """
-    # def test_create_room_checkview_available(self):
-    #     response = redirect('/'+self.room.id+'/?username='+self.user.username)
-    #     self.assertEqual(response.status_code, 302)
-
-    # """ send message in chat room """
-    # def test_send_message(self):
-    #     response = HttpResponse('success')
-    #     self.assertEqual(response.status_code, 200)
-
-    # """ chat botton in navbar has to redirect to chat room """
-    # def test_return_chat(self):
-    #     response = redirect('/'+self.room.id+'/?username='+self.user.username)
-    #     self.assertEqual(response.status_code, 302)
-
-    # """ leave chat room that user has joined before """
-    # def test_leave_room(self):
-    #     response = redirect('home')
-    #     self.assertEqual(response.status_code, 302)
-    # """ edit room name from oldname to newname """
-    # def test_edit_details(self):
-    #     self.room.name = 'newname'
-    #     response = redirect('/'+self.room.id+'/?username='+self.user.username)
-    #     self.assertEqual(response.status_code, 302)
-
-    # def test_edit_room(self):
-    #     response = render(self.client, 'chat/edit_room.html',{
-    #         "room" : self.room,
-    #     })
-    #     self.assertEqual(response.status_code, 200)
+        longtime = datetime(2099,12,31,23,59,59)
+        form = {'room_name':"somename", 'description':"my description", 'max_seat':"3",
+        'gender_request':'N', 'dead_time': longtime, 'meal_time':longtime, 'status':'C'
+        }
+        response = self.client.post(reverse('chat:edit_room' , args=[room.id]), form)
+        self.assertEqual(response.status_code, 200)
