@@ -1,4 +1,5 @@
 # from django.conf import settings
+from tkinter import Image
 from django.shortcuts import render
 # from django.templatetags.static import static
 from .models import Account
@@ -8,6 +9,7 @@ from django.core.files.storage import FileSystemStorage
 from .forms import ProfileForm
 from django.contrib import messages
 from django.shortcuts import redirect
+from PIL import Image
 
 # Create your views here.
 
@@ -56,7 +58,7 @@ def edit(request):
 def upload(request):
     if request.method == 'POST':
         profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
-        if profile_form.is_valid():            
+        if profile_form.is_valid():
             profile_form.save()
             messages.success(request, 'Your profile is updated successfully')
             return redirect(to='myprofile')
