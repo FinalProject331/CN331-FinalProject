@@ -13,7 +13,7 @@ from shop.models import ShopChat, Shop
 
 
 def aboutus(request):
-    if request.user.is_anonymous or request.user.is_staff :
+    if request.user.is_anonymous or request.user.is_staff:
         account = None
     else:
         account = Account.objects.get(user=request.user)
@@ -21,7 +21,7 @@ def aboutus(request):
 
 
 def help(request):
-    if request.user.is_anonymous or request.user.is_staff :
+    if request.user.is_anonymous or request.user.is_staff:
         account = None
     else:
         account = Account.objects.get(user=request.user)
@@ -46,15 +46,19 @@ def login_view(request):
     return render(request, "registration/login.html")
 
 
-
 def create_account(request):
     first_name = request.GET.get('first_name')
     last_name = request.GET.get('last_name')
     email = request.GET.get('email')
     username = request.GET.get('username')
     password = request.GET.get('password')
+    repeat_password = request.GET.get('repeat_password')
     birthday = request.GET.get('birthday')
     gender = request.GET.get('gender')
+
+    if password != repeat_password:
+        messages.error(request, "Password and Repaet Password didn't match")
+        return HttpResponseRedirect(reverse("signup"))
 
     user = User.objects.create(username=username,
                                first_name=first_name, last_name=last_name, email=email)
@@ -80,23 +84,23 @@ def home(request):
 
     # staff site
     if user.is_staff and (not user.is_superuser):
-        shop = Shop.objects.get(staff = user)
-        chats = ShopChat.objects.all().filter(staff = user.username)
+        shop = Shop.objects.get(staff=user)
+        chats = ShopChat.objects.all().filter(staff=user.username)
         return render(request, "users/home.html", {
-        "chats": chats,
-        "shop" : shop,
-    })
+            "chats": chats,
+            "shop": shop,
+        })
 
     # anonymous site and admin site
     if user.is_anonymous or user.is_superuser:
         account = None
     else:
         account = Account.objects.get(user=user)
-    
+
     # user site
     return render(request, "users/home.html", {
         "rooms": Room.objects.all(),
-        "account":account,
+        "account": account,
     })
 
 
@@ -111,13 +115,14 @@ def help_send(request):
     form.save()
     return HttpResponseRedirect('help')
 
+
 def search(request):
     text = request.GET['search']
     all_room = Room.objects.all()
     rooms = []
     if text != "":
         for room in all_room:
-            if text in room.name :
+            if text in room.name:
                 rooms.append(room)
         if rooms == []:
             messages.warning(
@@ -125,6 +130,6 @@ def search(request):
             return HttpResponseRedirect(reverse('home'))
         return render(request, "users/home.html", {
             "rooms": rooms,
-    })
+        })
     else:
         return HttpResponseRedirect(reverse('home'))
