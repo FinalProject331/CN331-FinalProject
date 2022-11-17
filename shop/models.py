@@ -26,9 +26,11 @@ class Shop(models.Model):
         User, on_delete=models.CASCADE, related_name='staff', null=True)
 
 
-
 class AddShop(models.Model):
-    user = models.CharField(max_length=300)
+    shop_name = models.CharField(max_length=300, default="", blank=False)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='user', null=True)
+
 
 class ShopMessage(models.Model):
     value = models.CharField(max_length=1000000)
