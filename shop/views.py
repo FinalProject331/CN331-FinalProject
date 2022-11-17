@@ -163,8 +163,6 @@ def shopupload(request):
             profile_form.save()
             messages.success(request, 'Your profile is updated successfully')
             return redirect(to='myshop')
-        else:
-            messages.error(request, ('error ka'))
     else:
         profile_form = ProfileShopForm(instance=request.user.staff)
 

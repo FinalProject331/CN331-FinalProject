@@ -74,15 +74,34 @@ class ShopTestCase(TestCase):
         response = self.client.post(reverse('shopupload'), form)
         self.assertEqual(response.status_code, 302)
 
-    '''
-    test upload yorself a shop image fail
-    '''
-    def test_upload_shop_image_fail(self):
-        self.client.login(username='staff', password='password')
-        form = {'image':"default.jpg"}
+    # '''
+    # test upload yorself a shop image use method 
+    # '''
+    # def test_upload_shop_image_method_put(self):
+    #     self.client.login(username='staff', password='password')
+    #     form = {'image':"default.jpg"}
 
-        response = self.client.get(reverse('shopupload'), form)
-        self.assertEqual(response.status_code, 200)
+    #     response = self.client.get(reverse('shopupload'))
+    #     self.assertEqual(response.status_code, 200)
+    
+    '''
+    test upload yorself a shop image invalid_form
+    '''
+    def test_upload_shop_image_invalid_form(self):
+        self.client.login(username='staff', password='password')
+        form = {'image':"invalid form"}
+
+        response = self.client.post(reverse('shopupload'), form)
+        self.assertEqual(response.status_code, 302)
+
+    '''
+    test upload yorself a shop image not post
+    '''
+    def test_upload_shop_image_not_post(self):
+        self.client.login(username='staff', password='password')
+
+        response = self.client.post(reverse('shopupload'))
+        self.assertEqual(response.status_code, 302)
 
     '''
     view the staff help form
