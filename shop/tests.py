@@ -74,15 +74,15 @@ class ShopTestCase(TestCase):
         response = self.client.post(reverse('shopupload'), form)
         self.assertEqual(response.status_code, 302)
 
-    # '''
-    # test upload yorself a shop image use method 
-    # '''
-    # def test_upload_shop_image_method_put(self):
-    #     self.client.login(username='staff', password='password')
-    #     form = {'image':"default.jpg"}
+    '''
+    test upload yorself a shop image use method get
+    '''
+    def test_upload_shop_image_method_get(self):
+        self.client.login(username='staff', password='password')
+        form = {'image':"default.jpg"}
 
-    #     response = self.client.get(reverse('shopupload'))
-    #     self.assertEqual(response.status_code, 200)
+        response = self.client.get(reverse('shopupload'))
+        self.assertEqual(response.status_code, 200)
     
     '''
     test upload yorself a shop image invalid_form

@@ -164,8 +164,11 @@ def shopupload(request):
             messages.success(request, 'Your profile is updated successfully')
             return redirect(to='myshop')
     else:
-        profile_form = ProfileShopForm(instance=request.user.staff)
+        user = request.user
+        shop = Shop.objects.get(staff=user)
+        profile_form = ProfileShopForm(instance=shop)
 
-    return render(request, 'shop/myshop.html', {
-        'profile_form': profile_form
+    return render(request, 'shop/myshop.html',{
+        "shop" : shop,
+        "user" : user
     })
