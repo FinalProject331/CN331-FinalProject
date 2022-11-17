@@ -9,7 +9,8 @@
     
     input[type=text],
       input[type=number],
-      select {
+      select,
+      textarea {
         width: 100%;
         padding: 12px 20px;
         display: inline-block;
@@ -47,6 +48,10 @@
       }
 
   </style>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+  <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet" />
 </head>
 <body>
   <div>
@@ -58,15 +63,37 @@
     <form id="post-form" method="POST" action="edit_details">
       {% csrf_token %}
       <label>Room Name</label>
-      <input type="text" value="{{ room.name }}" name="room_name" id="room_name" width="100px" />
+      <input type="text" value="{{ room_details.name }}" name="room_name" id="room_name" width="100px" />
       <br>
-      <label for="max_seat">max seat</label>
-      <input type="number" value="{{ room.max_seat }}" name="max_seat">
+      
+      <select data-placeholder="Filter" value="{{ room_deatails.filter }}" multiple class="chosen-select" name="filter">
+        <option value=""></option>
+        <optgroup label="Type of Food">
+          <option value="Buffet">Buffet</option>
+          <option value="Fastfood">Fastfood</option>
+          <option value="Sweet & Drink">Sweet & Drink</option>
+        </optgroup>
+        <optgroup label="International Food">
+          <option value="Thai Food">Thai Food</option>
+          <option value="Korean Food">Korean Food</option>
+          <option value="Japanese Food">Japanese Food</option>
+          <option value="Chinese Food">Chinese Food</option>
+          <option value="Italian Food">Italian Food</option>
+          <option value="International Food">International Food</option>
+        </optgroup>
+      </select>
+      
+      <br>
+      <label for="description">Description</label>
+      <textarea rows="5" name="description" placeholder="Enter description"></textarea>
+      <br>
+      <label for="max_seat">Max seat</label>
+      <input type="number" value="{{ room_details.max_seat }}" name="max_seat">
 
       <br>
       <label for="gender_request">Choose a gender</label>
     
-      <select name="gender_request" value="{{ room.request_gender }}"  id="gender_request" required>
+      <select name="gender_request" value="{{ room_details.request_gender }}"  id="gender_request" required>
           <option value="N">not define</option>
           <option value="M">Male</option>
           <option value="F">Female</option>
@@ -75,14 +102,14 @@
       
       <br>
       <label for="dead_time">Dead time</label>
-      <input type="datetime-local" value="{{ room.dead_time }}" name="dead_time" >
+      <input type="datetime-local" value="{{ room_details.dead_time }}" name="dead_time" >
 
       <label for="meal_time">Meal time</label>
-      <input type="datetime-local" value="{{ room.meal_time }}" name="meal_time" >
+      <input type="datetime-local" value="{{ room_details.meal_time }}" name="meal_time" >
 
       <br>
       <label for="status">Status</label>
-      <select name="status" value="{{ room.status }}"  id="status" required>
+      <select name="status" value="{{ room_details.status }}"  id="status" required>
           <option value="Open">Open</option>
           <option value="Close">Close</option>
       </select>
@@ -94,4 +121,8 @@
     </form>
   </div>
 </div>
+
+<script>
+  $(".chosen-select").chosen({ width: "100%" });
+</script>
   {% endblock %}

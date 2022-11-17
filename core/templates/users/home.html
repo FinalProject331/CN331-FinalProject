@@ -23,7 +23,9 @@
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/3f85e29ea8.js" crossorigin="anonymous"></script>
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+  <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet" />
 </head>
 
 
@@ -49,7 +51,7 @@
       height: 300px;
       border-radius: 10px;
     }
-    
+
     .sbutton {
       background-color: #ffffff;
       /* Green */
@@ -82,8 +84,12 @@
       background-color: #4CAF50;
       color: white;
     }
+
+    .form-inline {
+      display: inline-block;
+    }
   </style>
-  
+
   {% if user.is_staff %}
   <p> Chat List</p>
 
@@ -95,13 +101,36 @@
   {% endfor %}
 
   {% elif user.is_authenticated %}
-  <form method="GET" action="{% url 'search' %}">
-  <div class="search-input">
-    <input type="text" name="search" id="search-box" placeholder="Search..." />
-    <button id="btn-search">
-      <i class="fa fa-search" aria-hidden="true"></i>
-    </button>
-  </div>
+
+  <form class="form-inline" id="form_field" action="{% url 'filter' %}" method="POST">
+    {% csrf_token %}
+    <select data-placeholder="Filter" class="chosen-select" name="filter" onchange="this.form.submit();">
+      <option value=""></option>
+      <optgroup label="Type of Food">
+        <option value="Buffet">Buffet</option>
+        <option value="Fastfood">Fastfood</option>
+        <option value="Sweet & Drink">Sweet & Drink</option>
+      </optgroup>
+      <optgroup label="International Food">
+        <option value="Thai Food">Thai Food</option>
+        <option value="Korean Food">Korean Food</option>
+        <option value="Japanese Food">Japanese Food</option>
+        <option value="Chinese Food">Chinese Food</option>
+        <option value="Italian Food">Italian Food</option>
+        <option value="International Food">International Food</option>
+      </optgroup>
+    </select>
+  </form>
+
+  <form class="form-inline" style="width: 30%;" method="GET" action="{% url 'search' %}">
+    <div class="search-input" style="text-align: left; padding: 0;">
+      <input type="text" name="search" id="search-box" placeholder="Search..." />
+      <button id="btn-search">
+        <i class="fa fa-search" aria-hidden="true"></i>
+      </button>
+    </div>
+  </form>
+  <br>
   <a class="fix" href="{% url 'roomconfig' %}"><i class="fa-solid fa-circle-plus" style='font-size:50px'></i></a>
 
   <!-- <a href="{% url 'roomconfig' %}">Create Room</a> -->
@@ -111,10 +140,17 @@
 
   <a href="{% url 'chat:room_detail' room.id %}" class="button button1">
     <p>{{ room.name }}:{{ room.id }}</p>
-<p>Seat:{{ room.seat_count }}/{{ room.max_seat }}</p>
-<p>GenderRequest :{{ room.request_gender }}</p>
-<p>status :{{ room.status }}</p>
-<p>Time: {{ room.meal_time }}</p>
+    <p><i class="fa-solid fa-user-group"></i>{{ room.seat_count }}/{{ room.max_seat }}
+      {% if room.request_gender == 'F' %}
+      <i class="fa-solid fa-venus" style="color: rgb(221, 61, 88); font-size: 20px;"></i>
+      {% elif room.request_gender == 'M' %}
+      <i class="fa-solid fa-mars" style="color: blue; font-size: 20px;"></i>
+      {% else %}
+      <i class="fa-solid fa-venus-mars" style="color: gray; font-size: 20px;"></i>
+      {% endif %}
+    </p>
+    <p>Time: {{ room.meal_time }}</p>
+    <p>{{ room.filter }}</p>
   </a>
 
 
@@ -128,4 +164,7 @@
   {% endif %}
 </div>
 
+<script>
+  $(".chosen-select").chosen();
+</script>
 {% endblock %}

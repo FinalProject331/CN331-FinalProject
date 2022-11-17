@@ -7,7 +7,7 @@ from datetime import datetime
 class Room(models.Model):
     name = models.CharField(max_length=1000)
     id = models.AutoField(primary_key=True)
-    hashtags = models.CharField(max_length=1000, blank=True)
+    filter = models.CharField(max_length=1000, blank=True)
     description = models.CharField(max_length=1000, blank=True)
     seat_count = models.IntegerField(default=1)
     max_seat = models.IntegerField(default=2)

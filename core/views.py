@@ -133,3 +133,14 @@ def search(request):
         })
     else:
         return HttpResponseRedirect(reverse('home'))
+
+def filter(request):
+    filter = request.POST['filter']
+    all_room = Room.objects.all()
+    rooms = []
+    for room in all_room:
+        if filter in room.filter:
+            rooms.append(room)
+    return render(request, "users/home.html", {
+        "rooms": rooms,
+    })

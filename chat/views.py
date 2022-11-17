@@ -79,7 +79,7 @@ def check_gender(require, gender):
 
 def checkview(request):
     room = request.POST['room_name']
-    # hashtags = request.POST['hashtags']
+    filterArray = request.POST.getlist('filter')
     description = request.POST['description']
     max_seat = request.POST['max_seat']
     gender_request = request.POST['gender_request']
@@ -94,8 +94,13 @@ def checkview(request):
             request, "leave the previous room before create new room.")
         return render(request, 'chat/roomconfig.html')
     elif (checkTime(dead_time) and checkTime(meal_time)):
+        filter = ""
+        for x in filterArray:
+            filter += x + ", "
+        filter = filter[:-2]
+
         new_room = Room.objects.create(name=room)
-        # new_room.hashtags = hashtags
+        new_room.filter = filter
         new_room.description = description
         new_room.max_seat = max_seat
         new_room.request_gender = gender_request
@@ -168,8 +173,16 @@ def leave_room(request, room):
 
 
 def edit_details(request, room):
+    filterArray = request.POST.getlist('filter')
+    filter = ""
+    for x in filterArray:
+        filter += x + ", "
+    filter = filter[:-2]
+
     this_room = Room.objects.get(id=room)
     this_room.name = request.POST['room_name']
+    this_room.filter = filter
+    this_room.description = request.POST['description']
     this_room.max_seat = request.POST['max_seat']
     this_room.request_gender = request.POST['gender_request']
     this_room.dead_time = request.POST['dead_time']
@@ -184,4 +197,5 @@ def edit_room(request, room):
     this_room = Room.objects.get(id=room)
     return render(request, 'chat/edit_room.html', {
         "room": this_room.id,
+        "room_details": this_room
     })

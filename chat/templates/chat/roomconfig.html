@@ -85,28 +85,46 @@
       cursor: pointer;
       border-radius: 4px;
     }
-    
+
     .tag:hover {
       background-color: #45a049;
     }
   </style>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+  <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet" />
 </head>
 
 <body>
   <div>
-  <div class="container">
-    <h2>Create Room</h2>
-  </div>
+    <div class="container">
+      <h2>Create Room</h2>
+    </div>
 
     <form id="post-form" method="POST" action="checkview">
       {% csrf_token %}
       <label>Room Name</label>
       <input type="text" placeholder="Enter Room name" name="room_name" id="room_name" width="100px" />
       <br>
-      <label for="hashtags">Hashtags</label>
-      <input type="text" name="hashtags" id="hashtags" autocomplete="on" placeholder="Enter Hashtags and press spacebar">
-      <div class="tag-container" >
-      </div>
+
+      <select data-placeholder="Filter" multiple class="chosen-select" name="filter">
+        <option value=""></option>
+        <optgroup label="Type of Food">
+          <option value="Buffet">Buffet</option>
+          <option value="Fastfood">Fastfood</option>
+          <option value="Sweet & Drink">Sweet & Drink</option>
+        </optgroup>
+        <optgroup label="International Food">
+          <option value="Thai Food">Thai Food</option>
+          <option value="Korean Food">Korean Food</option>
+          <option value="Japanese Food">Japanese Food</option>
+          <option value="Chinese Food">Chinese Food</option>
+          <option value="Italian Food">Italian Food</option>
+          <option value="International Food">International Food</option>
+        </optgroup>
+      </select>
+
       <br>
       <label for="description">Description</label>
       <textarea rows="5" name="description" placeholder="Enter Description"></textarea>
@@ -149,29 +167,6 @@
   </div>
 
   <script>
-    let input, hashtagArray, container, t;
-
-    input = document.querySelector('#hashtags');
-    container = document.querySelector('.tag-container');
-    hashtagArray = [];
-
-    input.addEventListener('keyup', () => {
-      if (event.which == 32 && input.value.length > 1) {
-        var text = document.createTextNode(input.value);
-        var p = document.createElement('p');
-        container.appendChild(p);
-        p.appendChild(text);
-        p.classList.add('tag');
-        input.value = '';
-
-        let deleteTags = document.querySelectorAll('.tag');
-
-        for (let i = 0; i < deleteTags.length; i++) {
-          deleteTags[i].addEventListener('click', () => {
-            container.removeChild(deleteTags[i]);
-          });
-        }
-      }
-    });
+    $(".chosen-select").chosen();
   </script>
   {% endblock %}

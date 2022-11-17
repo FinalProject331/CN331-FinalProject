@@ -7,10 +7,8 @@
 <h1>Room Detail</h1>
 <p>Room name: {{ room.name }}</p>
 <p>Room id: {{ room.id }}</p>
-<p>Hashtags: {{ room.hashtags }}</p>
+<p>Food: {{ room.filter }}</p>
 <p>Description: {{ room.description }}</p>
-<p>Seat count: {{ room.seat_count }}</p>
-<p>Max seat: {{ room.max_seat }}</p>
 
 Gender:
 {% if room.request_gender == 'F' %}
@@ -24,6 +22,7 @@ Gender:
 <p>Time: {{ room.meal_time }}</p>
 <p>End in {{ room.dead_time }}</p>
 <p>status: {{ room.status }}</p>
+<p><i class="fa-solid fa-user-group"></i>{{ room.seat_count }}/{{ room.max_seat }}</p>
 
 <br>
 <a href="{% url 'chat:join_room' room.id %}">Join</a>
