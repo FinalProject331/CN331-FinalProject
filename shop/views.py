@@ -89,8 +89,8 @@ def add_shop(request):
 
 # send 
 def add_shop_send(request):
-    report = request.GET.get('add_shop_send')
-    form = AddShop.objects.create(user=report)
+    name = request.GET.get('add_shop_send')
+    form = AddShop.objects.create(shop_name=name, user=request.user)
     form.save()
     return HttpResponseRedirect('add_shop')
 
