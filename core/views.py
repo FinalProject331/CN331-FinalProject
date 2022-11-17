@@ -47,14 +47,14 @@ def login_view(request):
 
 
 def create_account(request):
-    first_name = request.GET.get('first_name')
-    last_name = request.GET.get('last_name')
-    email = request.GET.get('email')
-    username = request.GET.get('username')
-    password = request.GET.get('password')
-    repeat_password = request.GET.get('repeat_password')
-    birthday = request.GET.get('birthday')
-    gender = request.GET.get('gender')
+    first_name = request.POST.get('first_name')
+    last_name = request.POST.get('last_name')
+    email = request.POST.get('email')
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    repeat_password = request.POST.get('repeat_password')
+    birthday = request.POST.get('birthday')
+    gender = request.POST.get('gender')
 
     if password != repeat_password:
         messages.error(request, "Password and Repaet Password didn't match")
