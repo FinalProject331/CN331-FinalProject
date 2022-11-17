@@ -6,43 +6,87 @@
     .container {
       text-align: center;
     }
-    
+
     input[type=text],
-      input[type=number],
-      select {
-        width: 100%;
-        padding: 12px 20px;
-        display: inline-block;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-        margin-bottom: 12px;
+    input[type=number],
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px 20px;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      margin-bottom: 12px;
     }
-    
+
     input[type=submit] {
-        background-color: #4CAF50;
-        color: white;
-        padding: 14px 20px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-      }
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
 
     input[type=submit]:hover {
       background-color: #45a049;
     }
 
     .link {
-        background-color: #4CAF50;
-        color: white;
-        padding: 14px 20px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        float: left;
-      }
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      float: left;
+    }
 
     .link:hover {
+      background-color: #45a049;
+    }
+
+    @import url('https://fonts.googleapis.com/css?family=Work+Sans:300,400');
+
+    p {
+      margin: 10px 10px;
+      font-weight: 300;
+      font-size: 14px;
+      opacity: 0.8;
+      letter-spacing: 1px;
+    }
+
+    .tag-container {
+      display: flex;
+      flex-flow: row wrap;
+    }
+
+    .tag {
+      pointer-events: none;
+      color: white;
+      background-color: #4CAF50;
+      padding: 6px;
+      margin: 5px;
+      border-radius: 4px;
+      border: 1px solid #4CAF49;
+    }
+
+    .tag::before {
+      pointer-events: all;
+      display: inline-block;
+      content: 'x';
+      height: 20px;
+      width: 20px;
+      margin-right: 6px;
+      text-align: center;
+      background-color: white;
+      color: #4CAF49;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    
+    .tag:hover {
       background-color: #45a049;
     }
   </style>
@@ -59,29 +103,37 @@
       <label>Room Name</label>
       <input type="text" placeholder="Enter Room name" name="room_name" id="room_name" width="100px" />
       <br>
-      <label for="max_seat">max seat</label>
+      <label for="hashtags">Hashtags</label>
+      <input type="text" name="hashtags" id="hashtags" autocomplete="on" placeholder="Enter Hashtags and press spacebar">
+      <div class="tag-container" >
+      </div>
+      <br>
+      <label for="description">Description</label>
+      <textarea rows="5" name="description" placeholder="Enter Description"></textarea>
+      <br>
+      <label for="max_seat">Max seat</label>
       <input type="number" placeholder="Enter max seat" name="max_seat">
 
       <br>
       <label for="gender_request">Choose a gender:</label>
-    
+
       <select name="gender_request" id="gender_request" required>
-          <option value="N">not define</option>
-          <option value="M">Male</option>
-          <option value="F">Femeal</option>
-          <option value="L">LGBTQ+</option>
+        <option value="N">not define</option>
+        <option value="M">Male</option>
+        <option value="F">Femeal</option>
+        <option value="L">LGBTQ+</option>
       </select>
-      
+
       <br>
       <label for="dead_time">Dead time</label>
-      <input type="datetime-local" placeholder="Enter dead time" name="dead_time" >
+      <input type="datetime-local" placeholder="Enter dead time" name="dead_time">
 
       <label for="meal_time">Meal time</label>
-      <input type="datetime-local" placeholder="Enter meal time" name="meal_time" >
+      <input type="datetime-local" placeholder="Enter meal time" name="meal_time">
       <br><br>
       <div class="container">
-      <input type="submit" value="Enter Room">
-    </div>
+        <input type="submit" value="Enter Room">
+      </div>
     </form>
     <!-- {% if messages %}
     {% for message in messages %}
@@ -94,6 +146,32 @@
    {% endfor %}
   {% endif %} -->
   </div>
-</div>
+  </div>
 
+  <script>
+    let input, hashtagArray, container, t;
+
+    input = document.querySelector('#hashtags');
+    container = document.querySelector('.tag-container');
+    hashtagArray = [];
+
+    input.addEventListener('keyup', () => {
+      if (event.which == 32 && input.value.length > 1) {
+        var text = document.createTextNode(input.value);
+        var p = document.createElement('p');
+        container.appendChild(p);
+        p.appendChild(text);
+        p.classList.add('tag');
+        input.value = '';
+
+        let deleteTags = document.querySelectorAll('.tag');
+
+        for (let i = 0; i < deleteTags.length; i++) {
+          deleteTags[i].addEventListener('click', () => {
+            container.removeChild(deleteTags[i]);
+          });
+        }
+      }
+    });
+  </script>
   {% endblock %}

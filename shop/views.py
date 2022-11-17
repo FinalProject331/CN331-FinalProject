@@ -107,8 +107,8 @@ chat with staff
 
 """
 
-def shoproom(request, room):
-    room_details = ShopChat.objects.get(name=room)
+def shoproom(request, id):
+    room_details = Shop.objects.get(id=id)
     user = request.user
     username = user.username
     account = None
@@ -117,20 +117,20 @@ def shoproom(request, room):
     return render(request, 'shop/shopchat.html', {
         'user': user,
         'username': username,
-        'room': room,
+        'room': id,
         'room_details': room_details,
         'account': account
     })
 
 def shopcheckview(request, shop):
-    shopobj = Shop.objects.get(name = shop)
+    shopobj = Shop.objects.get(id = shop)
     staff = str(shopobj.staff)
     # room = shop+str(request.user.id)
     username = request.user.username
-    room_name = shop+username
+    room_name = shopobj.name+username
 
-    if ShopChat.objects.filter(name=room_name).exists():
-        return redirect('/shop/'+room_name+'/?username='+username)
+    if Shop.objects.filter(id = shop).exists():
+        return redirect('/shop/'+str(shop)+'/?username='+username)
     else:
         new_room = ShopChat.objects.create(name=room_name, staff = staff, customer = username, restaurant_name = shop)
         new_room.save()
@@ -139,16 +139,16 @@ def shopcheckview(request, shop):
 def shopsend(request):
     message = request.POST['message']
     username = request.POST['username']
-    room_name = request.POST['room_name']
+    room_id = request.POST['room_id']
     print("it,s work")
 
-    new_message = ShopMessage.objects.create(value=message, user=username, room=room_name)
+    new_message = ShopMessage.objects.create(value=message, user=username, room=room_id)
     new_message.save()
     return HttpResponse('Message sent successfully')
 
 def shopgetMessages(request, room):
-    room_details = ShopChat.objects.get(name=room)
-    messages = ShopMessage.objects.filter(room=room_details.name)
+    room_details = Shop.objects.get(id=room)
+    messages = ShopMessage.objects.filter(room=room_details.pk)
     return JsonResponse({"messages":list(messages.values())})
 
 def join_chat(request, chat):

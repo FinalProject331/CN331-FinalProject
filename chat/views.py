@@ -79,6 +79,8 @@ def check_gender(require, gender):
 
 def checkview(request):
     room = request.POST['room_name']
+    # hashtags = request.POST['hashtags']
+    description = request.POST['description']
     max_seat = request.POST['max_seat']
     gender_request = request.POST['gender_request']
     dead_time = request.POST['dead_time']
@@ -93,6 +95,8 @@ def checkview(request):
         return render(request, 'chat/roomconfig.html')
     elif (checkTime(dead_time) and checkTime(meal_time)):
         new_room = Room.objects.create(name=room)
+        # new_room.hashtags = hashtags
+        new_room.description = description
         new_room.max_seat = max_seat
         new_room.request_gender = gender_request
         new_room.dead_time = dead_time
@@ -100,7 +104,7 @@ def checkview(request):
         new_room.save()
         account.chat = new_room.id
         account.save()
-        return redirect('/'+str(room.id)+'/?username='+username)
+        return redirect('/'+str(new_room.id)+'/?username='+username)
 
     else:
         messages.warning(request, "Time not correct.")
