@@ -1,5 +1,5 @@
 from django.test import TestCase, Client
-from .models import Shop
+from .models import Shop, ShopChat
 from account.models import Account
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
@@ -19,15 +19,26 @@ class ShopTestCase(TestCase):
     def setUp(self):
         self.client = Client()
         password = make_password('password')
-        user = User.objects.create(username='staff', password=password)
+
+        # create staff
+        staff = User.objects.create(username='staff', password=password)
+        staff.is_staff = True
+        staff.save()
+
+        # create staff shop
+        shop = Shop.objects.create(name="roomtest",staff=staff)
+        shop.save()
+
+        # create user
         normal_user = User.objects.create(username="user",password=password)
         normal_account = Account.objects.create(user=normal_user)
+        testuser = User.objects.create(username = "test",password=password)
+        Account.objects.create(user=testuser)
 
-        user.is_staff = True
-        user.save()
-
-        shop = Shop.objects.create(name="roomtest",staff=user)
-        shop.save()
+        # create staff chat room with normal_user
+        chat = ShopChat.objects.create(name = "chat", 
+        staff = staff.username,customer = normal_user.username,
+        restaurant_name = "roomtest", customer_id = normal_user)
 
 
     '''
@@ -181,3 +192,41 @@ class ShopTestCase(TestCase):
 
         response = self.client.get(reverse('viewshop' , args=[room.id]))
         self.assertEqual(response.status_code, 200)
+
+    """
+    action chat with staff by url directly valid
+    """
+    def test_join_chat_staff_directly_valid(self):
+        self.client.login(username='staff', password='password')
+        user = User.objects.get(username="user")
+        chat = ShopChat.objects.get(staff = "staff")
+        response = self.client.get('/shop/'+str(chat.id)+'/?username='+user.username, args=[str(chat.id)])
+        self.assertEqual(response.status_code, 200)
+
+    """
+    action chat with user by url directly valid
+    """
+    def test_join_chat_user_directly_valid(self):
+        self.client.login(username='user', password='password')
+        user = User.objects.get(username="user")
+        chat = ShopChat.objects.get(staff = "staff")
+        response = self.client.get('/shop/'+str(chat.id)+'/?username='+user.username, args=[str(chat.id)])
+        self.assertEqual(response.status_code, 200)
+
+    # '''
+    # test check view case there is room already
+    # '''
+    # def test_shop_check_view_exist_true(self):
+    #     self.client.login(username='user', password='password')
+    #     shop = Shop.objects.get(name="roomtest")
+    #     response = self.client.get(reverse('shopcheckview' , args=[shop.id]))
+    #     self.assertEqual(response.status_code, 302)
+
+    '''
+    test check view case there is no room exist()
+    '''
+    def test_shop_check_view_exist_false(self):
+        self.client.login(username='test', password='password')
+        shop = Shop.objects.get(name="roomtest")
+        response = self.client.get(reverse('shopcheckview' , args=[shop.id]))
+        self.assertEqual(response.status_code, 302)

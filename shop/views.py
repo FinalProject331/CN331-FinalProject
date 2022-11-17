@@ -129,10 +129,10 @@ def shopcheckview(request, shop):
     username = request.user.username
     room_name = shopobj.name+username
 
-    if Shop.objects.filter(id = shop).exists():
+    if ShopChat.objects.filter(pk = shop).__sizeof__ == 1:
         return redirect('/shop/'+str(shop)+'/?username='+username)
     else:
-        new_room = ShopChat.objects.create(name=room_name, staff = staff, customer = username, restaurant_name = shop)
+        new_room = ShopChat.objects.create(name=room_name, staff = staff, customer = username, restaurant_name = shop, customer_id = request.user)
         new_room.save()
         return redirect('/shop/'+room_name+'/?username='+username)
 
