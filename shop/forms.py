@@ -9,3 +9,5 @@ class ProfileShopForm(ModelForm):
     class Meta:
         model = Shop
         fields = ['shopimg']
+
+        

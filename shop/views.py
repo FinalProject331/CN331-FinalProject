@@ -107,8 +107,8 @@ chat with staff
 
 """
 
-def shoproom(request, id):
-    room_details = Shop.objects.get(id=id)
+def shoproom(request, room):
+    room_details = ShopChat.objects.get(name=room)
     user = request.user
     username = user.username
     account = None
@@ -117,38 +117,37 @@ def shoproom(request, id):
     return render(request, 'shop/shopchat.html', {
         'user': user,
         'username': username,
-        'room': id,
+        'room': room,
         'room_details': room_details,
         'account': account
     })
 
 def shopcheckview(request, shop):
-    shopobj = Shop.objects.get(id = shop)
+    shopobj = Shop.objects.get(name = shop)
     staff = str(shopobj.staff)
     # room = shop+str(request.user.id)
     username = request.user.username
-    room_name = shopobj.name+username
+    room_name = shop+username
 
-    if ShopChat.objects.filter(pk = shop).__sizeof__ == 1:
-        return redirect('/shop/'+str(shop)+'/?username='+username)
+    if ShopChat.objects.filter(name = room_name).exists():
+        return redirect('/shop/'+room_name+'/?username='+username)
     else:
-        new_room = ShopChat.objects.create(name=room_name, staff = staff, customer = username, restaurant_name = shop, customer_id = request.user)
+        new_room = ShopChat.objects.create(name=room_name, staff = staff, customer = username, restaurant_name = shop)
         new_room.save()
         return redirect('/shop/'+room_name+'/?username='+username)
 
 def shopsend(request):
     message = request.POST['message']
     username = request.POST['username']
-    room_id = request.POST['room_id']
-    print("it,s work")
+    room_name = request.POST['room_name']
 
-    new_message = ShopMessage.objects.create(value=message, user=username, room=room_id)
+    new_message = ShopMessage.objects.create(value=message, user=username, room=room_name)
     new_message.save()
     return HttpResponse('Message sent successfully')
 
 def shopgetMessages(request, room):
-    room_details = Shop.objects.get(id=room)
-    messages = ShopMessage.objects.filter(room=room_details.pk)
+    room_details = ShopChat.objects.get(name=room)
+    messages = ShopMessage.objects.filter(room=room_details.name)
     return JsonResponse({"messages":list(messages.values())})
 
 def join_chat(request, chat):
@@ -163,6 +162,7 @@ def shopupload(request):
             profile_form.save()
             messages.success(request, 'Your profile is updated successfully')
             return redirect(to='myshop')
+        
     else:
         user = request.user
         shop = Shop.objects.get(staff=user)

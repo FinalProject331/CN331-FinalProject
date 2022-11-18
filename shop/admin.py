@@ -6,3 +6,4 @@ admin.site.register(Shop)
 admin.site.register(ShopChat)
 admin.site.register(AddShop)
 admin.site.register(ShopMessage)
+

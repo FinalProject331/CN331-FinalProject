@@ -148,7 +148,7 @@
     <form id="post-form" action ="shopsend" method="post-form">
       {% csrf_token %}
       <input type="hidden" name="username" id="username" value="{{username}}" />
-      <input type="hidden" name="room_id" id="room_id" value="{{room_details.id}}" />
+      <input type="hidden" name="room_name" id="room_name" value="{{room_details.name}}" />
       <input type="text" name="message" id="message" width="70px" />
       <input type="submit" value="Send">
     </form>
@@ -180,3 +180,5 @@
 </script>
 
 {% endblock %}
+
+

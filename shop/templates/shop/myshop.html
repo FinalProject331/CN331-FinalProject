@@ -81,7 +81,7 @@ button:hover, a:hover {
   <button><a style="color: white" href="{% url 'modifyshop' %}">Modify Shop</a></button>
   {% else %}
   <div style="margin: 24px 0;">
-    <a class="fix" href="{% url 'shopcheckview' shop.id %}"><i class="far fa-comments" style='font-size:40px'></i></a>
+    <a class="fix" href="{% url 'shopcheckview' shop.name %}"><i class="far fa-comments" style='font-size:40px'></i></a>
   
   </div>
   

@@ -12,12 +12,12 @@ class ShopChat(models.Model):
     staff = models.CharField(max_length=30)
     customer = models.CharField(max_length=30)
     restaurant_name = models.CharField(max_length=30)
-    customer_id = models.OneToOneField(User, on_delete = models.CASCADE, null = True)
+    # customer_id = models.OneToOneField(User, on_delete = models.CASCADE, null = True)
 
 
 class Shop(models.Model):
     name = models.CharField(max_length=300)
-    id = models.AutoField(primary_key=True)
+    # id = models.AutoField(primary_key=True)
     detail = models.CharField(max_length=300)
     shopimg = models.ImageField(
         default='default.jpg', upload_to='profile_pics/', blank=True, null=True)
@@ -35,10 +35,8 @@ class Shop(models.Model):
             img.save(self.shopimg.path)
 
 
-
-
 class AddShop(models.Model):
-    shop_name = models.CharField(max_length=300, default="", blank=False)
+    # shop_name = models.CharField(max_length=300, default="", blank=False)
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='user', null=True)
 
