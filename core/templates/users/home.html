@@ -161,8 +161,9 @@
 
   <form class="form-inline" id="form_field" action="{% url 'filter' %}" method="POST">
     {% csrf_token %}
-    <select data-placeholder="Filter" class="chosen-select" name="filter" onchange="this.form.submit();">
+    <select data-placeholder="{{filter}}" class="chosen-select" name="filter" onchange="this.form.submit();">
       <option value=""></option>
+      <option value="All">All</option>
       <optgroup label="Type of Food">
         <option value="Buffet">Buffet</option>
         <option value="Fastfood">Fastfood</option>
@@ -187,10 +188,17 @@
       </button>
     </div>
   </form>
-  <br>
-  <a class="fix" href="{% url 'roomconfig' %}"><i class="fa-solid fa-circle-plus" style='font-size:50px'></i></a>
+  <br><br>
+  <form action="joinable" method="GET">
+  <input type="hidden" name="filtered_rooms" value="rooms">
+  {% if is_checked %}
+  <label><input type='checkbox' name="checked" onchange="this.form.submit();" checked> Joinable</label>
+  {% else %}
+  <label><input type='checkbox' name="checked" onchange="this.form.submit();"> Joinable</label>
+  {% endif %}
+  </form>
 
-  <!-- <a href="{% url 'roomconfig' %}">Create Room</a> -->
+  <a class="fix" href="{% url 'roomconfig' %}"><i class="fa-solid fa-circle-plus" style='font-size:50px'></i></a>
   <br>
 
   {% for room in rooms %}
@@ -207,7 +215,7 @@
       {% endif %}
     </p>
     <p>Time: {{ room.meal_time }}</p>
-    <p>{{ room.filter }}</p>
+    <!-- <p>{{ room.filter }}</p> -->
   </a>
 
 
