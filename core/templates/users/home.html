@@ -117,7 +117,7 @@
 
   {% for chat in chats %}
 
-  <a href="{% url 'join_chat' chat.id %}" class="sbutton button1">
+  <a href="{% url 'join_chat' chat.name %}" class="sbutton button1">
     <p>Username: {{ chat.customer }}</p>
   </a>
   {% endfor %}

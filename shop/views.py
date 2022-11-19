@@ -116,7 +116,7 @@ chat with staff
 """
 
 def shoproom(request, room):
-    room_details = ShopChat.objects.get(pk=room)
+    room_details = ShopChat.objects.get(name=room)
     shop = Shop.objects.get(name = room_details.restaurant_name)
     user = request.user
     username = user.username
@@ -156,7 +156,7 @@ def shopsend(request):
     return HttpResponse('Message sent successfully')
 
 def shopgetMessages(request, room):
-    room_details = ShopChat.objects.get(id=room)
+    room_details = ShopChat.objects.get(name=room)
     messages = ShopMessage.objects.filter(room=room_details.name)
     return JsonResponse({"messages":list(messages.values())})
 
