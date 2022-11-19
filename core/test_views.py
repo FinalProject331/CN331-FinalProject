@@ -208,7 +208,7 @@ class LogInViewTest(TestCase):
 
         # create user
         user = User.objects.create(username='test', password=password)
-        account = Account.objects.create(user=user)
+        account = Account.objects.create(user=user, gender="M")
         
         # create admin
         admin = User.objects.create_superuser(username="admin", password =password)
@@ -221,8 +221,13 @@ class LogInViewTest(TestCase):
         shop.save()
 
         # create room
-        room = Room.objects.create(name = "testroom", filter = "testroom")
-        room2 = Room.objects.create(name = "testmeroom", filter = "room1234")
+        room1 = Room.objects.create(name = "testroom", filter = "testroom", max_seat=7, request_gender="M")
+        room1.save()
+        room2 = Room.objects.create(name = "testmeroom", filter = "room1234", max_seat=7, request_gender="M")
+        room2.save()
+        room3 = Room.objects.create(name = "room3")
+        room3.save()
+
 
     '''
     test login with valid user
@@ -334,17 +339,6 @@ class LogInViewTest(TestCase):
     def test_core_joinable_check_input(self):
         self.client.login(username='test', password='password')
 
-        # set user
-        user = User.objects.get(username = "test")
-        account = Account.objects.get(user=user)
-        account.gender = "M"
-        account.save()
-
-        room = Room.objects.get(name="testroom")
-        room.max_seat = 7
-        room.request_gender = "M"
-        room.save()
-
-        form = {'checked': 'off'}
-        response = self.client.post(reverse("joinable"), form)
+        form = {'checked': "on"}
+        response = self.client.get(reverse("joinable"), form)
         self.assertEqual(response.status_code, 200)
