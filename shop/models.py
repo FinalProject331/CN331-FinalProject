@@ -22,7 +22,7 @@ class Shop(models.Model):
     shopimg = models.ImageField(
         default='default.jpg', upload_to='profile_pics/', blank=True, null=True)
     location = models.CharField(max_length=300)
-    chat_room = models.ManyToManyField(ShopChat, blank=True)
+    # chat_room = models.ManyToManyField(ShopChat, blank=True)
     location = PlainLocationField(based_fields=['city'], zoom=7)
     staff = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name='staff', null=True)
