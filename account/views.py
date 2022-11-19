@@ -34,7 +34,7 @@ def edit(request):
     last_name = request.GET.get('last_name')
     email = request.GET.get('email')
     bio = request.GET.get('bio')
-    username = request.GET.get('username')
+    # username = request.GET.get('username')
     
     
     user = request.user
@@ -43,7 +43,7 @@ def edit(request):
     user.first_name = first_name
     user.last_name = last_name
     user.email = email
-    user.username = username
+    # user.username = username
     
     user.save()
     user.refresh_from_db()

@@ -237,7 +237,7 @@ class ShopTestCase(TestCase):
         chat = ShopChat.objects.get(staff = "staff")
         response = self.client.get('/shop/'+str(chat.name)+'/?username='+user.username, args=[str(chat.name)])
         self.assertEqual(response.status_code, 200)
-
+        
     '''
     test check view case there is room already
     '''

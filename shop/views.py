@@ -137,7 +137,7 @@ def shopcheckview(request, shop):
     staff = str(shopobj.staff)
     # room = shop+str(request.user.id)
     username = request.user.username
-    room_name = shop+username
+    room_name = str(shopobj.id)+username
 
     if ShopChat.objects.filter(name = room_name).exists():
         return redirect('/shop/'+room_name+'/?username='+username)
