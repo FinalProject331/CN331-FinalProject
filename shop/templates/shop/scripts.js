@@ -6,7 +6,9 @@ getLocation.addEventListener('click',evt=>{
             let latitude = position.coords.latitude;
             let longitude = position.coords.longitude;
 
-            console.log(latitude)
+            let googleMapURL = `https://maps.googleapis.com/maps/api/staticmap?center=${latitude},${longitude}&zoom=11&size=400x400`;
+            
+            console.log(latitude,longitude)
         },error=>{
             console.log(error.code);
         });
