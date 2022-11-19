@@ -270,22 +270,13 @@ class ShopTestCase(TestCase):
         response = self.client.post(reverse('shopsend'), form)
         self.assertEqual(response.status_code, 200)
 
-    '''
-    test user recieve shop get message from chat
-    '''
-    def test_shop_getMessage_user(self):
-        self.client.login(username='test', password='password')
-        name = ShopChat.objects.first()
-        form = {'message':"test some thing", 'username':'test', 'room_name':name}
-        response = self.client.post(reverse('shopsend'), form)
-        self.assertEqual(response.status_code, 200)
 
     '''
     test staff join chat with user
     '''
     def test_shop_getMessage_user(self):
         self.client.login(username='test1', password='password')
-        room = ShopChat.objects.first()
+        room = ShopChat.objects.get()
         response = self.client.post(reverse('shopgetMessages', args=[room.name]))
         self.assertEqual(response.status_code, 200)
 
@@ -294,7 +285,7 @@ class ShopTestCase(TestCase):
     '''
     def test_shop_join_chat_staff(self):
         self.client.login(username='staff', password='password')
-        name = ShopChat.objects.first()
+        name = ShopChat.objects.get(name="chat")
         chat = name.name
         response = self.client.post(reverse('join_chat', args=[chat]))
         self.assertEqual(response.status_code, 302)
