@@ -20,7 +20,7 @@ class Shop(models.Model):
     # id = models.AutoField(primary_key=True)
     detail = models.CharField(max_length=300)
     shopimg = models.ImageField(
-        default='default.jpg', upload_to='profile_pics/', blank=True, null=True)
+        default='default.png', upload_to='profile_pics/', blank=True, null=True)
     location = models.CharField(max_length=300)
     # chat_room = models.ManyToManyField(ShopChat, blank=True)
     location = PlainLocationField(based_fields=['city'], zoom=7)
