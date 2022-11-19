@@ -54,9 +54,11 @@ def modify(request):
     
 # view shop list
 def shoplist(request):
-    account = Account.objects.get(user=request.user)
+    if request.user.is_superuser:
+        account = None
+    else:
+        account = Account.objects.get(user=request.user)
     shops = Shop.objects.all()
-
     return render(request, 'shop/shoplist.html',{
         "shops" : shops,
         "account" : account
@@ -97,10 +99,16 @@ def add_shop_send(request):
 # view the shop detail
 def viewshop(request, id):
     shop = Shop.objects.get(pk=id)
-    account = Account.objects.get(user=request.user)
-    return render(request, 'shop/myshop.html', {
-        'shop': shop,
-        'account': account })
+    if request.user.is_superuser:
+        chats = ShopChat.objects.all().filter(staff=shop.staff)
+        return render(request, 'shop/myshop.html', {
+            'shop': shop,
+            'chats': chats })
+    else:
+        account = Account.objects.get(user=request.user)
+        return render(request, 'shop/myshop.html', {
+            'shop': shop,
+            'account': account })
 
 """
 chat with staff
@@ -109,6 +117,7 @@ chat with staff
 
 def shoproom(request, room):
     room_details = ShopChat.objects.get(name=room)
+    shop = Shop.objects.get(name = room_details.restaurant_name)
     user = request.user
     username = user.username
     account = None
@@ -119,7 +128,8 @@ def shoproom(request, room):
         'username': username,
         'room': room,
         'room_details': room_details,
-        'account': account
+        'account': account,
+        'shop': shop
     })
 
 def shopcheckview(request, shop):

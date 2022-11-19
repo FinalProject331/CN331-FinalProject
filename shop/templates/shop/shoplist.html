@@ -59,9 +59,10 @@
 </a>
 
 {% endfor %}
-
+{% if not user.is_superuser %}
 <a href="{% url 'add_shop' %}" class="button button1">
 <p><i class="fa-solid fa-plus" style="font-size: 17px"></i> Add Restaurant</p>
 </a>
+{% endif %}
 
 {% endblock body %}

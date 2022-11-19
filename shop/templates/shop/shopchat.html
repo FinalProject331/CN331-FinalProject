@@ -74,16 +74,17 @@
 <body>
 <div>
 
-  
-  {% if user.is_staff %}
+  {% if user.is_superuser %}
+  <h2 style="text-align: center;">{{ room_details.customer }} </h2>
+  <a class="link" href="{% url 'viewshop' shop.id %}">Back</a><br>
+  {% elif user.is_staff %}
   <h2 style="text-align: center;">{{ room_details.customer }} </h2>
   <a class="link" href="{% url 'home' %}">Back</a><br>
-  <br>
   {% else %}
   <h2 style="text-align: center;">{{ room_details.restaurant_name }} </h2>
   <a class="link" href="{% url 'shoplist' %}">Back</a><br>
-  <br>
   {% endif %}
+  <br>
   <div class="bg" id="display">
 
     <!-- <div class="container darker">
