@@ -1,6 +1,7 @@
 from django.test import TestCase, Client
 from django.urls import reverse
 from chat.models import Room
+from django.shortcuts import render, redirect
 from datetime import datetime
 from account.models import Account
 from chat.models import Message

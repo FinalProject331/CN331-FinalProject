@@ -129,11 +129,21 @@ class CoreViewsTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
     '''
-    test create account
+    test create account valid
     '''
-    def test_valid_createuser(self):
+    def test_valid_createuser_valid(self):
         c = Client()
-        form = {'username': 'account', 'password': 'account1234',
+        form = {'username': 'account', 'password': 'account1234', 'repeat_password' : "account1234",
+         'first_name': 'first', 'last_name': 'last', 'email': 'test@user.com', 'gender':"Male", 'birthday': "2003-05-28"}
+        response = c.post(reverse('create_account'), form )
+        self.assertTrue(response.status_code, 200)
+
+    '''
+    test create account invalid
+    '''
+    def test_valid_createuser_invalid(self):
+        c = Client()
+        form = {'username': 'account', 'password': 'account1234', 'repeat_password' : "wrong",
          'first_name': 'first', 'last_name': 'last', 'email': 'test@user.com', 'gender':"Male", 'birthday': "2003-05-28"}
         response = c.post(reverse('create_account'), form )
         self.assertTrue(response.status_code, 200)
