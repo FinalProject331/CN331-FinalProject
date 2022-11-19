@@ -47,6 +47,42 @@ button:hover, a:hover {
 
 <h2 style="text-align:center">My Profile</h2>
 
+<style>
+  /* The alert message box */
+    .alert {
+      padding: 20px;
+      background-color: #f44336; /* Red */
+      color: white;
+      margin-bottom: 15px;
+    }
+  
+  /* The close button */
+    .closebtn {
+      margin-left: 15px;
+      color: white;
+      font-weight: bold;
+      float: right;
+      font-size: 22px;
+      line-height: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+  
+  /* When moving the mouse over the close button */
+    .closebtn:hover {
+      color: black;
+    }
+  </style>
+
+{% if messages %}
+<div class="alert">
+<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+  {% for message in messages %}
+    {{ message }}
+  {% endfor %}
+</div>
+{% endif %}
+
 <div class="card">
   <img src="{{ account.image.url }}" alt="profileimg" width="200px">
   <h2> Username : {{ account.user.username }}</h2>

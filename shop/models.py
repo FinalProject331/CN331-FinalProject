@@ -36,7 +36,7 @@ class Shop(models.Model):
 
 
 class AddShop(models.Model):
-    # shop_name = models.CharField(max_length=300, default="", blank=False)
+    shop_name = models.CharField(max_length=300, default="", blank=False)
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='user', null=True)
 
