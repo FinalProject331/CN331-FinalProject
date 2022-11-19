@@ -8,7 +8,7 @@ from .models import Help
 from chat.models import Room
 from account.models import Account
 from shop.models import ShopChat, Shop
-
+from chat.views import check_gender
 # Create your views here.
 
 
@@ -101,6 +101,7 @@ def home(request):
     return render(request, "users/home.html", {
         "rooms": Room.objects.all(),
         "account": account,
+        "filter": "Filter"
     })
 
 
@@ -117,6 +118,7 @@ def help_send(request):
 
 
 def search(request):
+    account = Account.objects.get(user=request.user)
     text = request.GET['search']
     all_room = Room.objects.all()
     rooms = []
@@ -130,17 +132,44 @@ def search(request):
             return HttpResponseRedirect(reverse('home'))
         return render(request, "users/home.html", {
             "rooms": rooms,
+            "account": account,
         })
     else:
         return HttpResponseRedirect(reverse('home'))
 
 def filter(request):
+    account = Account.objects.get(user=request.user)
     filter = request.POST['filter']
     all_room = Room.objects.all()
     rooms = []
-    for room in all_room:
-        if filter in room.filter:
-            rooms.append(room)
+    if filter == "All":
+        rooms = all_room
+    else:
+        for room in all_room:
+            if filter in room.filter:
+                rooms.append(room)
     return render(request, "users/home.html", {
         "rooms": rooms,
+        "filter": filter,
+        "account": account,
+    })
+
+def joinable(request):
+    checked = request.GET.get('checked', False)
+    all_room = Room.objects.all()
+    rooms = []
+    account = Account.objects.get(user=request.user)
+    if checked:
+        is_checked = True
+        for room in all_room:
+            if room.is_available and check_gender(room.request_gender, account.gender):
+                rooms.append(room)
+    else:
+        rooms = all_room
+        is_checked = False
+    return render(request, "users/home.html", {
+        "rooms": rooms,
+        "is_checked": is_checked,
+        "filter": "Filter",
+        "account": account,
     })
