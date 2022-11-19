@@ -129,11 +129,21 @@ class CoreViewsTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
     '''
-    test create account
+    test create account valid
     '''
-    def test_valid_createuser(self):
+    def test_valid_createuser_valid(self):
         c = Client()
-        form = {'username': 'account', 'password': 'account1234',
+        form = {'username': 'account', 'password': 'account1234', 'repeat_password' : "account1234",
+         'first_name': 'first', 'last_name': 'last', 'email': 'test@user.com', 'gender':"Male", 'birthday': "2003-05-28"}
+        response = c.post(reverse('create_account'), form )
+        self.assertTrue(response.status_code, 200)
+
+    '''
+    test create account invalid
+    '''
+    def test_valid_createuser_invalid(self):
+        c = Client()
+        form = {'username': 'account', 'password': 'account1234', 'repeat_password' : "wrong",
          'first_name': 'first', 'last_name': 'last', 'email': 'test@user.com', 'gender':"Male", 'birthday': "2003-05-28"}
         response = c.post(reverse('create_account'), form )
         self.assertTrue(response.status_code, 200)
@@ -210,6 +220,10 @@ class LogInViewTest(TestCase):
         shop = Shop.objects.create(name="roomtest",staff=staff)
         shop.save()
 
+        # create room
+        room = Room.objects.create(name = "testroom", filter = "testroom")
+        room2 = Room.objects.create(name = "testmeroom", filter = "room1234")
+
     '''
     test login with valid user
     '''
@@ -266,4 +280,32 @@ class LogInViewTest(TestCase):
     def test_logout_request(self):
         self.client = Client()
         response = self.client.post(reverse("logout"))
-        
+        self.assertEqual(response.status_code, 302)
+
+    '''
+    test filter action not found
+    '''
+    def test_core_filter_not_found(self):
+        self.client.login(username='test', password='password')
+        form = { "filter": "abc" }
+        response = self.client.post(reverse("filter"), form)
+        self.assertEqual(response.status_code, 200)
+
+    '''
+    test filter action found
+    '''
+    def test_core_filter_found(self):
+        self.client.login(username='test', password='password')
+        form = { "filter": "test" }
+        response = self.client.post(reverse("filter"), form)
+        self.assertEqual(response.status_code, 200)
+
+    '''
+    test filter action multiple found
+    '''
+    def test_core_filter_multiple_found(self):
+        self.client.login(username='test', password='password')
+        room = Room.objects.create(name="roomroom", filter = "room")
+        form = { "filter": "room" }
+        response = self.client.post(reverse("filter"), form)
+        self.assertEqual(response.status_code, 200)
