@@ -220,6 +220,10 @@ class LogInViewTest(TestCase):
         shop = Shop.objects.create(name="roomtest",staff=staff)
         shop.save()
 
+        # create room
+        room = Room.objects.create(name = "testroom", filter = "testroom")
+        room2 = Room.objects.create(name = "testmeroom", filter = "room1234")
+
     '''
     test login with valid user
     '''
@@ -276,4 +280,36 @@ class LogInViewTest(TestCase):
     def test_logout_request(self):
         self.client = Client()
         response = self.client.post(reverse("logout"))
-        
+        self.assertEqual(response.status_code, 302)
+
+    '''
+    test filter action not found
+    '''
+    def test_core_filter_not_found(self):
+        self.client.login(username='test', password='password')
+        form = { "filter": "abc" }
+        response = self.client.post(reverse("filter"), form)
+        self.assertEqual(response.status_code, 200)
+
+    '''
+    test filter action found
+    '''
+    def test_core_filter_found(self):
+        self.client.login(username='test', password='password')
+        form = { "filter": "test" }
+        response = self.client.post(reverse("filter"), form)
+        self.assertEqual(response.status_code, 200)
+
+    '''
+    test filter action multiple found
+    '''
+    def test_core_filter_multiple_found(self):
+        self.client.login(username='test', password='password')
+        room = Room.objects.create(name="roomroom", filter = "room")
+        # all_room = Room.objects.all()
+        # room.save()
+        # rooms = []
+        form = { "filter": "room" }
+        response = self.client.post(reverse("filter"), form)
+        self.assertEqual(response.status_code, 200)
+        # self.assertEqual(len(rooms), 2)
