@@ -20,17 +20,19 @@ def roomconfig(request):
 def room(request, room):
     user = request.user
     if user.is_superuser:
-        account = None;
+        account = None
     else:
         account = Account.objects.get(user=user)
 
     username = request.GET.get('username')
     room_details = Room.objects.get(id=room)
+    members = Account.objects.filter(chat=room)
     return render(request, 'chat/room.html', {
         'username': username,
         'room': room,
         'room_details': room_details,
-        'account': account
+        'account': account,
+        'members': members
     })
 
 
