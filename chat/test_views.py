@@ -31,6 +31,10 @@ class ChatViewsTestCase(TestCase):
         test2 = User.objects.create(username="test2",password=password)
         testaccount2 = Account.objects.create(user=test2, gender='F')
 
+        # create superuser
+        admin = User.objects.create_superuser(username="admin", password="admin1234")
+        admin.save()
+        
         # create Message
         self.message = Message.objects.create(value='text', user=test1, room=room.id)
 
@@ -55,11 +59,33 @@ class ChatViewsTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
     '''
+    test admin login to room
+    '''
+    def test_valid_room_page_admin(self):
+        self.client.login(username='admin', password='admin1234')
+        room = Room.objects.get(name ="roomtest")
+        user = User.objects.get(username="test1")
+        Account.objects.get(user=user)
+        response = self.client.get(reverse('chat:room' , args=[room.id]))
+        self.assertEqual(response.status_code, 200)
+
+    '''
+    test admin login to roomdetail
+    '''
+    def test_valid_roomdetail_page_admin(self):
+        self.client.login(username='admin', password='admin1234')
+        room = Room.objects.get(name ="roomtest")
+        user = User.objects.get(username="test1")
+        Account.objects.get(user=user)
+        response = self.client.get(reverse('chat:room_detail' , args=[room.id]))
+        self.assertEqual(response.status_code, 200)
+
+    '''
     view invalid room's detail page it should not found page
     '''
     def test_invalid_roomdetail_page(self):
         
-        response = self.client.get('roomdetail', {'room': 'something'})
+        response = self.client.get('room_detail', {'room': 'something'})
         self.assertEqual(response.status_code, 404)
 
     '''
@@ -90,6 +116,6 @@ class ChatViewsTestCase(TestCase):
         longtime = datetime(2099,12,31,23,59,59)
         form = {'room_name':"somename", 'description':"my description", 'max_seat':"3",
         'gender_request':'N', 'dead_time': longtime, 'meal_time':longtime, 'status':'C'
-        }
+        ,'filter' : ["test1"]}
         response = self.client.post(reverse('chat:edit_room' , args=[room.id]), form)
         self.assertEqual(response.status_code, 200)

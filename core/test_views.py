@@ -306,10 +306,6 @@ class LogInViewTest(TestCase):
     def test_core_filter_multiple_found(self):
         self.client.login(username='test', password='password')
         room = Room.objects.create(name="roomroom", filter = "room")
-        # all_room = Room.objects.all()
-        # room.save()
-        # rooms = []
         form = { "filter": "room" }
         response = self.client.post(reverse("filter"), form)
         self.assertEqual(response.status_code, 200)
-        # self.assertEqual(len(rooms), 2)

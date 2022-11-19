@@ -144,7 +144,7 @@ class ChatTestCase(TestCase):
         self.client.login(username='test1', password='password')
         longtime = datetime(2222,12,31,23,59,59)
         form = {'room_name':"somename", 'description':"my description", 'max_seat':"3",
-        'gender_request':'N', 'dead_time': longtime, 'meal_time':longtime
+        'gender_request':'N', 'dead_time': longtime, 'meal_time':longtime, 'filter':"test"
         }
 
         response = self.client.post(reverse('chat:checkview'), form)
@@ -254,6 +254,6 @@ class ChatTestCase(TestCase):
         longtime = datetime(2099,12,31,23,59,59)
         form = {'room_name':"somename", 'description':"my description", 'max_seat':"3",
         'gender_request':'N', 'dead_time': longtime, 'meal_time':longtime, 'status':'C'
-        }
+        ,'filter' : ["test1"]}
         response = self.client.post(reverse('chat:edit_details' , args=[room.id]), form)
         self.assertEqual(response.status_code, 302)
