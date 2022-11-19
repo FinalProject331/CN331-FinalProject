@@ -309,3 +309,42 @@ class LogInViewTest(TestCase):
         form = { "filter": "room" }
         response = self.client.post(reverse("filter"), form)
         self.assertEqual(response.status_code, 200)
+
+    '''
+    test filter action All found
+    '''
+    def test_core_filter_All_found(self):
+        self.client.login(username='test', password='password')
+        room = Room.objects.create(name="roomroom", filter = "room")
+        form = { "filter": "All" }
+        response = self.client.post(reverse("filter"), form)
+        self.assertEqual(response.status_code, 200)
+
+    '''
+    test user joinable room check no form
+    '''
+    def test_core_joinable_check(self):
+        self.client.login(username='test', password='password')
+        response = self.client.post(reverse("joinable"))
+        self.assertEqual(response.status_code, 200)
+
+    '''
+    test user joinable room check input form
+    '''
+    def test_core_joinable_check_input(self):
+        self.client.login(username='test', password='password')
+
+        # set user
+        user = User.objects.get(username = "test")
+        account = Account.objects.get(user=user)
+        account.gender = "M"
+        account.save()
+
+        room = Room.objects.get(name="testroom")
+        room.max_seat = 7
+        room.request_gender = "M"
+        room.save()
+
+        form = {'checked': 'off'}
+        response = self.client.post(reverse("joinable"), form)
+        self.assertEqual(response.status_code, 200)
