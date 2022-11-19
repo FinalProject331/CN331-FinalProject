@@ -16,4 +16,5 @@ urlpatterns = [
     path("shoplist/", shoplist, name="shoplist"),
     path("search/", views.search, name='search'),
     path("filter", views.filter, name='filter'),
+    path("joinable", views.joinable, name='joinable'),
 ]
