@@ -19,7 +19,10 @@ def roomconfig(request):
 
 def room(request, room):
     user = request.user
-    account = Account.objects.get(user=user)
+    if user.is_superuser:
+        account = None;
+    else:
+        account = Account.objects.get(user=user)
 
     username = request.GET.get('username')
     room_details = Room.objects.get(id=room)
@@ -143,7 +146,10 @@ def getMessages(request, room):
 
 
 def room_detail(request, room):
-    account = Account.objects.get(user=request.user)
+    if request.user.is_superuser:
+        account = None
+    else:
+        account = Account.objects.get(user=request.user)
     return render(request, "chat/roomdetail.html", {
         "room": Room.objects.get(id=room),
         "account": account,

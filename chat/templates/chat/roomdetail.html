@@ -25,6 +25,10 @@ Gender:
 <p><i class="fa-solid fa-user-group"></i>{{ room.seat_count }}/{{ room.max_seat }}</p>
 
 <br>
+{% if user.is_superuser %}
+<a href="{% url 'chat:room' room.id %}">Enter</a>
+{% else %}
 <a href="{% url 'chat:join_room' room.id %}">Join</a>
+{% endif %}
 </div>
 {% endblock %}

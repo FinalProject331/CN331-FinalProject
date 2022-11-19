@@ -51,7 +51,7 @@
       height: 300px;
       border-radius: 10px;
     }
-
+    
     .sbutton {
       background-color: #ffffff;
       /* Green */
@@ -90,12 +90,34 @@
     }
   </style>
 
-  {% if user.is_staff %}
+  {% if user.is_superuser %}
+  
+  <p>All Room</p>
+  
+  {% for room in rooms %}
+
+  <a href="{% url 'chat:room_detail' room.id %}" class="button button1">
+    <p>{{ room.name }}:{{ room.id }}</p>
+    <p><i class="fa-solid fa-user-group"></i>{{ room.seat_count }}/{{ room.max_seat }}
+      {% if room.request_gender == 'F' %}
+      <i class="fa-solid fa-venus" style="color: rgb(221, 61, 88); font-size: 20px;"></i>
+      {% elif room.request_gender == 'M' %}
+      <i class="fa-solid fa-mars" style="color: blue; font-size: 20px;"></i>
+      {% else %}
+      <i class="fa-solid fa-venus-mars" style="color: gray; font-size: 20px;"></i>
+      {% endif %}
+    </p>
+    <p>Time: {{ room.meal_time }}</p>
+    <p>{{ room.filter }}</p>
+  </a>
+
+  {% endfor %}
+  {% elif user.is_staff %}
   <p> Chat List</p>
 
   {% for chat in chats %}
 
-  <a href="{% url 'join_chat' chat.name %}" class="sbutton button1">
+  <a href="{% url 'join_chat' chat.id %}" class="sbutton button1">
     <p>Username: {{ chat.customer }}</p>
   </a>
   {% endfor %}
