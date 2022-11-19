@@ -243,8 +243,13 @@ class ShopTestCase(TestCase):
     '''
     def test_shop_check_view_exist_true(self):
         self.client.login(username='user', password='password')
+        user = User.objects.get(username= "user")
+        chat = ShopChat.objects.get(name = "chat")
         shop = Shop.objects.get(name="roomtest")
-        response = self.client.get(reverse('shopcheckview' , args=[shop.name]))
+        chat.name = shop.name + user.username
+        chat.save()
+
+        response = self.client.get(reverse('shopcheckview' , args=['roomtest']))
         self.assertEqual(response.status_code, 302)
 
     '''
@@ -252,8 +257,44 @@ class ShopTestCase(TestCase):
     '''
     def test_shop_check_view_exist_false(self):
         self.client.login(username='test', password='password')
-        shop = Shop.objects.get(name="roomtest")
-        response = self.client.get(reverse('shopcheckview' , args=[shop.name]))
+        response = self.client.get(reverse('shopcheckview' , args=['roomtest']))
         self.assertEqual(response.status_code, 302)
 
-    
+    '''
+    test shop send message
+    '''
+    def test_shop_send_message(self):
+        self.client.login(username='test', password='password')
+        name = ShopChat.objects.first()
+        form = {'message':"test some thing", 'username':'test', 'room_name':name}
+        response = self.client.post(reverse('shopsend'), form)
+        self.assertEqual(response.status_code, 200)
+
+    '''
+    test user recieve shop get message from chat
+    '''
+    def test_shop_getMessage_user(self):
+        self.client.login(username='test', password='password')
+        name = ShopChat.objects.first()
+        form = {'message':"test some thing", 'username':'test', 'room_name':name}
+        response = self.client.post(reverse('shopsend'), form)
+        self.assertEqual(response.status_code, 200)
+
+    '''
+    test staff join chat with user
+    '''
+    def test_shop_getMessage_user(self):
+        self.client.login(username='test1', password='password')
+        room = ShopChat.objects.first()
+        response = self.client.post(reverse('shopgetMessages', args=[room.name]))
+        self.assertEqual(response.status_code, 200)
+
+    '''
+    staff join user chat room
+    '''
+    def test_shop_join_chat_staff(self):
+        self.client.login(username='staff', password='password')
+        name = ShopChat.objects.first()
+        chat = name.name
+        response = self.client.post(reverse('join_chat', args=[chat]))
+        self.assertEqual(response.status_code, 302)
