@@ -12,7 +12,7 @@ class ShopChat(models.Model):
     staff = models.CharField(max_length=30)
     customer = models.CharField(max_length=30)
     restaurant_name = models.CharField(max_length=30)
-    # customer_id = models.OneToOneField(User, on_delete = models.CASCADE, null = True)
+    customer_id = models.OneToOneField(User, on_delete = models.CASCADE, null = True)
 
 
 class Shop(models.Model):
@@ -36,7 +36,7 @@ class Shop(models.Model):
 
 
 class AddShop(models.Model):
-    # shop_name = models.CharField(max_length=300, default="", blank=False)
+    shop_name = models.CharField(max_length=300, default="", blank=False)
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='user', null=True)
 
