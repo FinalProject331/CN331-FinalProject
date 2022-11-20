@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from account.models import Account
 from chat.models import Message, Room
-from datetime import datetime
+from datetime import datetime, date
 
 # Create your views here.
 
@@ -134,9 +134,9 @@ def send(request):
     message = request.POST['message']
     username = request.POST['username']
     room_id = request.POST['room_id']
+    account = Account.objects.get(user=request.user)
 
-    new_message = Message.objects.create(
-        value=message, user=username, room=room_id)
+    new_message = Message.objects.create(value=message, user=username, room=room_id, gender=account.gender)
     new_message.save()
     return HttpResponse('Message sent successfully')
 
@@ -207,3 +207,8 @@ def edit_room(request, room):
         "room": this_room.id,
         "room_details": this_room
     })
+
+def cal_age(bday):
+    today = date.today()
+    age = today.year - bday.year - ((today.month, today.day) < (bday.month, bday.day))
+    return age
