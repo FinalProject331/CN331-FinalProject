@@ -53,7 +53,7 @@
       color: #999;
     }
 
-    .icon {
+    .edit {
       color: #4CAF50;
       margin-right: 30px;
       float: right;
@@ -71,40 +71,6 @@
     .link:hover {
       background-color: #45a049;
     }
-
-    .dropbtn {
-      color: #4CAF50;
-      margin-right: 30px;
-      float: right;
-      cursor: pointer;
-      border: none;
-      background-color: white;
-      display: flex;
-    }
-
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: #f1f1f1;
-      min-width: 160px;
-      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-      right: 10%;
-    }
-
-    .dropdown-content p {
-      color: black;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
-    }
-
-    .dropdown-content p:hover {
-      background-color: #ddd;
-    }
-
-    .show {
-      display: block;
-    }
   </style>
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"
     integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
@@ -113,7 +79,9 @@
 <body>
 
   <div>
+    <!-- <h2>{{room}} - DjChat</h2><br> -->
     <h2 style="text-align: center;">{{ room_details.name }}</h2><br>
+    <!-- <a class="link" href="{% url 'home' %}">Back to Home</a> -->
     {% if user.is_superuser %}
     <a class="link" href="{% url 'home' %}">Back</a>
     {% else %}
@@ -153,6 +121,15 @@
     </div>
 
     <script>
+      const date = new Date();
+
+      // ✅ Get a string according to a provided Time zone
+      console.log(
+        date.toLocaleString('en-US', {
+          date: 'Asia/Bangkok',
+        }),
+      ); // 👉️ "1/15/2022, 11:54:44 PM"
+
       $(document).ready(function () {
 
         setInterval(function () {
