@@ -11,7 +11,7 @@ class ShopChat(models.Model):
     name = models.CharField(max_length=300, default="")
     staff = models.CharField(max_length=30)
     customer = models.CharField(max_length=30)
-    restaurant_name = models.CharField(max_length=30)
+    restaurant_id = models.CharField(max_length=30)
     customer_id = models.OneToOneField(User, on_delete = models.CASCADE, null = True)
 
 
@@ -43,7 +43,7 @@ class AddShop(models.Model):
 
 class ShopMessage(models.Model):
     value = models.CharField(max_length=1000000)
-    date = models.DateTimeField(default=datetime.now, blank=True)
+    date = models.CharField(default=datetime.now, blank=True, max_length=1000000)
     user = models.CharField(max_length=1000000)
     room = models.CharField(max_length=1000000)
     

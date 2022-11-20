@@ -1,11 +1,10 @@
 # from django.conf import settings
-from tkinter import Image
 from django.shortcuts import render
 # from django.templatetags.static import static
 from .models import Account
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.core.files.storage import FileSystemStorage
+
 from .forms import ProfileForm
 from django.contrib import messages
 from django.shortcuts import redirect
