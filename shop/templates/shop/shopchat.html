@@ -94,12 +94,12 @@
     </div>
 
     <script>
-      const date = new Date();
-      console.log(
-        date.toLocaleString('en-US', {
-          date: 'Asia/Bangkok',
-        }),
-      );
+      // const date = new Date();
+      // console.log(
+      //   date.toLocaleString('th-TH', {
+      //     date: 'Asia/Bangkok',
+      //   }),
+      // );
 
       $(document).ready(function () {
 
@@ -111,7 +111,8 @@
               console.log(response);
               $("#display").empty();
               for (var key in response.messages) {
-                var temp = "<div class='container darker'><b>" + response.messages[key].user + "</b><p>" + response.messages[key].value + "</p><span class='time-left'>" + date + "</span></div>";
+                // response.messages[key].date.toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' }) 
+                var temp = "<div class='container darker'><b>" + response.messages[key].user + "</b><p>" + response.messages[key].value + "</p><span class='time-left'>" + response.messages[key].date + "</span></div>";
                 $("#display").append(temp);
               }
             },

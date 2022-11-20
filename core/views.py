@@ -59,7 +59,9 @@ def create_account(request):
     if password != repeat_password:
         messages.error(request, "Password and Repeat Password didn't match")
         return HttpResponseRedirect(reverse("signup"))
-
+    if User.objects.filter(username = username).first():
+        messages.error(request, "This username is already taken")
+        return HttpResponseRedirect(reverse("signup"))
     user = User.objects.create(username=username,
                                first_name=first_name, last_name=last_name, email=email)
     user.is_active = True
