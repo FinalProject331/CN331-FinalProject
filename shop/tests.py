@@ -246,10 +246,10 @@ class ShopTestCase(TestCase):
         user = User.objects.get(username= "user")
         chat = ShopChat.objects.get(name = "chat")
         shop = Shop.objects.get(name="roomtest")
-        chat.name = shop.name + user.username
+        chat.name = str(shop.id) + user.username
         chat.save()
 
-        response = self.client.get(reverse('shopcheckview' , args=['roomtest']))
+        response = self.client.get(reverse('shopcheckview' , args=[shop.name]))
         self.assertEqual(response.status_code, 302)
 
     '''

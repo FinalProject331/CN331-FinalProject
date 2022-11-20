@@ -9,7 +9,7 @@
       background-color: #f2f2f2;
       padding: 20px;
     }
-    
+
     .container {
       border: 2px solid #dedede;
       background-color: #f1f1f1;
@@ -52,111 +52,118 @@
       float: left;
       color: #999;
     }
-    
+
     .link {
-        background-color: #4CAF50;
-        color: white;
-        padding: 14px 20px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-      }
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
 
     .link:hover {
       background-color: #45a049;
     }
-
   </style>
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"
     integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 </head>
 
 <body>
-<div>
+  <div>
 
-  {% if user.is_superuser %}
-  <h2 style="text-align: center;">{{ room_details.customer }} </h2>
-  <a class="link" href="{% url 'viewshop' shop.id %}">Back</a><br>
-  {% elif user.is_staff %}
-  <h2 style="text-align: center;">{{ room_details.customer }} </h2>
-  <a class="link" href="{% url 'home' %}">Back</a><br>
-  {% else %}
-  <h2 style="text-align: center;">{{ room_details.restaurant_name }} </h2>
-  <a class="link" href="{% url 'shoplist' %}">Back</a><br>
-  {% endif %}
-  <br>
-  <div class="bg" id="display">
+    {% if user.is_superuser %}
+    <h2 style="text-align: center;">{{ room_details.customer }} </h2>
+    <a class="link" href="{% url 'viewshop' shop.id %}">Back</a><br>
+    {% elif user.is_staff %}
+    <h2 style="text-align: center;">{{ room_details.customer }} </h2>
+    <a class="link" href="{% url 'home' %}">Back</a><br>
+    {% else %}
+    <h2 style="text-align: center;">{{ room_details.restaurant_name }} </h2>
+    <a class="link" href="{% url 'shoplist' %}">Back</a><br>
+    {% endif %}
+    <br>
+    <div class="bg" id="display">
 
-    <!-- <div class="container darker">
+      <!-- <div class="container darker">
   <b>Tom</b><p>Hello Everyone, How Are You Guys Doing?</p>
   <span class="time-left">20th, April 2021</span>
 </div> -->
 
-  </div>
+    </div>
 
-  <script>
-    $(document).ready(function () {
+    <script>
+      // const date = new Date();
+      // console.log(
+      //   date.toLocaleString('th-TH', {
+      //     date: 'Asia/Bangkok',
+      //   }),
+      // );
 
-      setInterval(function () {
-        $.ajax({
-          type: 'GET',
-          url: "/shop/shopgetMessages/{{room}}/",
-          success: function (response) {
-            console.log(response);
-            $("#display").empty();
-            for (var key in response.messages) {
-              var temp = "<div class='container darker'><b>" + response.messages[key].user + "</b><p>" + response.messages[key].value + "</p><span class='time-left'>" + response.messages[key].date.toLocaleTimeString() + "</span></div>";
-              $("#display").append(temp);
+      $(document).ready(function () {
+
+        setInterval(function () {
+          $.ajax({
+            type: 'GET',
+            url: "/shop/shopgetMessages/{{room}}/",
+            success: function (response) {
+              console.log(response);
+              $("#display").empty();
+              for (var key in response.messages) {
+                // response.messages[key].date.toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' }) 
+                var temp = "<div class='container darker'><b>" + response.messages[key].user + "</b><p>" + response.messages[key].value + "</p><span class='time-left'>" + response.messages[key].date + "</span></div>";
+                $("#display").append(temp);
+              }
+            },
+            error: function (response) {
+              alert('An error occured')
             }
-          },
-          error: function (response) {
-            alert('An error occured')
-          }
-        });
-      }, 1000);
-    })
-  </script>
+          });
+        }, 1000);
+      })
+    </script>
 
 
-  <div class="container; bg">
-    <style>
-      input[type=text] {
-        width: 90%;
-        padding: 12px 20px;
-        margin: 8px 0;
-        display: inline-block;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-      }
+    <div class="container; bg">
+      <style>
+        input[type=text] {
+          width: 90%;
+          padding: 12px 20px;
+          margin: 8px 0;
+          display: inline-block;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
+        }
 
-      input[type=submit] {
-        background-color: #4CAF50;
-        color: white;
-        padding: 12px 20px;
-        margin: 8px 0;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        float: right;
-      }
+        input[type=submit] {
+          background-color: #4CAF50;
+          color: white;
+          padding: 12px 20px;
+          margin: 8px 0;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          float: right;
+        }
 
-      input[type=submit]:hover {
-        background-color: #45a049;
-      }
-    </style>
+        input[type=submit]:hover {
+          background-color: #45a049;
+        }
+      </style>
 
-    <form id="post-form" action ="shopsend" method="post-form">
-      {% csrf_token %}
-      <input type="hidden" name="username" id="username" value="{{username}}" />
-      <input type="hidden" name="room_name" id="room_name" value="{{room_details.name}}" />
-      <input type="text" name="message" id="message" width="70px" />
-      <input type="submit" value="Send">
-    </form>
-    
+      <form id="post-form" action="shopsend" method="post-form">
+        {% csrf_token %}
+        <input type="hidden" name="username" id="username" value="{{username}}" />
+        <input type="hidden" name="room_name" id="room_name" value="{{room_details.name}}" />
+        <input type="text" name="message" id="message" width="70px" />
+        <input type="submit" value="Send">
+      </form>
+
+    </div>
+
   </div>
-
-</div>
 </body>
 
 <script type="text/javascript">
@@ -181,5 +188,3 @@
 </script>
 
 {% endblock %}
-
-

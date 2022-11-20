@@ -1,7 +1,6 @@
 from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
-from chat.models import Room
 from PIL import Image
 
 # Create your models here.
@@ -18,6 +17,7 @@ class Account(models.Model):
 	gender = models.CharField(blank=True, 
 			choices=GenderType,
 			max_length=10)
+	age = models.CharField(max_length=10, default=0)
 
 	def save(self,*args, **kwargs):
 		super().save(*args, ** kwargs)

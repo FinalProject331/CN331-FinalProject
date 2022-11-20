@@ -8,7 +8,7 @@ from .models import Help
 from chat.models import Room
 from account.models import Account
 from shop.models import ShopChat, Shop
-from chat.views import check_gender
+from chat.views import check_gender, cal_age
 # Create your views here.
 
 
@@ -57,9 +57,11 @@ def create_account(request):
     gender = request.POST.get('gender')
 
     if password != repeat_password:
-        messages.error(request, "Password and Repaet Password didn't match")
+        messages.error(request, "Password and Repeat Password didn't match")
         return HttpResponseRedirect(reverse("signup"))
-
+    if User.objects.filter(username = username).first():
+        messages.error(request, "This username is already taken")
+        return HttpResponseRedirect(reverse("signup"))
     user = User.objects.create(username=username,
                                first_name=first_name, last_name=last_name, email=email)
     user.is_active = True
@@ -70,6 +72,9 @@ def create_account(request):
         user=user, birthday=birthday, gender=gender)
     account.save()
     account.refresh_from_db()
+    age = cal_age(account.birthday)
+    account.age = age
+    account.save()
     return HttpResponseRedirect(reverse('login'))
 
 

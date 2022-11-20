@@ -142,13 +142,13 @@ class ChatTestCase(TestCase):
     '''
     def test_chat_checkview_success(self):
         self.client.login(username='test1', password='password')
-        longtime = datetime(2222,12,31,23,59,59)
+        longtime = datetime.strptime("2022-11-20T22:48", "%Y-%m-%dT%H:%M")
         form = {'room_name':"somename", 'description':"my description", 'max_seat':"3",
         'gender_request':'N', 'dead_time': longtime, 'meal_time':longtime, 'filter':"test"
         }
 
         response = self.client.post(reverse('chat:checkview'), form)
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
  
     '''
     action check view
@@ -161,9 +161,9 @@ class ChatTestCase(TestCase):
         account.chat = 1
         account.gender = "M"
         account.save()
-        longtime = datetime(2222,12,31,23,59,59)
+        longtime = datetime.strptime("2022-11-20T22:48", "%Y-%m-%dT%H:%M")
         form = {'room_name':"somename", 'description':"my description", 'max_seat':"3",
-        'gender_request':'N', 'dead_time': longtime, 'meal_time':longtime
+        'gender_request':'N', 'dead_time': longtime, 'meal_time':longtime, 'filter':["text1", "test2"]
         }
 
         response = self.client.post(reverse('chat:checkview'), form)
@@ -180,13 +180,14 @@ class ChatTestCase(TestCase):
         account.chat = 0
         account.gender = "M"
         account.save()
-        time = datetime(2000,12,31,23,59,59)
+        testtime = datetime(2024,10,22,1,1,1)
+        time = testtime.strftime("%Y-%m-%dT%H:%M")
         form = {'room_name':"somename", 'description':"my description", 'max_seat':"3",
-        'gender_request':'N', 'dead_time': time, 'meal_time': time
+        'gender_request':'N', 'dead_time': time, 'meal_time': time, 'filter':["r", "test"]
         }
 
         response = self.client.post(reverse('chat:checkview'), form)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
 
     '''
     user test send message
@@ -257,3 +258,4 @@ class ChatTestCase(TestCase):
         ,'filter' : ["test1"]}
         response = self.client.post(reverse('chat:edit_details' , args=[room.id]), form)
         self.assertEqual(response.status_code, 302)
+

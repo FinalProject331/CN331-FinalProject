@@ -138,6 +138,7 @@ class CoreViewsTestCase(TestCase):
         response = c.post(reverse('create_account'), form )
         self.assertTrue(response.status_code, 200)
 
+
     '''
     test create account invalid
     '''
@@ -148,6 +149,35 @@ class CoreViewsTestCase(TestCase):
         response = c.post(reverse('create_account'), form )
         self.assertTrue(response.status_code, 200)
 
+    '''
+    test create account invalid got same username
+    '''
+    def test_valid_createuser_invalid_same_username(self):
+        c = Client()
+        form = {'username': 'account', 'password': 'account1234', 'repeat_password' : "account1234",
+         'first_name': 'first', 'last_name': 'last', 'email': 'test@user.com', 'gender':"Male", 'birthday': "2003-05-28"}
+        response = c.post(reverse('create_account'), form )
+        self.assertTrue(response.status_code, 200)
+        c = Client()
+        form = {'username': 'account', 'password': 'account1234', 'repeat_password' : "account1234",
+         'first_name': 'first', 'last_name': 'last', 'email': 'test@user.com', 'gender':"Male", 'birthday': "2003-05-28"}
+        response = c.post(reverse('create_account'), form )
+        self.assertTrue(response.status_code, 200)
+
+    '''
+    test function create user with valid output age
+    '''
+    def test_valid_createuser_check_age(self):
+        c = Client()
+        form = {'username': 'account', 'password': 'account1234', 'repeat_password' : "account1234",
+         'first_name': 'first', 'last_name': 'last', 'email': 'test@user.com', 'gender':"Male", 'birthday': "2003-05-28"}
+        response = c.post(reverse('create_account'), form )
+        self.assertTrue(response.status_code, 200)
+        self.client.login(username='account', password='account1234')
+        me = User.objects.get(username="account")
+        account = Account.objects.get(user=me)
+        age = account.age
+        self.assertTrue(age, 19)
     '''
     normal user can search room
     '''
