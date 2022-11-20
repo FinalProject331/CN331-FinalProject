@@ -20,9 +20,9 @@ class Room(models.Model):
                                       max_length=10)
     # room_name = models.CharField
     start_time = models.DateTimeField(default=datetime.now, blank=True)
-    dead_time = models.DateTimeField(default=datetime.today, blank=True)
+    dead_time = models.CharField(max_length=1000, blank=True)
     # hashtags = models.ManyToManyField(Tags)
-    meal_time = models.DateTimeField(default=datetime.today, blank=True)
+    meal_time = models.CharField(max_length=1000, blank=True)
     status = models.CharField(choices=[('O', 'Open'), ('C', 'Close')], default='Open', max_length=10)
     # room_owner = models.ManyToManyField(Account, verbose_name="owner")
 

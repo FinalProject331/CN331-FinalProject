@@ -103,6 +103,8 @@ def checkview(request):
         for x in filterArray:
             filter += x + ", "
         filter = filter[:-2]
+        meal_time =  format_time(meal_time)
+        dead_time = format_time(dead_time)
 
         new_room = Room.objects.create(name=room)
         new_room.filter = filter
@@ -212,3 +214,7 @@ def cal_age(bday):
     today = date.today()
     age = today.year - bday.year - ((today.month, today.day) < (bday.month, bday.day))
     return age
+
+def format_time(time):
+    time = datetime.strptime(time, "%Y-%m-%dT%H:%M")
+    return time.strftime("%H:%M, %d/%m/%Y")
