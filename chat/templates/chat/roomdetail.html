@@ -5,6 +5,15 @@
 </head>
 <style>
   /* The alert message box */
+  .frame {
+  
+  border-radius: 15px;
+  border-style: groove;
+  max-width: 500px;
+  margin: auto;
+  padding: 40px;
+
+}
     .alert {
       padding: 20px;
       background-color: #f44336; /* Red */
@@ -24,10 +33,28 @@
       transition: 0.3s;
     }
   
-  /* When moving the mouse over the close button */
     .closebtn:hover {
       color: black;
     }
+    .button {
+  background-color:#4CAF50; 
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+  
+  
+}
+.align-right {
+        text-align: right;
+
+      }
   </style>
 
 {% if messages %}
@@ -39,7 +66,10 @@
 </div>
 {% endif %}
 
-<div>
+<br>
+<br>
+<br>
+<div class = "frame">
 <h1>Room Detail</h1>
 <p>Room name: {{ room.name }}</p>
 <p>Room id: {{ room.id }}</p>
@@ -64,7 +94,9 @@ Gender:
 {% if user.is_superuser %}
 <a href="{% url 'chat:room' room.id %}">Enter</a>
 {% else %}
-<a href="{% url 'chat:join_room' room.id %}">Join</a>
+<div class="align-right">
+
+<button class="button"><a href="{% url 'chat:join_room' room.id %}">Join</a></button></div>
 {% endif %}
 </div>
 {% endblock %}
