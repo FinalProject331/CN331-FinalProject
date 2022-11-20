@@ -252,7 +252,8 @@ class ChatTestCase(TestCase):
         account.chat = room.id
         account.save()
         
-        longtime = datetime(2099,12,31,23,59,59)
+        testtime = datetime(2024,10,22,1,1,1)
+        longtime = testtime.strftime("%Y-%m-%dT%H:%M")
         form = {'room_name':"somename", 'description':"my description", 'max_seat':"3",
         'gender_request':'N', 'dead_time': longtime, 'meal_time':longtime, 'status':'C'
         ,'filter' : ["test1"]}
