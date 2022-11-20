@@ -66,8 +66,8 @@
       <input type="text" value="{{ room_details.name }}" name="room_name" id="room_name" width="100px" />
       <br>
       
-      <select data-placeholder="Filter" value="{{ room_deatails.filter }}" multiple class="chosen-select" name="filter">
-        <option value=""></option>
+      <select data-placeholder="Filter" multiple class="chosen-select" name="filter">
+        <option value="{{ room_details.filter }}" selected>{{ room_details.filter }}</option>
         <optgroup label="Type of Food">
           <option value="Buffet">Buffet</option>
           <option value="Fastfood">Fastfood</option>
@@ -85,7 +85,7 @@
       
       <br>
       <label for="description">Description</label>
-      <textarea rows="5" name="description" placeholder="Enter description"></textarea>
+      <textarea rows="5" name="description">{{ room_details.description }}</textarea>
       <br>
       <label for="max_seat">Max seat</label>
       <input type="number" value="{{ room_details.max_seat }}" name="max_seat">
@@ -93,7 +93,7 @@
       <br>
       <label for="gender_request">Choose a gender</label>
     
-      <select name="gender_request" value="{{ room_details.request_gender }}"  id="gender_request" required>
+      <select name="gender_request" id="gender_request" required>
           <option value="N">not define</option>
           <option value="M">Male</option>
           <option value="F">Female</option>
