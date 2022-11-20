@@ -34,8 +34,10 @@
     }
 
     .card {
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-      max-width: 500px;
+      border-radius: 15px;
+  border-style: groove;
+
+      max-width: 550px;
       margin: auto;
       text-align: center;
       font-family: arial;
@@ -97,8 +99,9 @@
 
 <body>
   <div>
+    <br>
     {% if user == shop.staff %}
-    <h2 style="text-align:center">My Shop</h2>
+    <h1 style="text-align:center">My Shop</h1>
     {% endif %}
 
     <style>
@@ -127,6 +130,7 @@
           color: black;
         }
       </style>
+
   
     {% if messages %}
     <div class="alert">
@@ -136,9 +140,9 @@
       {% endfor %}
     </div>
     {% endif %}
-
+    <br>
     <div class="card">
-
+      <br>
       <img src="{{ shop.shopimg.url }}" alt="shopimg" width="200px">
       <h1> {{ shop.name }}</h1>
       <p class="title">bio: {{ shop.detail }}</p>
@@ -147,6 +151,7 @@
     
         <a href="https://www.maptiler.com" style="position:absolute;left:10px;bottom:10px;z-index:999;"><img src="https://api.maptiler.com/resources/logo.svg" alt="MapTiler logo"></a>
       </div>
+    
       <script>
         const key = '7fp1Wm4VWG2FYaeZticr';
         let text = "{{ shop.location }}";
@@ -173,6 +178,7 @@
       </div>
       {% if user == shop.staff %}
       <button><a style="color: white" href="{% url 'modifyshop' %}">Modify Shop</a></button>
+    
       {% elif not user.is_staff %}
       <div style="margin: 24px 0;">
         <a class="fix" href="{% url 'shopcheckview' shop.name %}"><i class="far fa-comments"
