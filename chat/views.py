@@ -139,6 +139,10 @@ def send(request):
 
     new_message = Message.objects.create(value=message, user=username, room=room_id)
     new_message.save()
+    date = new_message.date.strftime("%Y-%m-%dT%H:%M")
+    new_date = format_time(date)
+    new_message.date = new_date
+    new_message.save()
     return HttpResponse('Message sent successfully')
 
 
@@ -188,14 +192,19 @@ def edit_details(request, room):
         filter += x + ", "
     filter = filter[:-2]
 
+    meal_time = request.POST['meal_time']
+    dead_time = request.POST['dead_time']
+    meal_time = format_time(meal_time)
+    dead_time = format_time(dead_time)
+
     this_room = Room.objects.get(id=room)
     this_room.name = request.POST['room_name']
     this_room.filter = filter
     this_room.description = request.POST['description']
     this_room.max_seat = request.POST['max_seat']
     this_room.request_gender = request.POST['gender_request']
-    this_room.dead_time = request.POST['dead_time']
-    this_room.meal_time = request.POST['meal_time']
+    this_room.dead_time = dead_time
+    this_room.meal_time = meal_time
     this_room.status = request.POST['status']
     this_room.save()
     username = request.user.username

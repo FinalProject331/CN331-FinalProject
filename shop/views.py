@@ -12,6 +12,7 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from .models import ShopMessage
 from django.http import HttpResponse, JsonResponse
+from chat.views import format_time
 
 # let staff view the detail of shop
 def myshop(request):
@@ -117,7 +118,7 @@ chat with staff
 
 def shoproom(request, room):
     room_details = ShopChat.objects.get(name=room)
-    shop = Shop.objects.get(name = room_details.restaurant_name)
+    shop = Shop.objects.get(id = room_details.restaurant_id)
     user = request.user
     username = user.username
     account = None
@@ -142,7 +143,7 @@ def shopcheckview(request, shop):
     if ShopChat.objects.filter(name = room_name).exists():
         return redirect('/shop/'+room_name+'/?username='+username)
     else:
-        new_room = ShopChat.objects.create(name=room_name, staff = staff, customer = username, restaurant_name = shop)
+        new_room = ShopChat.objects.create(name=room_name, staff = staff, customer = username, restaurant_id = shopobj.id)
         new_room.save()
         return redirect('/shop/'+room_name+'/?username='+username)
 
@@ -152,6 +153,10 @@ def shopsend(request):
     room_name = request.POST['room_name']
 
     new_message = ShopMessage.objects.create(value=message, user=username, room=room_name)
+    new_message.save()
+    date = new_message.date.strftime("%Y-%m-%dT%H:%M")
+    new_date = format_time(date)
+    new_message.date = new_date
     new_message.save()
     return HttpResponse('Message sent successfully')
 
