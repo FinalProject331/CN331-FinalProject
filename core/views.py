@@ -35,7 +35,10 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-
+            if not user.is_staff:
+                account = Account.objects.get(user=request.user)
+                account.age = cal_age(account.birthday)
+                account.save()
             return HttpResponseRedirect(reverse('home'))
         else:
             messages.warning(request, "Invalid credential.")

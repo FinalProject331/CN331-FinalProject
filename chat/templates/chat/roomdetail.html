@@ -95,10 +95,6 @@ Gender:
 {% if user.is_superuser %}
 <button class="button"><a href="{% url 'chat:room' room.id %}">Enter</a></button>
 {% else %}
-<<<<<<< HEAD
-<div class="align-right">
-=======
->>>>>>> 8b54a65db62d272563cd036a6d8078f22b8c0020
 
 <button class="button"><a href="{% url 'chat:join_room' room.id %}">Join</a></button></div>
 {% endif %}
