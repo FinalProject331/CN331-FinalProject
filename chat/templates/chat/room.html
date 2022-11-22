@@ -8,6 +8,8 @@
     .bg {
       background-color: #f2f2f2;
       padding: 20px;
+      margin-left: 0;
+      width: 100%;
     }
 
     .container {
@@ -176,11 +178,7 @@
               console.log(response);
               $("#display").empty();
               for (var key in response.messages) {
-<<<<<<< HEAD
-                var temp = "<div class='container darker'><b>" + response.messages[key].user + " </b><p>" + response.messages[key].value + "</p><span class='time-left'>" + response.messages[key].date + "</span></div>" ;
-=======
                 var temp = "<div class='container darker'><b>" + response.messages[key].user + " </b><p>" + response.messages[key].value + "<span class='time-right'>" + response.messages[key].date + "</span></p></div>" ;
->>>>>>> 8b54a65db62d272563cd036a6d8078f22b8c0020
                 $("#display").append(temp);
               }
             },

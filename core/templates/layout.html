@@ -3,7 +3,9 @@
 
 <head>
     <title>FWD, Food with Buddies</title>
-    <link rel="icon" href="https://png.pngtree.com/element_our/20190528/ourmid/pngtree-green-f-icon-png-download-image_1162800.jpg" type="image/icon type">
+    <link rel="icon"
+        href="https://png.pngtree.com/element_our/20190528/ourmid/pngtree-green-f-icon-png-download-image_1162800.jpg"
+        type="image/icon type">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -11,6 +13,17 @@
     <script src="https://kit.fontawesome.com/3f85e29ea8.js" crossorigin="anonymous"></script>
 </head>
 <style>
+    body {
+        width: 100%;
+        height: 100vh;
+        background: linear-gradient(to right,
+                #aeecb0 0%,
+                #aeecb0 9%,
+                white 9%,
+                white 91%,
+                #aeecb0 91%,
+                #aeecb0 100%);
+    }
 
     .topnav {
         overflow: hidden;
@@ -39,15 +52,17 @@
     .topnav-right {
         float: right;
     }
-    #navbar1,#navbar2{
-        margin:0;
+
+    #navbar1,
+    #navbar2 {
+        margin: 0;
         padding: 0;
 
     }
-    
-    div{
-      padding-left: 10%;
-      padding-right: 10%;
+
+    div {
+        margin-left: 10%;
+        margin-right: 10%;
     }
 </style>
 
@@ -64,7 +79,7 @@
             {% if account.chat != 0 and account != None %}
             <a href="{% url 'chat:return_chat' account.chat %}">Chat</a>
             {% endif %}
-            
+
             <a href="{% url 'logout' %}">Logout</a>
             {% if not user.is_superuser %}
             {% if user.is_staff %}

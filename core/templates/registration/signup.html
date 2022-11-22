@@ -3,102 +3,239 @@
 
 {% block body %}
 <style>
-/* The alert message box */
+  /* The alert message box */
   .alert {
     padding: 20px;
-    background-color: #f44336; /* Red */
+    background-color: #f44336;
+    /* Red */
     color: white;
     margin-bottom: 15px;
   }
 
-/* The close button */
-  .closebtn {
-    margin-left: 15px;
-    color: white;
-    font-weight: bold;
-    float: right;
-    font-size: 22px;
-    line-height: 20px;
-    cursor: pointer;
-    transition: 0.3s;
+  @import url(https://fonts.googleapis.com/css?family=Cookie|Raleway:300,700,400);
+
+  * {
+    box-sizing: border-box;
+    font-size: 1em;
+    margin: 0;
+    padding: 0;
   }
 
-/* When moving the mouse over the close button */
-  .closebtn:hover {
-    color: black;
+  body {
+    color: #333;
+    font-size: 17px;
+    font-family: 'Raleway', sans-serif;
+  }
+
+  .container {
+    border-radius: 0.5em;
+
+    -webkit-box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.32);
+    -moz-box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.32);
+    box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.32);
+    display: block;
+    max-width: 480px;
+    overflow: hidden;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    padding: 2em;
+    position: absolute;
+    top: 55%;
+    left: 40%;
+    z-index: 1;
+    width: 98%;
+  }
+
+  .container:before {
+    background: rgb(240, 240, 240);
+    content: '';
+    height: 100vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: -1;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 100vw;
+  }
+
+  .container:after {
+    background: rgba(255, 255, 255, 0.6);
+    content: '';
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+  }
+
+  form button.submit {
+    background: #4fb44a;
+    border: 1px #4fb44a solid;
+    line-height: 1em;
+    padding: 0.5em 0.5em;
+    -webkit-transition: all 0.25s;
+    transition: all 0.25s;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 0.3em;
+  }
+
+  form button:hover,
+  form button:focus,
+  form button:active,
+  form button.loading {
+    background: #67d663;
+    border: 1px #67d663 solid;
+  }
+
+  form label {
+    border-bottom: 1px solid #333;
+    display: block;
+    font-size: 1.25em;
+    margin-bottom: 0.5em;
+    -webkit-transition: all 0.25s;
+    transition: all 0.25s;
+  }
+
+  form label.col-one-half {
+    float: left;
+    width: 50%;
+  }
+
+  form label.col-one-half:nth-of-type(even) {
+    border-left: 1px solid #333;
+    padding-left: 0.25em;
+  }
+
+  form label input {
+    background: none;
+    border: none;
+    line-height: 1em;
+    font-weight: 300;
+    padding: 0.125em 0.25em;
+    width: 100%;
+  }
+
+  form label input:focus {
+    outline: none;
+  }
+
+  form label input:-webkit-autofill {
+    background-color: transparent !important;
+  }
+
+  form label select {
+    background: none;
+    border: none;
+    line-height: 1em;
+    font-weight: 300;
+    width: 100%;
+  }
+
+  form label select:focus {
+    outline: none;
+  }
+
+  form label select:-webkit-autofill {
+    background-color: transparent !important;
+  }
+
+  form label span.label-text {
+    display: block;
+    font-size: 0.5em;
+    font-weight: bold;
+    padding-left: 0.5em;
+    text-transform: uppercase;
+    -webkit-transition: all 0.25s;
+    transition: all 0.25s;
+  }
+
+  h1 {
+    font-size: 3em;
+    margin: 0 0 0.5em 0;
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+  }
+
+  .text-center {
+    text-align: center;
   }
 </style>
 
 <div>
-<h2>Register</h2>
 
-{% if messages %}
-<div class="alert">
-  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+  {% if messages %}
+  <div class="alert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
     {% for message in messages %}
-      {{ message }}
+    {{ message }}
     {% endfor %}
-</div>
-{% endif %}
+  </div>
+  {% endif %}
 
 
+  <div class="container">
+    <h1 class="text-center">Register</h1>
+    <form class="registration-form" action="create_account" method="post">
+      {% csrf_token %}
+      <label class="col-one-half">
+        <span class="label-text" for="first_name">First Name</span>
+        <input type="text" name="first_name">
+      </label>
 
-<form action="create_account" method= "post" >
-  {% csrf_token %}
+      <label class="col-one-half">
+        <span class="label-text" for="last_name">Last Name</span>
+        <input type="text" name="last_name">
+      </label>
 
-      <label for="first_name"><b>firstname</b></label>
-      <input type="text" placeholder="Enter firstname" name="first_name">
-      <br>
+      <label>
+        <span class="label-text" for="username">Username</span>
+        <input type="text" name="username">
+      </label>
 
-      <label for="last_name"><b>lastname</b></label>
-      <input type="text" placeholder="Enter lastname" name="last_name">
-      <br>
+      <label>
+        <span class="label-text" for="email">Email</span>
+        <input type="text" name="email">
+      </label>
 
-      <label for="email"><b>Email</b></label>
-      <input type="text" placeholder="Enter Email" name="email">
-      <br>
-
-      <label for="username"><b>username</b></label>
-      <input type="text" placeholder="Enter Username" name="username" >
-      <br>
-
-
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="password" >
-      <br>
-
-      <label for="psw-repeat"><b>Repeat Password</b></label>
-      <input type="password" placeholder="Repeat Password" name="repeat_password">
-
-
-      <br>
-      <br>
-      <!-- <label for="bio"><b>Bio</b></label>
-      <input type="text" placeholder="Bio" name="bio">
+      <label class="col-one-half">
+        <span class="label-text" for="psw">Password</span>
+        <span class="glyphicon glyphicon-eye-close"></span>
+        <input type="password" name="password">
+      </label>
 
 
-      <label for="img">Select Profile image:</label>
-      <input type="file" id="img" name="img" accept="image/*"> -->
+      <label class="col-one-half">
+        <span class="label-text" for="psw-repeat">Repeat Password</span>
+        <span class="glyphicon glyphicon-eye-close"></span>
+        <input type="password" name="repeat_password">
+      </label>
 
-      <label for="birthday">Birthday:</label>
-      <input type="date" id="birthday" name="birthday" required>
-      
-      
-      <br>
-      <label for="gender">Choose a gender:</label>
-    
-      <select name="gender" id="gender" required>
-          <option value="N">not define</option>
+      <label class="col-one-half">
+        <span class="label-text" for="birthday">Birthday</span>
+        <input type="date" id="birthday" name="birthday" required>
+      </label>
+
+      <label class="col-one-half">
+        <span class="label-text" for="gender">Gender</span>
+        <select name="gender" placeholder="gender" id="gender" required>
+          <option value="" selected disabled hidden></option>
           <option value="M">Male</option>
           <option value="F">Female</option>
           <option value="L">LGBTQ+</option>
-      </select>
+        </select>
+      </label>
 
-
-      <div class="clearfix">
-        <button type="submit" class="signupbtn">Confirm</button>
+      <div class="text-center">
+        <button type="submit" name="register" class="submit">Confirm</button>
       </div>
-    </div>
+  </div>
   </form>
+</div>
 </div>
 {% endblock %}
