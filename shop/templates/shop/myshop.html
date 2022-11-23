@@ -1,9 +1,11 @@
 {% extends "layout.html" %}
+{% load static %}
 {% block body %}
 
 
 
 <head>
+  <link href="{% static 'myshop.css' %}" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
   integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
 <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
@@ -28,73 +30,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-  <style>
-    #map {
-      height: 180px;
-    }
-
-    .card {
-      border-radius: 15px;
-  border-style: groove;
-
-      max-width: 550px;
-      margin: auto;
-      text-align: center;
-      font-family: arial;
-      align-items: center;
-    }
-
-    .title {
-      color: grey;
-      font-size: 18px;
-    }
-
-    button {
-      border: none;
-      outline: 0;
-      display: inline-block;
-      padding: 8px;
-      color: white;
-      background-color: #000;
-      text-align: center;
-      cursor: pointer;
-      width: 100%;
-      font-size: 18px;
-    }
-
-    .sbutton {
-      background-color: #ffffff;
-      /* Green */
-      border: 2px solid #4CAF50;
-      color: rgb(0, 0, 0);
-      padding: 16px 32px;
-      text-align: left;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      margin: 4px 2px;
-      transition-duration: 0.4s;
-      cursor: pointer;
-      width: 100%;
-      border-radius: 10px;
-    }
-
-    a {
-      text-decoration: none;
-      font-size: 22px;
-      color: black;
-    }
-
-    button:hover,
-    a:hover {
-      opacity: 0.7;
-    }
-
-    .sbutton:hover {
-      background-color: #4CAF50;
-      color: white;
-    }
-  </style>
 </head>
 
 <body>
@@ -103,34 +38,6 @@
     {% if user == shop.staff %}
     <h1 style="text-align:center">My Shop</h1>
     {% endif %}
-
-    <style>
-      /* The alert message box */
-        .alert {
-          padding: 20px;
-          background-color: #f44336; /* Red */
-          color: white;
-          margin-bottom: 15px;
-        }
-      
-      /* The close button */
-        .closebtn {
-          margin-left: 15px;
-          color: white;
-          font-weight: bold;
-          float: right;
-          font-size: 22px;
-          line-height: 20px;
-          cursor: pointer;
-          transition: 0.3s;
-        }
-      
-      /* When moving the mouse over the close button */
-        .closebtn:hover {
-          color: black;
-        }
-      </style>
-
   
     {% if messages %}
     <div class="alert">
