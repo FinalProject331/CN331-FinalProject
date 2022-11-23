@@ -1,61 +1,10 @@
 {% extends "layout.html" %}
+{% load static %}
 {% block body %}
 <head>
+  <head><link href="{% static 'roomdetail.css' %}" rel="stylesheet"></head>
   <script src="https://kit.fontawesome.com/3f85e29ea8.js" crossorigin="anonymous"></script>
-</head>
-<style>
-  /* The alert message box */
-  .frame {
-  
-  border-radius: 15px;
-  border-style: groove;
-  max-width: 500px;
-  margin: auto;
-  padding: 50px;
-
-}
-    .alert {
-      padding: 20px;
-      background-color: #f44336; /* Red */
-      color: white;
-      margin-bottom: 15px;
-    }
-  
-  /* The close button */
-    .closebtn {
-      margin-left: 15px;
-      color: white;
-      font-weight: bold;
-      float: right;
-      font-size: 22px;
-      line-height: 20px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-  
-    .closebtn:hover {
-      color: black;
-    }
-    .button {
-  background-color:#4CAF50; 
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 5px;
-  
-  
-}
-.align-right {
-        text-align: right;
-
-      }
-  </style>
+</head>  
 
 {% if messages %}
 <div class="alert">
