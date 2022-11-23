@@ -1,21 +1,9 @@
 {% extends "layout.html" %}
+{% load static %}
+
 {% block body %}
-<style>
-    body {
-        text-align: center;
-    }
+<head><link href="{% static 'help.css' %}" rel="stylesheet"></head>
 
-    .box {
-        width: 60%;
-        height: 200px;
-    }
-
-    textarea {
-        border-radius: 4px;
-        padding: 15px;
-    }
-    
-</style>
 <h1>Help</h1>
 <div>
     <form action="help_send" method = "get" id="help_send">

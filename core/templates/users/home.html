@@ -1,26 +1,11 @@
 {% extends "layout.html" %}
+{% load static %}
+
 {% block body %}
 
 <head>
-  <style>
-    body {
-      color: green;
-      text-align: center;
-
-    }
-
-    .webname {
-      font-family: 'Chewy', cursive;
-      font-size: 100px;
-    }
-
-    .fix {
-      bottom: 30px;
-      right: 30px;
-      position: fixed;
-      z-index: 3000;
-    }
-  </style>
+  <link href="{% static 'home.css' %}" rel="stylesheet">
+  
   <link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/3f85e29ea8.js" crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -32,32 +17,6 @@
 
 <!-- <h1>Hello, {{ user.username|default:'Guest' }}</h1> -->
 <h1 class="webname">Food with Buddies</h1>
-<style>
-  /* The alert message box */
-    .alert {
-      padding: 20px;
-      background-color: #f44336; /* Red */
-      color: white;
-      margin-bottom: 15px;
-    }
-  
-  /* The close button */
-    .closebtn {
-      margin-left: 15px;
-      color: white;
-      font-weight: bold;
-      float: right;
-      font-size: 22px;
-      line-height: 20px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-  
-  /* When moving the mouse over the close button */
-    .closebtn:hover {
-      color: black;
-    }
-  </style>
 
 {% if messages %}
 <div class="alert">
@@ -68,62 +27,6 @@
 </div>
 {% endif %}
 <div>
-  <style>
-    .button {
-      background-color: #ffffff;
-      /* Green */
-      border: 2px solid #4CAF50;
-      color: rgb(0, 0, 0);
-      padding: 16px 32px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      margin: 4px 2px;
-      transition-duration: 0.4s;
-      cursor: pointer;
-      width: 300px;
-      height: 300px;
-      border-radius: 10px;
-    }
-    
-    .sbutton {
-      background-color: #ffffff;
-      /* Green */
-      border: 2px solid #4CAF50;
-      color: rgb(0, 0, 0);
-      padding: 16px 32px;
-      text-align: left;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      margin: 4px 2px;
-      transition-duration: 0.4s;
-      cursor: pointer;
-      width: 100%;
-      border-radius: 10px;
-    }
-
-    .button1 {
-      margin-right: 15px;
-      margin-bottom: 15px;
-    }
-
-
-    .button:hover {
-      background-color: #4CAF50;
-      color: white;
-    }
-
-    .sbutton:hover {
-      background-color: #4CAF50;
-      color: white;
-    }
-
-    .form-inline {
-      display: inline-block;
-    }
-  </style>
 
   {% if user.is_superuser %}
   
