@@ -72,7 +72,7 @@ def search_shop(request):
     shops = []
     if text != "":
         for shop in all_shop:
-            if text in shop.name :
+            if text.lower() in shop.name.lower():
                 shops.append(shop)
         if shops == []:
             messages.warning(

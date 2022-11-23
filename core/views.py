@@ -127,12 +127,12 @@ def help_send(request):
 
 def search(request):
     account = Account.objects.get(user=request.user)
-    text = request.GET['search']
+    text = request.POST['search']
     all_room = Room.objects.all()
     rooms = []
     if text != "":
         for room in all_room:
-            if text in room.name:
+            if text.lower() in room.name.lower():
                 rooms.append(room)
         if rooms == []:
             messages.warning(
