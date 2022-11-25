@@ -16,24 +16,6 @@ body {
     z-index: 3000;
 }
 
-.button {
-    background-color: #ffffff;
-    /* Green */
-    border: 2px solid #4CAF50;
-    color: rgb(0, 0, 0);
-    padding: 16px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    transition-duration: 0.4s;
-    cursor: pointer;
-    width: 300px;
-    height: 300px;
-    border-radius: 10px;
-}
-
 .sbutton {
     background-color: #ffffff;
     /* Green */
@@ -56,17 +38,196 @@ body {
     margin-bottom: 15px;
 }
 
-
-.button:hover {
-    background-color: #4CAF50;
-    color: white;
-}
-
 .sbutton:hover {
     background-color: #4CAF50;
     color: white;
 }
 
-.form-inline {
+@import url('https://fonts.googleapis.com/css?family=Abel');
+
+.card {
+    width: 450px;
+    height: 250px;
+    background-color: #fff;
+    color: #111;
+    background: linear-gradient(#f8f8f8, #fff);
+    box-shadow: 0 8px 16px -8px rgba(0, 0, 0, 0.4);
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+    margin: 1rem;
+    float: left;
+}
+
+.card h1 {
+    text-align: center;
+}
+
+.card .additional {
+    position: absolute;
+    width: 150px;
+    height: 100%;
+    transition: width 0.4s;
+    overflow: hidden;
+    z-index: 2;
+    margin-left: 0;
+}
+
+.card:hover .additional {
+    width: 100%;
+    border-radius: 0 5px 5px 0;
+}
+
+.card .additional .user-card {
+    width: 150px;
+    height: 100%;
+    position: relative;
+    float: left;
+    margin-left: 0;
+}
+
+.card .additional .user-card::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 10%;
+    right: -2px;
+    height: 80%;
+    border-left: 2px solid rgba(0, 0, 0, 0.025);
+}
+
+.card .additional .more-info {
+    width: 300px;
+    float: left;
+    position: absolute;
+    left: 150px;
+    height: 100%;
+    margin-left: 0;
+}
+
+.card .additional .more-info h1 {
+    color: #fff;
+    margin-bottom: 0;
+}
+
+.card .additional .coords {
+    margin: 0 1rem;
+    color: #fff;
+    font-size: 1rem;
+    float: left;
+    text-align: left;
+}
+
+.card .additional .more-info a {
     display: inline-block;
+    padding: 8px 16px;
+    background: #fff;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    color: #111;
+    transition: 0.25s;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+}
+
+.card .additional .more-info a:hover {
+    background-color: rgb(189, 189, 189);
+}
+
+.card .additional .more {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    font-size: 0.9em;
+}
+
+.card .general {
+    width: 300px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: auto;
+    z-index: 1;
+    box-sizing: border-box;
+    padding: 1rem;
+    padding-top: 0;
+}
+
+.card .general .more {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    font-size: 0.9em;
+}
+
+.dot {
+    height: 100px;
+    width: 100px;
+    margin-top: 50%;
+    background-color: #fff;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+* {
+    outline: none;
+}
+
+.tb {
+    margin: 0;
+    display: table;
+    width: 100%;
+}
+
+.td {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+input,
+button {
+    color: rgb(56, 56, 53);
+    font-family: Nunito;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background-color: transparent;
+}
+
+#cover {
+    position: absolute;
+    top: 45%;
+    left: 0;
+    right: 0;
+    width: 550px;
+    padding: 10px;
+    margin: -83px auto 0 auto;
+    background-color: #80eea1;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px #a1f3b9, 0 0 0 10px #cef0d8;
+    transform: scale(0.6);
+}
+
+input[type="text"] {
+    width: 100%;
+    height: 30px;
+    font-size: 30px;
+    line-height: 1;
+}
+
+input[type="text"]::placeholder {
+    color: #66c080;
+}
+
+button i {
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.select-form {
+    position: absolute;
+    left: 22%;
 }

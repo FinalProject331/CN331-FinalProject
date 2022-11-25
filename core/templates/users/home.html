@@ -11,6 +11,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
   <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet" />
+
 </head>
 
 
@@ -33,21 +34,55 @@
   <p>All Room</p>
   
   {% for room in rooms %}
-
-  <a href="{% url 'chat:room_detail' room.id %}" class="button button1">
-    <p>{{ room.name }}:{{ room.id }}</p>
-    <p><i class="fa-solid fa-user-group"></i>{{ room.seat_count }}/{{ room.max_seat }}
+  <div style="margin: 0; display: inline-block;">
+    <div class="card">
       {% if room.request_gender == 'F' %}
-      <i class="fa-solid fa-venus" style="color: rgb(221, 61, 88); font-size: 20px;"></i>
+      <div class="additional" style="background: linear-gradient(#dE685E, #EE786E);">
       {% elif room.request_gender == 'M' %}
-      <i class="fa-solid fa-mars" style="color: blue; font-size: 20px;"></i>
+      <div class="additional" style="background: linear-gradient(#92bcae, #A2CCB6);">
       {% else %}
-      <i class="fa-solid fa-venus-mars" style="color: gray; font-size: 20px;"></i>
+      <div class="additional" style="background: linear-gradient(#685e5d, #685e5e);">
       {% endif %}
-    </p>
-    <p>Time: {{ room.meal_time }}</p>
-  </a>
-
+        <div class="user-card">
+          <span class="dot">
+            <p>
+            {% if room.request_gender == 'F' %}
+            <i class="fa-solid fa-venus" style="color: #eb6375; font-size: 70px;"></i>
+            {% elif room.request_gender == 'M' %}
+            <i class="fa-solid fa-mars" style="color: #52aac5; font-size: 70px;"></i>
+            {% else %}
+            <i class="fa-solid fa-venus-mars" style="color: #4b4645; font-size: 60px; margin-top: 5px;"></i>
+            {% endif %}</p></span>
+        </div>
+        <div class="more-info">
+          <h1>{{ room.name }}</h1>
+          <div class="coords">
+            <span>Description:</span>
+          </div>
+          <div class="coords">
+            <span>{{ room.description }}</span>
+          </div>
+          <div class="coords">
+            <span class="more">End: {{ room.dead_time }}</span>
+          </div>
+          <a href="{% url 'chat:room_detail' room.id %}" class="link">Details</a>
+        </div>
+      </div>
+      <div class="general">
+        <h1>{{ room.name }}</h1>
+        <div class="stats">
+          <div>
+            <p><i class="fa-solid fa-user-group"></i>{{ room.seat_count }}/{{ room.max_seat }}</p>
+            {% if room.filter == '' %}
+            <p>Food Type: All</p>
+            {% else %}
+            <p>Food Type: {{ room.filter }}</p>
+            {% endif %}
+            <span class="more">Time: {{ room.meal_time }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
   {% endfor %}
   {% elif user.is_staff %}
   <p> Chat List</p>
@@ -60,8 +95,7 @@
   {% endfor %}
 
   {% elif user.is_authenticated %}
-
-  <form class="form-inline" id="form_field" action="{% url 'filter' %}" method="POST">
+  <form class="select-form" id="form_field" action="{% url 'filter' %}" method="POST">
     {% csrf_token %}
     <select data-placeholder="{{filter}}" class="chosen-select" name="filter" onchange="this.form.submit();">
       <option value=""></option>
@@ -82,15 +116,21 @@
     </select>
   </form>
 
-  <form class="form-inline" style="width: 30%;" method="POST" action="{% url 'search' %}">
-    {% csrf_token %}
-    <div class="search-input" style="text-align: left; padding: 0;">
-      <input type="text" name="search" id="search-box" placeholder="Search..." />
-      <button id="btn-search">
-        <i class="fa fa-search" aria-hidden="true"></i>
-      </button>
-    </div>
-  </form>
+  <div id="cover">
+    <form method="POST" action="{% url 'search' %}">
+      {% csrf_token %}
+      <div class="tb">
+        <div class="td">
+          <input type="text" name="search" id="search-box" placeholder="Search..." /></div>
+        <div class="td">
+          <button type="submit" id="btn-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
   <br><br>
   <form action="joinable" method="GET">
   <input type="hidden" name="filtered_rooms" value="rooms">
@@ -100,27 +140,60 @@
   <label><input type='checkbox' name="checked" onchange="this.form.submit();"> Joinable</label>
   {% endif %}
   </form>
-
+  
   <a class="fix" href="{% url 'roomconfig' %}"><i class="fa-solid fa-circle-plus" style='font-size:50px'></i></a>
   <br>
 
   {% for room in rooms %}
-
-  <a href="{% url 'chat:room_detail' room.id %}" class="button button1">
-    <p>{{ room.name }}:{{ room.id }}</p>
-    <p><i class="fa-solid fa-user-group"></i>{{ room.seat_count }}/{{ room.max_seat }}
+  <div style="margin: 0; display: inline-block;">
+    <div class="card">
       {% if room.request_gender == 'F' %}
-      <i class="fa-solid fa-venus" style="color: rgb(221, 61, 88); font-size: 20px;"></i>
+      <div class="additional" style="background: linear-gradient(#dE685E, #EE786E);">
       {% elif room.request_gender == 'M' %}
-      <i class="fa-solid fa-mars" style="color: blue; font-size: 20px;"></i>
+      <div class="additional" style="background: linear-gradient(#92bcae, #A2CCB6);">
       {% else %}
-      <i class="fa-solid fa-venus-mars" style="color: gray; font-size: 20px;"></i>
+      <div class="additional" style="background: linear-gradient(#685e5d, #685e5e);">
       {% endif %}
-    </p>
-    <p>Time: {{ room.meal_time }}</p>
-  </a>
-
-
+        <div class="user-card">
+          <span class="dot">
+            <p>
+            {% if room.request_gender == 'F' %}
+            <i class="fa-solid fa-venus" style="color: #eb6375; font-size: 70px;"></i>
+            {% elif room.request_gender == 'M' %}
+            <i class="fa-solid fa-mars" style="color: #52aac5; font-size: 70px;"></i>
+            {% else %}
+            <i class="fa-solid fa-venus-mars" style="color: #4b4645; font-size: 60px; margin-top: 5px;"></i>
+            {% endif %}</p></span>
+        </div>
+        <div class="more-info">
+          <h1>{{ room.name }}</h1>
+          <div class="coords">
+            <span>Description:</span>
+          </div>
+          <div class="coords">
+            <span>{{ room.description }}</span>
+          </div>
+          <div class="coords">
+            <span class="more">End: {{ room.dead_time }}</span>
+          </div>
+          <a href="{% url 'chat:room_detail' room.id %}" class="link">Details</a>
+        </div>
+      </div>
+      <div class="general">
+        <h1>{{ room.name }}</h1>
+        <div class="stats">
+          <div>
+            <p><i class="fa-solid fa-user-group"></i>{{ room.seat_count }}/{{ room.max_seat }}</p>
+            {% if room.filter == '' %}
+            <p>Food Type: All</p>
+            {% else %}
+            <p>Food Type: {{ room.filter }}</p>
+            {% endif %}
+            <span class="more">Time: {{ room.meal_time }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
   {% endfor %}
 
 
