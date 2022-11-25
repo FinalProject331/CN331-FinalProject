@@ -13,17 +13,17 @@
 <body>
 
   <div>
-    <!-- <h2>{{room}} - DjChat</h2><br> -->
     <h2 style="text-align: center;">{{ room_details.name }}</h2><br>
-    <!-- <a class="link" href="{% url 'home' %}">Back to Home</a> -->
     {% if user.is_superuser %}
     <a class="link" href="{% url 'home' %}">Back</a>
     {% else %}
     <a class="link" href="{% url 'chat:leave_room' room %}">Leave</a>
     {% endif %}
 
+    {% if not user.is_staff %}
     <a class="icon" href="{% url 'chat:edit_room' room %}"><i class="fa-regular fa-pen-to-square"
         style="font-size: 30px"></i></a>
+    {% endif %}
     <button class="dropbtn" onclick="myFunction()"><i class="fa-solid fa-address-book"
         style="font-size: 30px;"></i></button>
     <div id="member_list" class="dropdown-content">
@@ -92,10 +92,12 @@
         {% csrf_token %}
         <input type="hidden" name="username" id="username" value="{{username}}" />
         <input type="hidden" name="room_id" id="room_id" value="{{room_details.id}}" />
+        {% if not user.is_staff %}
         <a style="color:#4CAF50" href="{% url 'shoplist' %}"><i class="fa-solid fa-store"
             style='font-size:35px'></i></a>
-        <input type="text" name="message" id="message" width="70px" />
+        <input type="text" name="message" id="message"/>
         <input type="submit" value="Send">
+        {% endif %}
       </form>
 
     </div>

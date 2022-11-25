@@ -4,27 +4,20 @@
 <head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-  .align-center {
-        text-align: center;
 
-      }
-    .card {
-      text-align: center;
-  border-radius: 15px;
-  border-style: groove;
-  max-width: 500px;
-  margin: auto;
-  padding: 50px;
-
-}
-
+body {
+    color: #333;
+    font-size: 17px;
+    font-family: 'Raleway', sans-serif;
+    text-align: center;
+  }
 
 .title {
   color: grey;
   font-size: 18px;
 }
 
-button {
+.edit {
   border: none;
   outline: 0;
   display: inline-block;
@@ -35,49 +28,85 @@ button {
   cursor: pointer;
   width: 100%;
   font-size: 18px;
-}
-
-a {
   text-decoration: none;
   font-size: 22px;
-  color: white;
 }
 
-button:hover, a:hover {
+.edit:hover{
   opacity: 0.7;
 }
+
+.container {
+  border-radius: 0.5em;
+  text-align: center;
+  -webkit-box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.32);
+  -moz-box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.32);
+  box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.32);
+  display: block;
+  max-width: 480px;
+  overflow: hidden;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  position: absolute;
+  top: 60%;
+  left: 40%;
+  z-index: 1;
+  width: 98%;
+}
+
+.container:before {
+  background: rgb(240, 240, 240);
+  content: '';
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 100vw;
+}
+
+.container:after {
+  background: rgba(255, 255, 255, 0.6);
+  content: '';
+  display: block;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+}
+
+.alert {
+    padding: 20px;
+    background-color: #f44336; /* Red */
+    color: white;
+    margin-bottom: 15px;
+  }
+
+/* The close button */
+  .closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+/* When moving the mouse over the close button */
+  .closebtn:hover {
+    color: black;
+  }
 </style>
 </head>
 <body>
-
-<h2 style="text-align:center">My Profile</h2>
-
-<style>
-  /* The alert message box */
-    .alert {
-      padding: 20px;
-      background-color: #f44336; /* Red */
-      color: white;
-      margin-bottom: 15px;
-    }
-  
-  /* The close button */
-    .closebtn {
-      margin-left: 15px;
-      color: white;
-      font-weight: bold;
-      float: right;
-      font-size: 22px;
-      line-height: 20px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-  
-  /* When moving the mouse over the close button */
-    .closebtn:hover {
-      color: black;
-    }
-  </style>
 
 {% if messages %}
 <div class="alert">
@@ -88,7 +117,8 @@ button:hover, a:hover {
 </div>
 {% endif %}
 
-<div class="card">
+ <div class="container">
+  <h2>My Profile</h2>
   <img src="{{ account.image.url }}" alt="profileimg" width="300px">
   <h2> Username : {{ account.user.username }}</h2>
   <h2> {{ account.user.first_name }} {{ account.user.last_name }}</h2>
@@ -106,8 +136,8 @@ button:hover, a:hover {
   <div style="margin: 24px 0;">
   
   </div>
-  
-  <button><a href="{% url 'editprofile' %}">Edit Profile</a></button>
+  <a class="edit" href="{% url 'editprofile' %}">Edit Profile</a>
+
 </div>
 
 </body>

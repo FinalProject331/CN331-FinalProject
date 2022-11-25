@@ -28,68 +28,12 @@
 </div>
 {% endif %}
 <div>
-
-  {% if user.is_superuser %}
-  
-  <p>All Room</p>
-  
-  {% for room in rooms %}
-  <div style="margin: 0; display: inline-block;">
-    <div class="card">
-      {% if room.request_gender == 'F' %}
-      <div class="additional" style="background: linear-gradient(#dE685E, #EE786E);">
-      {% elif room.request_gender == 'M' %}
-      <div class="additional" style="background: linear-gradient(#92bcae, #A2CCB6);">
-      {% else %}
-      <div class="additional" style="background: linear-gradient(#685e5d, #685e5e);">
-      {% endif %}
-        <div class="user-card">
-          <span class="dot">
-            <p>
-            {% if room.request_gender == 'F' %}
-            <i class="fa-solid fa-venus" style="color: #eb6375; font-size: 70px;"></i>
-            {% elif room.request_gender == 'M' %}
-            <i class="fa-solid fa-mars" style="color: #52aac5; font-size: 70px;"></i>
-            {% else %}
-            <i class="fa-solid fa-venus-mars" style="color: #4b4645; font-size: 60px; margin-top: 5px;"></i>
-            {% endif %}</p></span>
-        </div>
-        <div class="more-info">
-          <h1>{{ room.name }}</h1>
-          <div class="coords">
-            <span>Description:</span>
-          </div>
-          <div class="coords">
-            <span>{{ room.description }}</span>
-          </div>
-          <div class="coords">
-            <span class="more">End: {{ room.dead_time }}</span>
-          </div>
-          <a href="{% url 'chat:room_detail' room.id %}" class="link">Details</a>
-        </div>
-      </div>
-      <div class="general">
-        <h1>{{ room.name }}</h1>
-        <div class="stats">
-          <div>
-            <p><i class="fa-solid fa-user-group"></i>{{ room.seat_count }}/{{ room.max_seat }}</p>
-            {% if room.filter == '' %}
-            <p>Food Type: All</p>
-            {% else %}
-            <p>Food Type: {{ room.filter }}</p>
-            {% endif %}
-            <span class="more">Time: {{ room.meal_time }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  {% endfor %}
-  {% elif user.is_staff %}
+  {% if user.is_staff and not user.is_superuser %}
   <p> Chat List</p>
 
   {% for chat in chats %}
 
-  <a href="{% url 'join_chat' chat.name %}" class="sbutton button1">
+  <a href="{% url 'join_chat' chat.name %}" class="button">
     <p>Username: {{ chat.customer }}</p>
   </a>
   {% endfor %}
@@ -130,8 +74,8 @@
       </div>
     </form>
   </div>
-
   <br><br>
+  {% if not user.is_staff %}
   <form action="joinable" method="GET">
   <input type="hidden" name="filtered_rooms" value="rooms">
   {% if is_checked %}
@@ -140,10 +84,9 @@
   <label><input type='checkbox' name="checked" onchange="this.form.submit();"> Joinable</label>
   {% endif %}
   </form>
-  
   <a class="fix" href="{% url 'roomconfig' %}"><i class="fa-solid fa-circle-plus" style='font-size:50px'></i></a>
+  {% endif %}
   <br>
-
   {% for room in rooms %}
   <div style="margin: 0; display: inline-block;">
     <div class="card">

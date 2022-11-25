@@ -1,8 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
 
-
-
 <head>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
   integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
@@ -29,109 +27,175 @@
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
   <style>
-    #map {
-      height: 180px;
-    }
+body {
+  text-align: center;
+}
+#map {
+  height: 180px;
+  text-align: center;
+  margin: auto;
+}
 
-    .card {
-      border-radius: 15px;
-  border-style: groove;
+.title {
+  color: grey;
+  font-size: 18px;
+}
 
-      max-width: 550px;
-      margin: auto;
-      text-align: center;
-      font-family: arial;
-      align-items: center;
-    }
+.sbutton {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+  text-decoration: none;
+  font-size: 22px;
+}
 
-    .title {
-      color: grey;
-      font-size: 18px;
-    }
+.sbutton:hover {
+  opacity: 0.7;
+}
 
-    button {
-      border: none;
-      outline: 0;
-      display: inline-block;
-      padding: 8px;
-      color: white;
-      background-color: #000;
-      text-align: center;
-      cursor: pointer;
-      width: 100%;
-      font-size: 18px;
-    }
+a i {
+  opacity: 1;
+}
 
-    .sbutton {
-      background-color: #ffffff;
-      /* Green */
-      border: 2px solid #4CAF50;
-      color: rgb(0, 0, 0);
-      padding: 16px 32px;
-      text-align: left;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      margin: 4px 2px;
-      transition-duration: 0.4s;
-      cursor: pointer;
-      width: 100%;
-      border-radius: 10px;
-    }
+a i:hover {
+  opacity: 0.7;
+}
+    
+.button {
+  align-items: center;
+  background-color: #c2fac5;
+  border: 2px solid #111;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #111;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Inter,sans-serif;
+  font-size: 16px;
+  justify-content: center;
+  width: 80%;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin: 1rem;
+}
 
-    a {
-      text-decoration: none;
-      font-size: 22px;
-      color: black;
-    }
+.button:after {
+  background-color: #111;
+  border-radius: 8px;
+  content: "";
+  display: block;
+  height: 100%;
+  left: 0;
+  width: 100%;
+  position: absolute;
+  top: 1px;
+  transform: translate(8px, 8px);
+  transition: transform .2s ease-out;
+  z-index: -1;
+}
 
-    button:hover,
-    a:hover {
-      opacity: 0.7;
-    }
+.button:hover:after {
+  transform: translate(0, 0);
+}
 
-    .sbutton:hover {
-      background-color: #4CAF50;
-      color: white;
-    }
+.button:active {
+  background-color: #bcfdbf;
+  outline: 0;
+}
+
+.button:hover {
+  outline: 0;
+}
+
+@media (min-width: 768px) {
+  .button {
+    padding: 0 40px;
+  }
+}
+
+.container {
+  border-radius: 0.5em;
+  text-align: center;
+  -webkit-box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.32);
+  -moz-box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.32);
+  box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.32);
+  display: block;
+  max-width: 480px;
+  overflow: hidden;
+  position: relative;
+  top: 68%;
+  left: 20%;
+  z-index: 1;
+  width: 98%;
+}
+
+.container:before {
+  background: rgb(240, 240, 240);
+  content: '';
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 100vw;
+}
+
+.container:after {
+  background: rgba(255, 255, 255, 0.6);
+  content: '';
+  display: block;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+}
+
+.alert {
+  padding: 20px;
+  background-color: #f44336; /* Red */
+  color: white;
+  margin-bottom: 15px;
+}
+
+/* The close button */
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+  color: black;
+}
   </style>
 </head>
 
 <body>
   <div>
     <br>
-    {% if user == shop.staff %}
-    <h1 style="text-align:center">My Shop</h1>
-    {% endif %}
-
-    <style>
-      /* The alert message box */
-        .alert {
-          padding: 20px;
-          background-color: #f44336; /* Red */
-          color: white;
-          margin-bottom: 15px;
-        }
-      
-      /* The close button */
-        .closebtn {
-          margin-left: 15px;
-          color: white;
-          font-weight: bold;
-          float: right;
-          font-size: 22px;
-          line-height: 20px;
-          cursor: pointer;
-          transition: 0.3s;
-        }
-      
-      /* When moving the mouse over the close button */
-        .closebtn:hover {
-          color: black;
-        }
-      </style>
-
-  
     {% if messages %}
     <div class="alert">
     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
@@ -141,7 +205,7 @@
     </div>
     {% endif %}
     <br>
-    <div class="card">
+    <div class="container">
       <br>
       <img src="{{ shop.shopimg.url }}" alt="shopimg" width="200px">
       <h1> {{ shop.name }}</h1>
@@ -172,28 +236,24 @@
           maxZoom: 18
         }).addTo(map);
       </script>
-
       <div style="margin: 24px 0;">
-
       </div>
       {% if user == shop.staff %}
-      <button><a style="color: white" href="{% url 'modifyshop' %}">Modify Shop</a></button>
+      <a class="sbutton" href="{% url 'modifyshop' %}">Modify Shop</a>
     
       {% elif not user.is_staff %}
-      <div style="margin: 24px 0;">
-        <a class="fix" href="{% url 'shopcheckview' shop.name %}"><i class="far fa-comments"
-            style='font-size:40px'></i></a>
+        <a href="{% url 'shopcheckview' shop.name %}"><i class="far fa-comments"
+            style='font-size:40px'></i></a><br>
         {% endif %}
-      </div>
       <br>
+    </div><br>
       {% if user.is_superuser %}
       {% for chat in chats %}
-      <a href="{% url 'join_chat' chat.name %}" class="sbutton button1">
+      <a href="{% url 'join_chat' chat.name %}" class="button">
         <p>Username: {{ chat.customer }}</p>
       </a>
       {% endfor %}
       {% endif %}
-    </div>
   </div>
 </body>
 {% endblock %}
