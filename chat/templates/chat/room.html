@@ -13,7 +13,7 @@
 <body>
 
   <div>
-    <h2 style="text-align: center;">{{ room_details.name }}</h2><br>
+    <p class="title">{{ room_details.name }}</p><br>
     {% if user.is_superuser %}
     <a class="link" href="{% url 'home' %}">Back</a>
     {% else %}

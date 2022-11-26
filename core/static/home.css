@@ -89,8 +89,9 @@ body {
     float: left;
 }
 
-.card h1 {
-    text-align: center;
+.title {
+    font-size: 34px;
+    line-height: 22px;
 }
 
 .card .additional {
@@ -135,9 +136,8 @@ body {
     margin-left: 0;
 }
 
-.card .additional .more-info h1 {
+.card .additional .more-info .title {
     color: #fff;
-    margin-bottom: 0;
 }
 
 .card .additional .coords {
