@@ -76,7 +76,7 @@ body {
 @import url('https://fonts.googleapis.com/css?family=Abel');
 
 .card {
-    width: 450px;
+    width: 420px;
     height: 250px;
     background-color: #fff;
     color: #111;
@@ -228,8 +228,8 @@ button {
 }
 
 #cover {
-    position: absolute;
-    top: 45%;
+    position: relative;
+    top: 80px;
     left: 0;
     right: 0;
     width: 550px;
@@ -258,6 +258,15 @@ button i {
 }
 
 .select-form {
-    position: absolute;
-    left: 22%;
+    position: relative;
+    left: 270px;
+    top: 40px;
+    
+}
+
+.joinable-box {
+    position: relative;
+    /* left: 20px; */
+    top: 40px;
+    
 }
