@@ -36,6 +36,7 @@ input[type=submit]:hover {
     border-radius: 4px;
     cursor: pointer;
     float: left;
+    text-decoration: none;
 }
 
 .link:hover {

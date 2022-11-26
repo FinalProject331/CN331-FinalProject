@@ -9,12 +9,18 @@
 
 </head>
 <div>
-<form method="GET" action="{% url 'search_shop' %}" style="padding: 20px">
-  <div class="search-input">
-    <input type="text" name="search_shop" id="search-box" placeholder="Search..." style="width: 30%"/>
-    <button id="btn-search">
-      <i class="fa fa-search" aria-hidden="true"></i>
-    </button>
+  <div id="cover">
+    <form method="GET" action="{% url 'search_shop' %}">
+      <div class="tb">
+        <div class="td">
+          <input type="text" name="search_shop" id="search-box" placeholder="Search..." /></div>
+        <div class="td">
+          <button type="submit" id="btn-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+      </div>
+    </form>
   </div>
   <br>
 
@@ -28,15 +34,14 @@
   {% endif %}
 
 {% for shop in shops %}
-
-<a href="{% url 'viewshop' shop.id %}" class="button button1">
-  <p>{{ shop.name }}:{{ shop.id }}</p>
-<p>{{ shop.detail }}</p>
+<a href="{% url 'viewshop' shop.id %}" class="button">
+  <p>{{ shop.name }}</p>
+<p style="color: gray;">{{ shop.detail }}</p>
 </a>
 
 {% endfor %}
 {% if not user.is_superuser %}
-<a href="{% url 'add_shop' %}" class="button button1">
+<a href="{% url 'add_shop' %}" class="button">
 <p><i class="fa-solid fa-plus" style="font-size: 17px"></i> Add Restaurant</p>
 </a>
 {% endif %}

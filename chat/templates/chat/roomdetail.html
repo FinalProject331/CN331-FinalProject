@@ -1,51 +1,47 @@
 {% extends "layout.html" %}
 {% load static %}
 {% block body %}
+
 <head>
-  <head><link href="{% static 'roomdetail.css' %}" rel="stylesheet"></head>
+  <link href="{% static 'roomdetail.css' %}" rel="stylesheet">
   <script src="https://kit.fontawesome.com/3f85e29ea8.js" crossorigin="anonymous"></script>
-</head>  
+
+</head>
 
 {% if messages %}
 <div class="alert">
-<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
   {% for message in messages %}
-    {{ message }}
+  {{ message }}
   {% endfor %}
 </div>
 {% endif %}
 
-<br>
-<br>
-<br>
-<div class = "frame">
-<h1>Room Detail</h1>
-<p>Room name: {{ room.name }}</p>
-<p>Room id: {{ room.id }}</p>
-<p>Food: {{ room.filter }}</p>
-<p>Description: {{ room.description }}</p>
+<div class="container">
+  <p class="title">Room Detail</p>
+  <p>Room name: {{ room.name }}</p>
+  <p>Food: {{ room.filter }}</p>
+  <p>Description: {{ room.description }}</p>
 
-Gender:
-{% if room.request_gender == 'F' %}
-<i class="fa-solid fa-venus" style="color: rgb(221, 61, 88); font-size: 20px;"></i>
-{% elif room.request_gender == 'M' %}
-<i class="fa-solid fa-mars" style="color: blue; font-size: 20px;"></i>
-{% else %}
-<i class="fa-solid fa-venus-mars" style="color: gray; font-size: 20px;"></i>
-{% endif %}
+  Gender:
+  {% if room.request_gender == 'F' %}
+  <i class="fa-solid fa-venus" style="color: rgb(221, 61, 88); font-size: 20px;"></i>
+  {% elif room.request_gender == 'M' %}
+  <i class="fa-solid fa-mars" style="color: blue; font-size: 20px;"></i>
+  {% else %}
+  <i class="fa-solid fa-venus-mars" style="color: gray; font-size: 20px;"></i>
+  {% endif %}
 
-<p>Time: {{ room.meal_time }}</p>
-<p>End in {{ room.dead_time }}</p>
-<p>status: {{ room.status }}</p>
-<p><i class="fa-solid fa-user-group"></i>{{ room.seat_count }}/{{ room.max_seat }}</p>
+  <p>Time: {{ room.meal_time }}</p>
+  <p>End in {{ room.dead_time }}</p>
+  <p>status: {{ room.status }}</p>
+  <p><i class="fa-solid fa-user-group"></i>{{ room.seat_count }}/{{ room.max_seat }}</p>
 
-<br>
-<div class="align-right">
-{% if user.is_superuser %}
-<button class="button"><a href="{% url 'chat:room' room.id %}">Enter</a></button>
-{% else %}
-
-<button class="button"><a href="{% url 'chat:join_room' room.id %}">Join</a></button></div>
-{% endif %}
+    {% if user.is_superuser %}
+    <a class="button" href="{% url 'chat:room' room.id %}">Enter</a>
+    {% else %}
+    <a class="button" href="{% url 'chat:join_room' room.id %}">Join</a>
+    {% endif %}
+  
 </div>
 {% endblock %}

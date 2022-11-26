@@ -2,8 +2,6 @@
 {% load static %}
 {% block body %}
 
-
-
 <head>
   <link href="{% static 'myshop.css' %}" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
@@ -48,7 +46,7 @@
     </div>
     {% endif %}
     <br>
-    <div class="card">
+    <div class="container">
       <br>
       <img src="{{ shop.shopimg.url }}" alt="shopimg" width="200px">
       <h1> {{ shop.name }}</h1>
@@ -79,28 +77,24 @@
           maxZoom: 18
         }).addTo(map);
       </script>
-
       <div style="margin: 24px 0;">
-
       </div>
       {% if user == shop.staff %}
-      <button><a style="color: white" href="{% url 'modifyshop' %}">Modify Shop</a></button>
+      <a class="sbutton" href="{% url 'modifyshop' %}">Modify Shop</a>
     
       {% elif not user.is_staff %}
-      <div style="margin: 24px 0;">
-        <a class="fix" href="{% url 'shopcheckview' shop.name %}"><i class="far fa-comments"
-            style='font-size:40px'></i></a>
+        <a href="{% url 'shopcheckview' shop.name %}"><i class="far fa-comments"
+            style='font-size:40px'></i></a><br>
         {% endif %}
-      </div>
       <br>
+    </div><br>
       {% if user.is_superuser %}
       {% for chat in chats %}
-      <a href="{% url 'join_chat' chat.name %}" class="sbutton button1">
+      <a href="{% url 'join_chat' chat.name %}" class="button">
         <p>Username: {{ chat.customer }}</p>
       </a>
       {% endfor %}
       {% endif %}
-    </div>
   </div>
 </body>
 {% endblock %}

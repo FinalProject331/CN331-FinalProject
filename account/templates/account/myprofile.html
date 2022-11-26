@@ -20,7 +20,8 @@
 </div>
 {% endif %}
 
-<div class="card">
+ <div class="container">
+  <h2>My Profile</h2>
   <img src="{{ account.image.url }}" alt="profileimg" width="300px">
   <h2> Username : {{ account.user.username }}</h2>
   <h2> {{ account.user.first_name }} {{ account.user.last_name }}</h2>
@@ -38,8 +39,8 @@
   <div style="margin: 24px 0;">
   
   </div>
-  
-  <button><a href="{% url 'editprofile' %}">Edit Profile</a></button>
+  <a class="edit" href="{% url 'editprofile' %}">Edit Profile</a>
+
 </div>
 
 </body>
