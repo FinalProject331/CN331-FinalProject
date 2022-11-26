@@ -184,7 +184,7 @@ class CoreViewsTestCase(TestCase):
     def test_normal_search_room(self):
         self.client.login(username='test', password='password')
         form = {'search': 'room'}
-        response = self.client.get(reverse('search'), form)
+        response = self.client.post(reverse('search'), form)
         self.assertEqual(response.status_code, 200)
     
     '''
@@ -193,7 +193,7 @@ class CoreViewsTestCase(TestCase):
     def test_normal_search_room_notype(self):
         self.client.login(username='test', password='password')
         form = {'search': ''}
-        response = self.client.get(reverse('search'), form)
+        response = self.client.post(reverse('search'), form)
         self.assertEqual(response.status_code, 302)
 
     '''
@@ -202,7 +202,7 @@ class CoreViewsTestCase(TestCase):
     def test_normal_search_room_not_found(self):
         self.client.login(username='test', password='password')
         form = {'search': 'notfound'}
-        response = self.client.get(reverse('search'), form)
+        response = self.client.post(reverse('search'), form)
         self.assertEqual(response.status_code, 302)
 
     '''
@@ -211,7 +211,7 @@ class CoreViewsTestCase(TestCase):
     def test_normal_search_room_multiply_found(self):
         self.client.login(username='test', password='password')
         form = {'search': 'empty'}
-        response = self.client.get(reverse('search'), form)
+        response = self.client.post(reverse('search'), form)
         self.assertEqual(response.status_code, 200)
 
     '''
