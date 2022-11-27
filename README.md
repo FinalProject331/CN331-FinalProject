@@ -26,4 +26,4 @@ Final Project โครงงาน Food with Buddies
 [ไฟล์ข้อเสนอ](https://drive.google.com/file/d/1tZ2aGJ9aqQh7cerBrKXbVdjh6dYW-1n0/view?usp=drivesdk)<br>
 [Tracker link](https://www.pivotaltracker.com/n/projects/2606747)<br>
 [GitHub repo link](https://github.com/FinalProject331/CN331-FinalProject.git)<br>
-[Video link](https://drive.google.com/file/d/13DCdWkVB7zqxn7Z-OlNbLdgpZO4R3YPJ/view?usp=drivesdk)<br>
+[Video link](https://youtu.be/FBj7CDyaWdE)<br>
