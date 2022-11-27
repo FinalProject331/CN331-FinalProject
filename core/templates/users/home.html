@@ -76,7 +76,7 @@
   </div>
   <br><br>
   {% if not user.is_staff %}
-  <form action="joinable" method="GET">
+  <form class ="joinable-box" action="joinable" method="GET">
   <input type="hidden" name="filtered_rooms" value="rooms">
   {% if is_checked %}
   <label><input type='checkbox' name="checked" onchange="this.form.submit();" checked> Joinable</label>
@@ -86,9 +86,10 @@
   </form>
   <a class="fix" href="{% url 'roomconfig' %}"><i class="fa-solid fa-circle-plus" style='font-size:50px'></i></a>
   {% endif %}
-  <br>
+  <br> <br>
   {% for room in rooms %}
-  <div style="margin: 0; display: inline-block;">
+
+  <div style="margin: 0;">
     <div class="card">
       {% if room.request_gender == 'F' %}
       <div class="additional" style="background: linear-gradient(#dE685E, #EE786E);">
