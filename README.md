@@ -1,9 +1,9 @@
 Software Engineering CN331
 =====================
 
-Final Project
+Final Project โครงงาน Food with Buddies
 ---------------------
-## โครงงาน Food with Buddies
+
 ของเราจัดทำขึ้นเพื่อสร้างเว็บไซต์สำหรับเป็นพื้นที่ให้กลุ่มคนที่ต้องการหาเพื่อนรับประทานข้าวมานัดกันรับประทานข้าว
 เนื่องจากในสังคมปัจจุบันมีกลุ่มคนรับประทานอาหารหลากหลายกลุ่ม เช่น คนรับประทานมังสวิรัติ คนชอบรับประทานอาหารญี่ปุ่น
 คนชอบรับประทานอาหารเกาหลี ต้องการหาเพื่อนรับประทานข้าวที่มีความชอบคล้ายกัน
@@ -23,7 +23,7 @@ Final Project
 >> |     ธนภัทร สาระธรรม     |  6410685140  |
 
 
-
+[ไฟล์ข้อเสนอ](https://drive.google.com/file/d/1tZ2aGJ9aqQh7cerBrKXbVdjh6dYW-1n0/view?usp=drivesdk)<br>
 [Tracker link](https://www.pivotaltracker.com/n/projects/2606747)<br>
 [GitHub repo link](https://github.com/FinalProject331/CN331-FinalProject.git)<br>
 [Video link](https://drive.google.com/file/d/13DCdWkVB7zqxn7Z-OlNbLdgpZO4R3YPJ/view?usp=drivesdk)<br>
