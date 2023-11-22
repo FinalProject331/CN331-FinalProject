@@ -134,11 +134,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CSRF_TRUSTED_ORIGINS = ['https://foodwithbuddies.herokuapp.com']
+CSRF_TRUSTED_ORIGINS = ['https://www.thammasat.online.th']
 
-import django_heroku
 
-django_heroku.settings(locals())
 
 # users will be redirected to the home page after login
 LOGIN_REDIRECT_URL = "home"
